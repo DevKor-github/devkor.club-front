@@ -79,6 +79,10 @@ module.exports = {
           caseInsensitive: true
         }
       }
-    ]
+    ],
+    'no-else-return': 'error',
+    'no-console': 'warn',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off'
   }
 }
