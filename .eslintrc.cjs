@@ -8,12 +8,11 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier'
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'styled-system', 'panda.config.ts'],
   parser: '@typescript-eslint/parser',
   plugins: ['import', '@typescript-eslint', 'jsx-a11y', 'react-refresh'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    'import/extensions': ['error', 'ignorePackages'],
     'no-restricted-imports': [
       'error',
       {

@@ -1,5 +1,15 @@
 @layer reset, base, tokens, recipes, utilities;
 
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/woff2/PretendardVariable.woff2') format('woff2-variations');
+}
+:root {
+  --font-pretendard: 'Pretendard Variable';
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
