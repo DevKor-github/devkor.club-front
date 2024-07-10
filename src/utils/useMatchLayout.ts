@@ -1,0 +1,16 @@
+import { useMediaQuery } from '@/utils/useMediaQuery'
+
+const enum Layout {
+  L = '1044px',
+  M = '1024px',
+  S = '768px',
+  XS = '375px'
+}
+
+export const useMatchLayout = () => {
+  const L = useMediaQuery(`(min-width: ${Layout.L})`)
+  const M = useMediaQuery(`(min-width: ${Layout.M})`)
+  const S = useMediaQuery(`(min-width: ${Layout.S})`)
+  const XS = useMediaQuery(`(min-width: ${Layout.XS})`)
+  return { L, M, S, XS }
+}

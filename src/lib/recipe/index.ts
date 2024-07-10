@@ -1,3 +1,3 @@
 import { buttonRecipe } from '@/lib/recipe/button'
-
-export { buttonRecipe }
+import { screenWrapperRecipe } from '@/lib/recipe/landing-screen-wrapper'
+export { buttonRecipe, screenWrapperRecipe }

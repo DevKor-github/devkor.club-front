@@ -80,6 +80,11 @@ export const semanticTokens = defineSemanticTokens({
           base: '{colors.gray.50}',
           _dark: '{colors.gray.900}'
         }
+      },
+      70: {
+        value: {
+          base: '#FFC513'
+        }
       }
     },
     secondary: {
@@ -93,6 +98,11 @@ export const semanticTokens = defineSemanticTokens({
         value: {
           base: '{colors.gray.900}',
           _dark: '{colors.gray.50}'
+        }
+      },
+      70: {
+        value: {
+          base: '#FF9900'
         }
       }
     },
@@ -131,6 +141,11 @@ export const semanticTokens = defineSemanticTokens({
       }
     },
     label: {
+      50: {
+        value: {
+          base: '#505156'
+        }
+      },
       70: {
         value: {
           base: '#8A8A8D',
@@ -141,6 +156,11 @@ export const semanticTokens = defineSemanticTokens({
         value: {
           base: '#C1C1C1',
           _dark: '#C1C1C1'
+        }
+      },
+      100: {
+        value: {
+          base: '#FFFFFF'
         }
       }
     }

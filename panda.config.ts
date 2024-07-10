@@ -1,6 +1,6 @@
 import { defineConfig } from '@pandacss/dev'
 
-import { buttonRecipe } from './src/lib/recipe/index'
+import { buttonRecipe, screenWrapperRecipe } from './src/lib/recipe/index'
 import { semanticTokens } from './src/lib/semantic-tokens'
 
 export default defineConfig({
@@ -17,11 +17,13 @@ export default defineConfig({
   theme: {
     extend: {
       recipes: {
-        button: buttonRecipe
+        button: buttonRecipe,
+        screenWrapper: screenWrapperRecipe
       },
       tokens: {
         fonts: {
-          pretendard: { value: 'var(--font-pretendard), sans-serif' }
+          pretendard: { value: 'var(--font-pretendard), sans-serif' },
+          montserrat: { value: 'var(--font-montserrat), sans-serif' }
         }
       },
       textStyles: {
@@ -32,6 +34,12 @@ export default defineConfig({
             lineHeight: 'normal'
           }
         }
+      },
+      breakpoints: {
+        L: '1440px',
+        M: '1024px',
+        S: '768px',
+        XS: '375px'
       }
     },
     semanticTokens
