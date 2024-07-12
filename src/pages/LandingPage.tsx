@@ -1,16 +1,14 @@
 import Spline from '@splinetool/react-spline'
 import { css, cva } from '@styled-stytem/css'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { useCallback, useEffect, useState } from 'react'
 
+import SplineGif from '@/assets/SplineGif.gif'
+import ClickedIntro from '@/components/landing/ClickedIntro'
+import LandingIntro from '@/components/landing/LandingIntro'
 import TrackCard from '@/components/landing/TrackCard'
+import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
-
-//   const trackPosition = useSpring({
-//     delay: 3000,
-//     config: { tension: 120, friction: 20, duration: 400 }
-//   })
-
 const screenWrapper = cva({
   base: {
     display: 'flex',
@@ -23,11 +21,6 @@ const screenWrapper = cva({
     S: { px: 8, pt: 8 },
     XS: { px: 5, pt: '19px' }
   }
-  // variants: {
-  //   position: {
-  //     pos: { alignItems: { L: 'flex-end', M: 'flex-end', S: 'flex-start', XS: 'flex-start', XSDown: 'flex-start' } }
-  //   }
-  // }
 })
 const trackCardWrapper = cva({
   base: {
@@ -47,109 +40,127 @@ const trackCardWrapper = cva({
         gap: { L: 5, M: 5, S: '30px', XS: '10px', XSDown: '10px' }
       }
     }
-    // position: {
-    //   pos: {
-    //     justifyContent: { M: 'flex-end', S: 'center', XS: 'center', XSDown: 'center' }
-    //   }
-    // }
   }
 })
 const LandingPage = () => {
   const [alignItems, setAlignItems] = useState('center')
   const [justifyContent, setJustifyContent] = useState('center')
 
-  const opacityValue = useMotionValue(0)
-  const opacity = useSpring(opacityValue, { stiffness: 120, damping: 20, duration: 1.2 })
   const mediaQuery = useMatchLayout()
   const [show, setShow] = useState(false)
   const [defined, setDefined] = useState(false)
+  const [clicked, setClicked] = useState(false)
+
   useEffect(() => {
     setAlignItems(mediaQuery.M ? 'flex-end' : 'flex-start')
     setJustifyContent(mediaQuery.M ? 'flex-end' : 'center')
-    const timer = setTimeout(() => {
-      opacity.set(1)
-    }, 3000)
-    return () => clearTimeout(timer) // Clean up the timer on component unmount
-  }, [opacity, mediaQuery])
-
-  useEffect(() => void setTimeout(() => setShow(true), 3500), [])
+  }, [mediaQuery])
   useEffect(() => void setTimeout(() => setDefined(true), 3000), [])
+  useEffect(() => void setTimeout(() => setShow(true), 3500), [])
 
   const handleGap = () => {
     if (mediaQuery.M) return '20px'
     if (mediaQuery.S) return '30px'
     return '10px'
   }
+
+  const handleClick = useCallback(() => setClicked(true), [])
+
+  const handleStyle = useCallback(() => {
+    return clicked ? { padding: 0, height: '100vh', top: 0, bottom: 0 } : undefined
+  }, [clicked])
+
   return (
     <motion.div
       className={screenWrapper()}
       transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
       style={{ alignItems: defined ? alignItems : 'center' }}
     >
-      <motion.div
-        initial={{ opacity: 0 }}
-        className={css({
-          display: 'flex',
-          pos: 'absolute',
-          alignItems: 'center',
-          justifyContent: 'center',
-          w: 'full',
-          h: { L: 728 },
-          alignSelf: 'center',
-          L: { px: 100 },
-          M: { px: '60px' },
-          S: { px: 8 },
-          XS: { px: 5 },
-          rounded: 40
-        })}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
-      >
-        {/* {show && (
-          <Spline
-            scene="https://prod.spline.design/whnLKtVDGcOFe9uK/scene.splinecode"
-            className={css({ rounded: 40 })}
-          />
-        )} */}
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        className={css({
-          display: 'flex',
-          pos: 'absolute',
-          alignItems: 'center',
-          justifyContent: 'center',
-          w: 'full',
-          h: { L: 728, M: 530, S: 599, XS: 466, XSDown: 466 },
-          alignSelf: 'center',
-          L: { px: 100 },
-          M: { px: '60px' },
-          S: { px: 8 },
-          XS: { px: 5 }
-        })}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
-      >
-        <div
-          className={css({ display: 'flex', flexDir: 'column', alignItems: 'center', gap: '15px', color: 'label.100' })}
+      {show && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          className={css({
+            display: 'flex',
+            pos: 'fixed',
+            flexDir: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            w: 'full',
+            alignSelf: 'center',
+            h: { L: 728, M: 530, S: 687, XS: 533, XSDown: 533 },
+            L: { px: 100 },
+            M: { px: '60px' },
+            S: { px: 8 },
+            XS: { px: 5 },
+            gap: { S: 11, XS: '23px', XSDown: '23px' },
+            zIndex: 110,
+            top: { M: 'auto', S: 158, XS: 129, XSDown: 129 },
+            bottom: { L: 148, M: 119 }
+          })}
+          animate={{ opacity: 1, ...handleStyle() }}
+          transition={{ delay: 1.2, type: 'spring', stiffness: 120, damping: 20 }}
         >
-          <h1 className={css({ fontWeight: 700, fontSize: { L: 128, S: 90, XS: 40, XSDown: 40 } })}>DevKor</h1>
-          <p
+          {/* <Spline
+            scene="https://prod.spline.design/whnLKtVDGcOFe9uK/scene.splinecode"
+            className={css({ h: 'full' })}
+            style={{ borderRadius: clicked ? 0 : '40px' }}
+          /> */}
+          <img
+            src={SplineGif}
+            alt="spline Gif"
+            className={css({ h: 'full' })}
+            style={{ borderRadius: clicked ? 0 : '40px' }}
+          />
+          {/* <div className={css({ w: 'full', h: 'full', bgColor: 'black', rounded: clicked ? 0 : 40 })}></div> */}
+          {!mediaQuery.M && (
+            <Button variant="colored" size={mediaQuery.S ? 'L' : 'default'} onClick={handleClick}>
+              지원하기
+            </Button>
+          )}
+        </motion.div>
+      )}
+      {show && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          className={css({
+            display: 'flex',
+            pos: 'fixed',
+            flexDir: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            w: 'full',
+            alignSelf: 'center',
+            h: { L: 728, M: 530, S: 603, XS: 469, XSDown: 469 },
+            L: { px: 100 },
+            M: { px: '60px' },
+            S: { px: 8 },
+            XS: { px: 5 },
+            gap: { S: 11, XS: '23px', XSDown: '23px' },
+            zIndex: 110,
+            top: { M: 'auto', S: 158, XS: 129, XSDown: 129 },
+            bottom: { L: 148, M: 119 },
+            rounded: 40
+          })}
+          animate={{ opacity: 1, ...handleStyle(), borderRadius: 0 }}
+          transition={{ delay: 1.2, type: 'spring', stiffness: 120, damping: 20 }}
+          style={clicked ? { backgroundColor: 'rgba(255, 255, 255, 0.10)', backdropFilter: 'blur(20px)' } : undefined}
+        >
+          <motion.div
             className={css({
-              textAlign: 'center',
-              fontWeight: 400,
-              fontSize: { L: 18, S: 16, XS: 14, XSDown: 14 },
-              lineBreak: 'strict'
+              w: 'full',
+              h: 'full',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+              // rounded: 40
             })}
+            transition={{ type: 'spring', stiffness: 120, damping: 20 }}
           >
-            DevKor는 현실의 문제를 소프트웨어로 해결하고자 모인
-            <br className={css({ display: { XSOnly: 'flex', S: 'none' } })} />
-            고려대학교 소프트웨어 개발 학회입니다.
-            <br />
-            소프트웨어를 통해 문제를 해결하는 서비스를 출시하는 것에 목표를 두고 있습니다.
-          </p>
-        </div>
-      </motion.div>
+            {!clicked && <LandingIntro handleClick={handleClick} />}
+            {clicked && <ClickedIntro />}
+          </motion.div>
+        </motion.div>
+      )}
       <motion.div
         layout
         className={trackCardWrapper()}

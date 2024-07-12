@@ -23,7 +23,8 @@ const Header = () => {
         L: { px: 100, pt: 5, h: 69 },
         M: { px: '60px', pt: 3, h: 10 },
         S: { px: 8, pt: 33 },
-        XS: { px: 5, pt: 19 }
+        XS: { px: 5, pt: 19 },
+        zIndex: 200
       })}
     >
       <animated.nav

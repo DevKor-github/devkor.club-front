@@ -73,19 +73,26 @@ const TrackCard = ({ track }: PositionCardProps) => {
 
   useEffect(() => {
     setTimeout(() => {
-      setTransitionConfig({})
       opacity.set(1)
       setWidth(mediaQuery.M ? '60px' : '50px')
       setImgWidth(mediaQuery.S ? '32px' : '28px')
     }, 3000)
   }, [opacity, mediaQuery])
 
-  useEffect(() => void setTimeout(() => setDefined(true), 3000), [])
+  useEffect(
+    () =>
+      void setTimeout(() => {
+        setTransitionConfig(undefined)
+        setDefined(true)
+      }, 3000),
+    []
+  )
 
   const handleBorderRadius = () => {
     if (defined) return '45px'
     return mediaQuery.S ? '30px' : '10px'
   }
+
   return (
     <motion.div
       layout
