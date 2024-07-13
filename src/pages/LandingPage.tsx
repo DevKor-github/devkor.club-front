@@ -2,6 +2,7 @@ import Spline from '@splinetool/react-spline'
 import { css, cva } from '@styled-stytem/css'
 import { motion } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import SplineGif from '@/assets/SplineGif.gif'
 import ClickedIntro from '@/components/landing/ClickedIntro'
@@ -43,6 +44,7 @@ const trackCardWrapper = cva({
   }
 })
 const LandingPage = () => {
+  const navigate = useNavigate()
   const [alignItems, setAlignItems] = useState('center')
   const [justifyContent, setJustifyContent] = useState('center')
 
@@ -64,7 +66,10 @@ const LandingPage = () => {
     return '10px'
   }
 
-  const handleClick = useCallback(() => setClicked(true), [])
+  const handleClick = useCallback(() => {
+    setClicked(true)
+    setTimeout(() => navigate('/recruit'), 5000)
+  }, [navigate])
 
   const handleStyle = useCallback(() => {
     return clicked ? { padding: 0, height: '100vh', top: 0, bottom: 0 } : undefined

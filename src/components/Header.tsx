@@ -1,16 +1,12 @@
-import { animated } from '@react-spring/web'
-import { useSpring } from '@react-spring/web'
 import { css } from '@styled-stytem/css'
+import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 import DeKorLogo from '@/assets/devkorLogo.svg'
 
 const Header = () => {
-  const header = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    delay: 3000,
-    config: { tension: 120, friction: 20, duration: 1200 }
-  })
+  const navigate = useNavigate()
+
   return (
     <header
       className={css({
@@ -27,7 +23,8 @@ const Header = () => {
         zIndex: 200
       })}
     >
-      <animated.nav
+      <motion.nav
+        initial={{ opacity: 0 }}
         className={css({
           display: 'flex',
           w: 115,
@@ -38,11 +35,13 @@ const Header = () => {
           gap: 1,
           flexShrink: 0
         })}
-        style={header}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
+        onClick={() => navigate('/')}
       >
         <img src={DeKorLogo} alt="DevKor" className={css({ L: { w: 29 }, LDown: { w: 17 }, SDown: { w: 17 } })} />
         <p className={css({ fontFamily: 'montserrat', color: 'label.50' })}>DEVKOR</p>
-      </animated.nav>
+      </motion.nav>
     </header>
   )
 }

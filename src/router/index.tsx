@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom'
 
 import MainLayout from '@/components/MainLayout'
 import LandingPage from '@/pages/LandingPage'
+import RecruitingPage from '@/pages/RecruitingPage'
 
 const routes: RouteObject[] = [
   {
@@ -9,7 +10,7 @@ const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { path: '/', element: <LandingPage /> },
-      { path: 'about', element: <h1>About</h1> }
+      { path: '/recruit', element: <RecruitingPage /> }
     ]
   }
 ]
