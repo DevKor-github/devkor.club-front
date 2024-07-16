@@ -140,6 +140,14 @@ export const semanticTokens = defineSemanticTokens({
         _dark: '{colors.gray.300}'
       }
     },
+    warning: {
+      DEFAULT: {
+        value: {
+          base: '#DB867F'
+        }
+      }
+    },
+
     label: {
       50: {
         value: {
@@ -156,6 +164,11 @@ export const semanticTokens = defineSemanticTokens({
         value: {
           base: '#C1C1C1',
           _dark: '#C1C1C1'
+        }
+      },
+      90: {
+        value: {
+          base: '#DFDFDF'
         }
       },
       98: {

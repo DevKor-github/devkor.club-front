@@ -1,6 +1,6 @@
 import { defineConfig } from '@pandacss/dev'
 
-import { buttonRecipe, screenWrapperRecipe } from './src/lib/recipe/index'
+import { buttonRecipe, textareaRecipe, screenWrapperRecipe } from './src/lib/recipe/index'
 import { semanticTokens } from './src/lib/semantic-tokens'
 
 export default defineConfig({
@@ -18,7 +18,8 @@ export default defineConfig({
     extend: {
       recipes: {
         button: buttonRecipe,
-        screenWrapper: screenWrapperRecipe
+        screenWrapper: screenWrapperRecipe,
+        textarea: textareaRecipe
       },
       tokens: {
         fonts: {

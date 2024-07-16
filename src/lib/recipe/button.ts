@@ -24,6 +24,10 @@ export const buttonRecipe = defineRecipe({
         bgColor: 'primary.70',
         _hover: { transition: 'background 0.3s ease-in-out', bgColor: 'rgba(255, 197, 19, 0.50)' }
       },
+      gray: {
+        bgColor: 'label.90',
+        _hover: { transition: 'background 0.3s ease-in-out', bgColor: 'rgba(255, 197, 19, 0.50)' }
+      },
       outline: {
         bg: 'background',
         border: 'input',
