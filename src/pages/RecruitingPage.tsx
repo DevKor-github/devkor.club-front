@@ -3,7 +3,11 @@ import { button } from '@styled-stytem/recipes'
 import { easeInOut, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
+import BeLogo from '@/assets/beLogo.svg'
+import DeLogo from '@/assets/deLogo.svg'
 import Direction from '@/assets/Direction.svg'
+import FeLogo from '@/assets/feLogo.svg'
+import PmLogo from '@/assets/pmLogo.svg'
 import RecruitImg from '@/assets/RecruitImg.png'
 import RecruitImgL from '@/assets/RecruitImgL.png'
 import RecruitImgM from '@/assets/RecruitImgM.png'
@@ -11,7 +15,9 @@ import RecruitImgXS from '@/assets/RecruitImgXS.png'
 import RecruiteLogo from '@/assets/RecruitLogo.svg'
 import ScrollDown from '@/assets/ScrollDown.svg'
 import Worm from '@/assets/Worm.svg'
+import Card from '@/components/recruit/Card'
 import Button from '@/components/ui/button'
+import { Track } from '@/types/track'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
@@ -280,15 +286,30 @@ const RecruitingPage = () => {
         </motion.div>
         <div>대충 캘린더</div>
       </section>
-      <section>
-        <p>이런 분들과 함께하고 싶습니다.</p>
-        <div>
-          <div>기능을 잘 만드는 개발자보다 코드 레벨에서의 최적화와 다양한 트러블 슈팅을 경험해본 개발자</div>
-          <div>보기 좋은 UI에 머물기 보다 더 나아가 유저 경험이 좋은 화면을 설계하는 디자이너</div>
-          <div>
-            아이디어를 잘내는 기획자보다, 구체적인 근거를 바탕으로 어떤 아이템이 시장에 수요가 있을지 생각하고, User
-            flow를 기획하는 기획자
-          </div>
+      <section
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '78px'
+        })}
+      >
+        <h5 className={css({ color: 'label.50', fontSize: '48px', fontWeight: 700 })}>
+          이런 분들과 함께하고 싶습니다.
+        </h5>
+        <div className={css({ display: 'flex', gap: '20px' })}>
+          <Card icons={['FE', 'BE']}>
+            기능을 잘 만드는 개발자보다{'\n'}코드 레벨에서의 최적화와{'\n'}다양한 트러블 슈팅을 경험해본{' '}
+            <span className={css({ color: 'label.50' })}>개발자</span>
+          </Card>
+          <Card icons={['DE']}>
+            보기 좋은 UI에 머물기 보다{'\n'}더 나아가 유저 경험이{'\n'}좋은 화면을 설계하는{' '}
+            <span className={css({ color: 'label.50' })}>디자이너</span>
+          </Card>
+          <Card icons={['PM']}>
+            아이디어를 잘내는 기획자보다,{'\n'}구체적인 근거를 바탕으로 어떤 아이템이{'\n'}시장에 수요가 있을지
+            생각하고,{'\n'}User flow를 기획하는 <span className={css({ color: 'label.50' })}>기획자</span>
+          </Card>
         </div>
       </section>
       <section>
