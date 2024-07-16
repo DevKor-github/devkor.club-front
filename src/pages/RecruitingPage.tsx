@@ -328,7 +328,12 @@ const RecruitingPage = () => {
           </Card>
         </div>
       </section>
-      <section>
+      <section
+        className={css({
+          w: 'full',
+          maxWidth: 'calc(1240px + 64px)'
+        })}
+      >
         <h5 className={css({ color: 'label.50', fontSize: '48px', fontWeight: 700 })}>DevKor의 활동</h5>
         <div>
           <div>기능을 잘 만드는 개발자보다 코드 레벨에서의 최적화와 다양한 트러블 슈팅을 경험해본 개발자</div>
