@@ -1,7 +1,7 @@
 import { css, cx } from '@styled-stytem/css'
 import { button } from '@styled-stytem/recipes'
 import { easeInOut, motion, useScroll, useTransform } from 'framer-motion'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import RecruitImg from '@/assets/RecruitImg.jpg'
 import RecruitImgM from '@/assets/RecruitImgM.jpg'
@@ -11,6 +11,7 @@ import RecruitImgOpacityXS from '@/assets/RecruitImgOpacityXS.jpg'
 import RecruitImgXS from '@/assets/RecruitImgXS.jpg'
 import RecruiteLogo from '@/assets/RecruitLogo.svg'
 import ScrollDown from '@/assets/ScrollDown.svg'
+import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
@@ -19,23 +20,32 @@ const RecruitingPage = () => {
   const x3 = useTransform(scrollY, [0, 200], [-1000, 0], { ease: easeInOut })
   const x4 = useTransform(scrollY, [250, 350], [2000, 0], { ease: easeInOut })
   const x5 = useTransform(scrollY, [400, 450], [-2000, 0], { ease: easeInOut })
+  const [disapear, setDisapear] = useState(false)
 
   const mediaQuery = useMatchLayout()
-  const handleImgMediaQuery = useCallback(() => {
+  const handleImgMediaQuery = useMemo(() => {
     if (mediaQuery.M) return window.scrollY > 200 ? RecruitImgOpacity : RecruitImg
     if (mediaQuery.S) return window.scrollY > 200 ? RecruitImgOpacityM : RecruitImgM
     return window.scrollY > 200 ? RecruitImgOpacityXS : RecruitImgXS
   }, [mediaQuery])
-  const [src, setSrc] = useState(handleImgMediaQuery())
 
-  useEffect(() => setSrc(handleImgMediaQuery()), [mediaQuery, handleImgMediaQuery])
+  const [src, setSrc] = useState(handleImgMediaQuery)
+
+  useEffect(() => setSrc(handleImgMediaQuery), [mediaQuery, handleImgMediaQuery])
 
   useEffect(() => {
-    const handleImgChange = () => (window.scrollY > 200 ? setSrc(RecruitImgOpacity) : setSrc(RecruitImg))
+    const handleOpacityImg = () => {
+      if (mediaQuery.M) return window.scrollY > 200 ? RecruitImgOpacity : RecruitImg
+      if (mediaQuery.S) return window.scrollY > 200 ? RecruitImgOpacityM : RecruitImgM
+      return window.scrollY > 200 ? RecruitImgOpacityXS : RecruitImgXS
+    }
+    window.addEventListener('scroll', () => setSrc(handleOpacityImg))
+    return () => window.removeEventListener('scroll', () => setSrc(handleOpacityImg))
+  }, [mediaQuery])
 
-    window.addEventListener('scroll', handleImgChange)
-    return () => window.removeEventListener('scroll', handleImgChange)
-  }, [handleImgMediaQuery])
+  useEffect(() => {
+    window.addEventListener('scroll', () => (window.scrollY > 600 ? setDisapear(true) : setDisapear(false)))
+  }, [])
   return (
     <div
       className={css({
@@ -56,7 +66,6 @@ const RecruitingPage = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          pos: 'fixed',
           w: 'full',
           px: 'calc((100% - 1307px)/2)',
           h: { M: 842, S: 768, SDown: 482 },
@@ -66,6 +75,7 @@ const RecruitingPage = () => {
           transform: 'translateY(-50%)'
           // overflow: 'auto',
         })}
+        style={{ position: disapear ? 'absolute' : 'fixed' }}
       >
         <img
           src={src}
@@ -215,7 +225,30 @@ const RecruitingPage = () => {
           />
         </motion.div>
       </div>
-      <div>hi</div>
+      <div
+        className={css({
+          display: 'flex',
+          flexDir: 'column',
+          w: 'full',
+          gap: 7,
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          // h: '342',
+          px: 101
+        })}
+        style={{ display: !disapear ? 'none' : 'flex' }}
+      >
+        <h1 className={css({ fontSize: 64, fontWeight: 700, color: 'label.50' })}>
+          DevKor <br />
+          신입 부원 모집
+        </h1>
+        <p className={css({ fontSize: 20, fontWeight: 400, color: 'label.70' })}>
+          디자이너, 개발자, 기획자의 협업을 통해 <br />
+          유저 경험을 더욱 중시하는 서비스를 출시 하고자 합니다. <br />
+          모든 포지션이 프로젝트의 기획부터 개발 및 디자인, 운영까지 모든 과정에 참여합니다.
+        </p>
+        <Button variant="colored">지원서 작성하기</Button>
+      </div>
     </div>
   )
 }
