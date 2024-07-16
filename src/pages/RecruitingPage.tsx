@@ -232,16 +232,16 @@ const RecruitingPage = () => {
           />
         </motion.div>
       </div>
-      <div
+      <section
         className={css({
           display: 'flex',
           flexDir: 'column',
           w: 'full',
+          maxWidth: 'calc(1240px + 64px)',
           gap: 7,
           justifyContent: 'center',
           alignItems: 'flex-start',
-          // h: '342',
-          px: 101
+          px: '32px'
         })}
         style={{ display: phase ? 'flex' : 'none' }}
       >
@@ -255,13 +255,15 @@ const RecruitingPage = () => {
           모든 포지션이 프로젝트의 기획부터 개발 및 디자인, 운영까지 모든 과정에 참여합니다.
         </p>
         <Button variant="colored">지원서 작성하기</Button>
-      </div>
+      </section>
       <section
         className={css({
           width: '100%',
           overflowX: 'hidden',
           display: 'flex',
-          alignItems: 'center'
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '60px'
         })}
       >
         <motion.div
@@ -288,8 +290,14 @@ const RecruitingPage = () => {
           <MarqueeItem />
           <MarqueeItem />
         </motion.div>
-        <div>
-          <img src={Calendar} alt="모집공고 일정 캘린더" width="820" height="647" />
+        <div
+          className={css({
+            p: '32px',
+            w: 'full',
+            maxWidth: 'calc(1240px + 64px)'
+          })}
+        >
+          <img src={Calendar} alt="모집공고 일정 캘린더" className={css({ width: '820px', height: '647px' })} />
         </div>
       </section>
       <section
@@ -297,7 +305,9 @@ const RecruitingPage = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '78px'
+          gap: '78px',
+          w: 'full',
+          maxWidth: 'calc(1240px + 64px)'
         })}
       >
         <h5 className={css({ color: 'label.50', fontSize: '48px', fontWeight: 700 })}>
@@ -319,7 +329,7 @@ const RecruitingPage = () => {
         </div>
       </section>
       <section>
-        <p>DevKor의 활동</p>
+        <h5 className={css({ color: 'label.50', fontSize: '48px', fontWeight: 700 })}>DevKor의 활동</h5>
         <div>
           <div>기능을 잘 만드는 개발자보다 코드 레벨에서의 최적화와 다양한 트러블 슈팅을 경험해본 개발자</div>
           <div>보기 좋은 UI에 머물기 보다 더 나아가 유저 경험이 좋은 화면을 설계하는 디자이너</div>
