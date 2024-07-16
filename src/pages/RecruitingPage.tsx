@@ -3,11 +3,8 @@ import { button } from '@styled-stytem/recipes'
 import { easeInOut, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
-import BeLogo from '@/assets/beLogo.svg'
-import DeLogo from '@/assets/deLogo.svg'
+import Calendar from '@/assets/calendar.png'
 import Direction from '@/assets/Direction.svg'
-import FeLogo from '@/assets/feLogo.svg'
-import PmLogo from '@/assets/pmLogo.svg'
 import RecruitImg from '@/assets/RecruitImg.png'
 import RecruitImgL from '@/assets/RecruitImgL.png'
 import RecruitImgM from '@/assets/RecruitImgM.png'
@@ -17,7 +14,6 @@ import ScrollDown from '@/assets/ScrollDown.svg'
 import Worm from '@/assets/Worm.svg'
 import Card from '@/components/recruit/Card'
 import Button from '@/components/ui/button'
-import { Track } from '@/types/track'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
@@ -260,11 +256,19 @@ const RecruitingPage = () => {
         </p>
         <Button variant="colored">지원서 작성하기</Button>
       </div>
-      <section>
+      <section
+        className={css({
+          width: '100%',
+          overflowX: 'hidden',
+          display: 'flex',
+          alignItems: 'center'
+        })}
+      >
         <motion.div
           className={css({
             display: 'flex',
-            gap: 16
+            gap: 16,
+            width: 'max-content'
           })}
           animate={{
             x: [0, '-20%'],
@@ -284,7 +288,9 @@ const RecruitingPage = () => {
           <MarqueeItem />
           <MarqueeItem />
         </motion.div>
-        <div>대충 캘린더</div>
+        <div>
+          <img src={Calendar} alt="모집공고 일정 캘린더" width="820" height="647" />
+        </div>
       </section>
       <section
         className={css({
