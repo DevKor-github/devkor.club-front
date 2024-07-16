@@ -81,6 +81,7 @@ const RecruitingPage = () => {
           src={src}
           alt="recruite img"
           className={css({ w: { M: 'full', S: '705px', XS: '335px', XSDown: '335px' } })}
+          style={{ filter: '(rgba(0,0,0,0.6))' }}
         />
         <motion.p
           // initial={{ x: -3000, y: 0 }}
