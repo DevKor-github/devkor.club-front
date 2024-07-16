@@ -1,7 +1,12 @@
 import { css } from '@styled-stytem/css'
 import { useParams } from 'react-router-dom'
 
+import AvailableTime from '@/components/apply/AvailableTime'
+import Backend from '@/components/apply/Backend'
+import Designer from '@/components/apply/Designer'
+import Frontend from '@/components/apply/Frontend'
 import PersonalInfo from '@/components/apply/PersonalInfo'
+import ProjectManager from '@/components/apply/ProjectManager'
 import Button from '@/components/ui/button'
 import { Track } from '@/types/track'
 
@@ -11,13 +16,23 @@ type TrackConfigType = {
 const trackConfig: TrackConfigType = {
   FE: 'Front-End 프론트엔드 개발자',
   BE: 'Back-End 백엔드 개발자',
-  PM: 'Peroject Manager 프로젝트 매니저',
+  PM: 'Project Manager 프로젝트 매니저',
   DE: 'Designer 디자이너'
 }
 
+type TackComponentType = {
+  [key in Track]: React.FC
+}
+const tackComponent: TackComponentType = {
+  FE: Frontend,
+  BE: Backend,
+  PM: ProjectManager,
+  DE: Designer
+}
 const Application = () => {
   const { track } = useParams()
   const trackTitle = trackConfig[track as Track]
+  const TrackComponent = tackComponent[track as Track]
   return (
     <section
       className={css({
@@ -38,6 +53,8 @@ const Application = () => {
         </div>
       </div>
       <PersonalInfo />
+      <TrackComponent />
+      <AvailableTime />
       <Button variant="gray" disabled={!track} className={css({ display: 'flex', alignSelf: 'flex-end' })}>
         다음
       </Button>
