@@ -40,6 +40,7 @@ export const buttonRecipe = defineRecipe({
       XL: { px: 10, py: 5, rounded: '50px' },
       L: { px: 20, py: '7px' },
       M: { px: 10, py: '5px' },
+      XS: { px: 5, py: 2.5 },
       lg: { h: 11, px: 8 },
       icon: { h: 10, w: 10 }
     }

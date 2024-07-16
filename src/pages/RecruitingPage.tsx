@@ -1,20 +1,43 @@
 import { css, cx } from '@styled-stytem/css'
 import { button } from '@styled-stytem/recipes'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { easeInOut, motion, useScroll, useTransform } from 'framer-motion'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
-import RecruiteImg from '@/assets/RecruiteImg.jpg'
-import RecruiteLogo from '@/assets/RecruiteLogo.svg'
+import RecruitImg from '@/assets/RecruitImg.jpg'
+import RecruitImgM from '@/assets/RecruitImgM.jpg'
+import RecruitImgOpacity from '@/assets/RecruitImgOpacity.jpg'
+import RecruitImgOpacityM from '@/assets/RecruitImgOpacityM.jpg'
+import RecruitImgOpacityXS from '@/assets/RecruitImgOpacityXS.jpg'
+import RecruitImgXS from '@/assets/RecruitImgXS.jpg'
+import RecruiteLogo from '@/assets/RecruitLogo.svg'
 import ScrollDown from '@/assets/ScrollDown.svg'
+import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
-  const x = useTransform(scrollY, [0, 200], [0, -1000])
-  const x2 = useTransform(scrollY, [0, 200], [0, 1000])
-  const targetRef = useRef(null)
+  const x = useTransform(scrollY, [0, 200], [0, -1000], { ease: easeInOut })
+  const x2 = useTransform(scrollY, [0, 200], [0, 1000], { ease: easeInOut })
+  const x3 = useTransform(scrollY, [0, 200], [-1000, 0], { ease: easeInOut })
+  const x4 = useTransform(scrollY, [250, 350], [2000, 0], { ease: easeInOut })
+  const x5 = useTransform(scrollY, [400, 450], [-2000, 0], { ease: easeInOut })
 
+  const mediaQuery = useMatchLayout()
+  const handleImgMediaQuery = useCallback(() => {
+    if (mediaQuery.M) return window.scrollY > 200 ? RecruitImgOpacity : RecruitImg
+    if (mediaQuery.S) return window.scrollY > 200 ? RecruitImgOpacityM : RecruitImgM
+    return window.scrollY > 200 ? RecruitImgOpacityXS : RecruitImgXS
+  }, [mediaQuery])
+  const [src, setSrc] = useState(handleImgMediaQuery())
+
+  useEffect(() => setSrc(handleImgMediaQuery()), [mediaQuery, handleImgMediaQuery])
+
+  useEffect(() => {
+    const handleImgChange = () => (window.scrollY > 200 ? setSrc(RecruitImgOpacity) : setSrc(RecruitImg))
+
+    window.addEventListener('scroll', handleImgChange)
+    return () => window.removeEventListener('scroll', handleImgChange)
+  }, [handleImgMediaQuery])
   return (
     <div
-      ref={targetRef}
       className={css({
         display: 'flex',
         // position: 'relative',
@@ -36,25 +59,77 @@ const RecruitingPage = () => {
           pos: 'fixed',
           w: 'full',
           px: 'calc((100% - 1307px)/2)',
-          h: 842,
+          h: { M: 842, S: 768, SDown: 482 },
           zIndex: 10,
           top: '50%',
-          transform: 'translateY(-50%)',
-          overflow: 'auto'
+          mt: '20px',
+          transform: 'translateY(-50%)'
+          // overflow: 'auto',
         })}
       >
         <img
-          src={RecruiteImg}
+          src={src}
           alt="recruite img"
-          // className={css({ pos: 'absolute', w: 'full', px: 'calc((100% - 1307px)/2)', h: 842, bottom: 34 })}
+          className={css({ w: { M: 'full', S: '705px', XS: '335px', XSDown: '335px' } })}
         />
+        <motion.p
+          // initial={{ x: -3000, y: 0 }}
+          className={css({
+            pos: 'absolute',
+            top: { M: 361, MDown: 270, SDown: 130 },
+            fontSize: { M: 20, S: 16, SDown: 12 },
+            fontWeight: { M: 700, S: 600 },
+            color: 'label.100',
+            textAlign: 'center'
+          })}
+          style={{ x: x3 }}
+        >
+          우리는 SW 기반 서비스에서
+          <br className={css({ display: { S: 'none', XSDown: 'flex' } })} />
+          기획, 개발, 디자인이 분리되어있다고 생각하지 않습니다.
+        </motion.p>
+        <motion.p
+          className={css({
+            pos: 'absolute',
+            top: { M: 407, MDown: 314, SDown: 180 },
+            fontSize: { M: 20, S: 16, SDown: 12 },
+            fontWeight: { M: 700, S: 600 },
+            color: 'label.100',
+            textAlign: 'center'
+          })}
+          style={{ x: x4 }}
+        >
+          개발자, 디자이너, 기획자가 한 팀이 되어 기획부터 개발,{' '}
+          <br className={css({ display: { S: 'none', XSDown: 'flex' } })} />
+          운영까지 일련의 프로세스를 함께하며
+          <br className={css({ display: { M: 'none', SDown: 'flex' } })} />
+          유저 확보가 가능한 프로덕트를 만들고자 합니다.
+        </motion.p>
+        <motion.p
+          className={css({
+            pos: 'absolute',
+            top: { M: 454, MDown: 382, SDown: 250 },
+            fontSize: { M: 20, S: 16, SDown: 12 },
+            fontWeight: { M: 700, S: 600 },
+            color: 'label.100',
+            textAlign: 'center'
+          })}
+          style={{ x: x5 }}
+        >
+          세가지 관점을 합쳐 기술적으로 문제를 해결하고,
+          <br className={css({ display: { S: 'none', XSDown: 'flex' } })} />
+          시장의 수요가 있으며,
+          <br className={css({ display: { M: 'none', SDown: 'flex' } })} />
+          유저 경험이 좋은 프로덕트를 함께 만들어 <br className={css({ display: { S: 'none', XSDown: 'flex' } })} />
+          사용자를 확보하는 경험을 하려 합니다.
+        </motion.p>
         <motion.p
           initial={{ x: -3000, y: 0 }}
           className={css({
             pos: 'absolute',
-            left: 'calc((100% - 1307px)/2 + 100px)',
-            bottom: 255,
-            fontSize: 128,
+            left: { M: 'calc((100% - 1307px)/2 + 100px)', S: 47, SDown: 37 },
+            bottom: { M: 255, S: 228, SDown: 174 },
+            fontSize: { M: 128, S: 96, SDown: 56 },
             fontWeight: 700,
             color: 'label.100'
           })}
@@ -68,9 +143,10 @@ const RecruitingPage = () => {
           initial={{ x: 3000, y: 0 }}
           className={css({
             pos: 'absolute',
-            w: 819,
-            bottom: 199,
-            fontSize: 48,
+            // w: 819,
+            left: { M: 'calc((100% - 1307px)/2 + 310px)', S: 47, SDown: 37 },
+            bottom: { M: 199, S: 206, SDown: 132 },
+            fontSize: { M: 48, MDown: 32 },
             fontWeight: 300,
             color: 'label.100'
           })}
@@ -83,8 +159,14 @@ const RecruitingPage = () => {
         <motion.button
           initial={{ x: -1200 }}
           className={cx(
-            button({ variant: 'colored', size: 'XL' }),
-            css({ pos: 'absolute', bottom: 90, left: 'calc((100% - 1307px)/2)', fontSize: 24, fontWeight: 700 })
+            button({ variant: 'colored', size: { S: 'XL', SDown: 'XS' } }),
+            css({
+              pos: 'absolute',
+              bottom: { M: 90, S: 24, SDown: 49 },
+              left: { M: 'calc((100% - 1307px)/2)', S: 8, SDown: 21 },
+              fontSize: { S: 24, SDown: 16 },
+              fontWeight: 700
+            })
           )}
           animate={{ x: 0 }}
           transition={{ delay: 1.7, type: 'spring', stiffness: 100, damping: 10, mass: 0.5 }}
@@ -94,7 +176,13 @@ const RecruitingPage = () => {
         <img
           src={RecruiteLogo}
           alt="recruite logo"
-          className={css({ pos: 'absolute', zIndex: 10, bottom: 0, right: 'calc((100% - 1307px)/2)' })}
+          className={css({
+            pos: 'absolute',
+            zIndex: 10,
+            bottom: 0,
+            right: { M: 'calc((100% - 1307px)/2)', S: 31, SDown: 4 },
+            SDown: { w: 110, h: 107 }
+          })}
         />
         <motion.div
           initial={{ opacity: 0 }}
@@ -127,6 +215,7 @@ const RecruitingPage = () => {
           />
         </motion.div>
       </div>
+      <div>hi</div>
     </div>
   )
 }
