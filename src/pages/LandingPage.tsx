@@ -19,8 +19,8 @@ const screenWrapper = cva({
     alignItems: 'center',
     L: { px: 100, pb: '47px' },
     M: { px: '60px', pb: '37px', pt: 0 },
-    S: { px: 8, pt: 8 },
-    XS: { px: 5, pt: '19px' }
+    S: { px: 8, pt: 82 },
+    XS: { px: 5, pt: '55px' }
   }
 })
 const trackCardWrapper = cva({
@@ -93,7 +93,6 @@ const LandingPage = () => {
             w: 'full',
             alignSelf: 'center',
             h: { XL: 1200, L: 728, M: 530, S: 687, XS: 533, XSDown: 533 },
-            // XL: { px: 550 },
             L: { px: 100 },
             M: { px: '60px' },
             S: { px: 8 },
@@ -138,7 +137,7 @@ const LandingPage = () => {
             justifyContent: 'center',
             w: 'full',
             alignSelf: 'center',
-            h: { XL: 1200, L: 728, M: 530, S: 687, XS: 533, XSDown: 533 },
+            h: { XL: 1200, L: 728, M: 530, S: 603, XS: 470, XSDown: 470 },
             L: { px: 100 },
             M: { px: '60px' },
             S: { px: 8 },
