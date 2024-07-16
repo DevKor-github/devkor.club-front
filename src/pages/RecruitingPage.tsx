@@ -3,12 +3,14 @@ import { button } from '@styled-stytem/recipes'
 import { easeInOut, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
+import Direction from '@/assets/Direction.svg'
 import RecruitImg from '@/assets/RecruitImg.png'
 import RecruitImgL from '@/assets/RecruitImgL.png'
 import RecruitImgM from '@/assets/RecruitImgM.png'
 import RecruitImgXS from '@/assets/RecruitImgXS.png'
 import RecruiteLogo from '@/assets/RecruitLogo.svg'
 import ScrollDown from '@/assets/ScrollDown.svg'
+import Worm from '@/assets/Worm.svg'
 import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitingPage = () => {
@@ -47,7 +49,7 @@ const RecruitingPage = () => {
         display: 'flex',
         flexDir: 'column',
         w: 'full',
-        h: '300vh',
+        h: 'calc(300vh)',
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'scroll'
@@ -252,6 +254,85 @@ const RecruitingPage = () => {
         </p>
         <Button variant="colored">지원서 작성하기</Button>
       </div>
+      <section>
+        <motion.div
+          className={css({
+            display: 'flex',
+            gap: 16
+          })}
+          animate={{
+            x: [0, '-20%'],
+            transition: {
+              x: {
+                repeat: Infinity,
+                repeatType: 'loop',
+                duration: 5,
+                ease: 'linear'
+              }
+            }
+          }}
+        >
+          <MarqueeItem />
+          <MarqueeItem />
+          <MarqueeItem />
+          <MarqueeItem />
+          <MarqueeItem />
+        </motion.div>
+        <div>대충 캘린더</div>
+      </section>
+      <section>
+        <p>이런 분들과 함께하고 싶습니다.</p>
+        <div>
+          <div>기능을 잘 만드는 개발자보다 코드 레벨에서의 최적화와 다양한 트러블 슈팅을 경험해본 개발자</div>
+          <div>보기 좋은 UI에 머물기 보다 더 나아가 유저 경험이 좋은 화면을 설계하는 디자이너</div>
+          <div>
+            아이디어를 잘내는 기획자보다, 구체적인 근거를 바탕으로 어떤 아이템이 시장에 수요가 있을지 생각하고, User
+            flow를 기획하는 기획자
+          </div>
+        </div>
+      </section>
+      <section>
+        <p>DevKor의 활동</p>
+        <div>
+          <div>기능을 잘 만드는 개발자보다 코드 레벨에서의 최적화와 다양한 트러블 슈팅을 경험해본 개발자</div>
+          <div>보기 좋은 UI에 머물기 보다 더 나아가 유저 경험이 좋은 화면을 설계하는 디자이너</div>
+          <div>
+            아이디어를 잘내는 기획자보다, 구체적인 근거를 바탕으로 어떤 아이템이 시장에 수요가 있을지 생각하고, User
+            flow를 기획하는 기획자
+          </div>
+        </div>
+      </section>
+      <section>
+        <p>파트 소개</p>
+        <div>
+          <div>Front-End</div>
+          <div>Back-End</div>
+        </div>
+        <div>
+          <div>Designer</div>
+          <div>Project Manager</div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+const MarqueeItem = () => {
+  return (
+    <div
+      className={css({
+        display: 'flex',
+        gap: 16,
+        fontSize: '96px',
+        color: 'label.80',
+        fontWeight: 700,
+        width: 'max-content'
+      })}
+    >
+      <p>Join us</p>
+      <img src={Direction} alt="" />
+      <p>on our journey</p>
+      <img src={Worm} alt="" />
     </div>
   )
 }
