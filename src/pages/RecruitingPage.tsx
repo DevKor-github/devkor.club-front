@@ -18,13 +18,13 @@ const RecruitingPage = () => {
   const x3 = useTransform(scrollY, [0, 200], [-1000, 0], { ease: easeInOut })
   const x4 = useTransform(scrollY, [250, 350], [2000, 0], { ease: easeInOut })
   const x5 = useTransform(scrollY, [400, 450], [-2000, 0], { ease: easeInOut })
-  const i = useTransform(scrollY, [100, 250], [1, 0.6], { ease: easeInOut });
+  const i = useTransform(scrollY, [100, 250], [1, 0.6], { ease: easeInOut })
   const filter = useMotionTemplate`brightness(${i})`
-  const [phase, setPhase] = useState(false);
-  useMotionValueEvent(scrollY, "change", (latest) => setPhase(latest > 600 ? true : false));
-  
+  const [phase, setPhase] = useState(false)
+  useMotionValueEvent(scrollY, 'change', latest => setPhase(latest > 600 ? true : false))
+
   const mediaQuery = useMatchLayout()
-  
+
   const handleImgMediaQuery = useCallback(() => {
     if (mediaQuery.L) return RecruitImg
     if (mediaQuery.M) return RecruitImgL
@@ -34,9 +34,12 @@ const RecruitingPage = () => {
   const [src, setSrc] = useState(handleImgMediaQuery)
 
   useEffect(() => {
-    fn(); window.addEventListener('scroll', fn)
+    fn()
+    window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
-    function fn() { setSrc(handleImgMediaQuery()) }
+    function fn() {
+      setSrc(handleImgMediaQuery())
+    }
   }, [mediaQuery, handleImgMediaQuery])
   return (
     <div
@@ -56,81 +59,80 @@ const RecruitingPage = () => {
           justifyContent: 'center',
           alignItems: 'center',
           pos: 'fixed',
-          w: { L: 'full', M: 'calc(1024px - 24px)'},
-          maxWidth: "calc(1307px + 24px)",
+          w: { L: 'full', M: 'calc(1024px - 24px)' },
+          maxWidth: 'calc(1307px + 24px)',
           px: '24px',
           h: { L: 842, M: 613, S: 768, SDown: 482 },
           zIndex: 10,
           top: '50%',
           mt: '20px',
           transform: 'translateY(-50%)',
-          wordBreak: "keep-all",
+          wordBreak: 'keep-all'
         })}
         style={{ position: phase ? 'absolute' : 'fixed' }}
       >
         <motion.img
           src={src}
           alt="recruit img"
-          className={css({ w: { L: 'full', M: "952px", S: '705px', XS: '335px', XSDown: '335px' } })}
+          className={css({ w: { L: 'full', M: '952px', S: '705px', XS: '335px', XSDown: '335px' } })}
           style={{ filter }}
         />
-        <div className={css({
-          pos: "absolute",
-          top: "50%",
-          left: 0,
-          width: "full",
-          transform: "translate(0, -50%)",
-          px: "48px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px"
-        })}>
-        <motion.p
+        <div
           className={css({
-            fontSize: { M: 20, S: 16, SDown: 12 },
-            fontWeight: { M: 700, S: 600 },
-            color: 'label.100',
-            textAlign: 'center',
-            SDown: {
-              whiteSpace: "pre-wrap",
-            }
+            pos: 'absolute',
+            top: '50%',
+            left: 0,
+            width: 'full',
+            transform: 'translate(0, -50%)',
+            px: '48px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px'
           })}
-          style={{ x: x3 }}
         >
-            우리는 SW 기반 서비스에서{"\n"}기획, 개발, 디자인이 분리되어있다고 생각하지 않습니다.
-        </motion.p>
-        <motion.p
-          className={css({
-            fontSize: { M: 20, S: 16, SDown: 12 },
-            fontWeight: { M: 700, S: 600 },
-            color: 'label.100',
-            textAlign: 'center',
-            MDown: {
-              whiteSpace: "pre-wrap",
-            }
-          })}
-          style={{ x: x4 }}
-        >
-          개발자, 디자이너, 기획자가 한 팀이 되어 기획부터 개발,
-          운영까지 일련의 프로세스를 함께하며{'\n'}
-          유저 확보가 가능한 프로덕트를 만들고자 합니다.
-        </motion.p>
-        <motion.p
-          className={css({
-            fontSize: { M: 20, S: 16, SDown: 12 },
-            fontWeight: { M: 700, S: 600 },
-            color: 'label.100',
-            textAlign: 'center',
-            MDown: {
-              whiteSpace: "pre-wrap",
-            }
-          })}
-          style={{ x: x5 }}
-        >
-          세가지 관점을 합쳐 기술적으로 문제를 해결하고,
-          시장의 수요가 있으며,{"\n"}
-          유저 경험이 좋은 프로덕트를 함께 만들어
-          사용자를 확보하는 경험을 하려 합니다.
+          <motion.p
+            className={css({
+              fontSize: { M: 20, S: 16, SDown: 12 },
+              fontWeight: { M: 700, S: 600 },
+              color: 'label.100',
+              textAlign: 'center',
+              SDown: {
+                whiteSpace: 'pre-wrap'
+              }
+            })}
+            style={{ x: x3 }}
+          >
+            우리는 SW 기반 서비스에서{'\n'}기획, 개발, 디자인이 분리되어있다고 생각하지 않습니다.
+          </motion.p>
+          <motion.p
+            className={css({
+              fontSize: { M: 20, S: 16, SDown: 12 },
+              fontWeight: { M: 700, S: 600 },
+              color: 'label.100',
+              textAlign: 'center',
+              MDown: {
+                whiteSpace: 'pre-wrap'
+              }
+            })}
+            style={{ x: x4 }}
+          >
+            개발자, 디자이너, 기획자가 한 팀이 되어 기획부터 개발, 운영까지 일련의 프로세스를 함께하며{'\n'}
+            유저 확보가 가능한 프로덕트를 만들고자 합니다.
+          </motion.p>
+          <motion.p
+            className={css({
+              fontSize: { M: 20, S: 16, SDown: 12 },
+              fontWeight: { M: 700, S: 600 },
+              color: 'label.100',
+              textAlign: 'center',
+              MDown: {
+                whiteSpace: 'pre-wrap'
+              }
+            })}
+            style={{ x: x5 }}
+          >
+            세가지 관점을 합쳐 기술적으로 문제를 해결하고, 시장의 수요가 있으며,{'\n'}
+            유저 경험이 좋은 프로덕트를 함께 만들어 사용자를 확보하는 경험을 하려 합니다.
           </motion.p>
         </div>
         <motion.p
