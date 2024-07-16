@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@/utils/useMediaQuery'
 
 const enum Layout {
-  L = '1044px',
+  L = '1440px',
   M = '1024px',
   S = '768px',
   XS = '375px'
