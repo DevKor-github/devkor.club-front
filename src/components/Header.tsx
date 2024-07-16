@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <header
       className={css({
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
         display: 'flex',
         justifyContent: 'flex-start',
@@ -20,7 +20,8 @@ const Header = () => {
         M: { px: '60px', pt: 3, h: 10 },
         S: { px: 8, pt: 33 },
         XS: { px: 5, pt: 19 },
-        zIndex: 200
+        zIndex: 200,
+        cursor: 'pointer'
       })}
     >
       <motion.nav

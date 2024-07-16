@@ -6,7 +6,7 @@ const MainLayout = () => {
   return (
     <div className={css({ display: 'flex', flexDir: 'column', w: 'full', h: 'screen' })}>
       <Header />
-      <main className={css({ flex: 1, overflowY: 'auto' })}>
+      <main className={css({})}>
         <Outlet />
       </main>
     </div>

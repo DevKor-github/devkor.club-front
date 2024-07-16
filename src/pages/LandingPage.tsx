@@ -1,20 +1,20 @@
-import Spline from '@splinetool/react-spline'
 import { css, cva } from '@styled-stytem/css'
 import { motion } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import SplineGif from '@/assets/SplineGif.gif'
+import video from '@/assets/DevKor_landing.webm'
 import ClickedIntro from '@/components/landing/ClickedIntro'
 import LandingIntro from '@/components/landing/LandingIntro'
 import TrackCard from '@/components/landing/TrackCard'
 import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
+
 const screenWrapper = cva({
   base: {
     display: 'flex',
     w: 'full',
-    h: '100%',
+    h: '100vh',
     justifyContent: 'center',
     alignItems: 'center',
     L: { px: 100, pb: '47px' },
@@ -58,7 +58,7 @@ const LandingPage = () => {
     setJustifyContent(mediaQuery.M ? 'flex-end' : 'center')
   }, [mediaQuery])
   useEffect(() => void setTimeout(() => setDefined(true), 3000), [])
-  useEffect(() => void setTimeout(() => setShow(true), 3500), [])
+  useEffect(() => void setTimeout(() => setShow(true), 3000), [])
 
   const handleGap = () => {
     if (mediaQuery.M) return '20px'
@@ -92,31 +92,34 @@ const LandingPage = () => {
             justifyContent: 'center',
             w: 'full',
             alignSelf: 'center',
-            h: { L: 728, M: 530, S: 687, XS: 533, XSDown: 533 },
+            h: { XL: 1200, L: 728, M: 530, S: 687, XS: 533, XSDown: 533 },
+            // XL: { px: 550 },
             L: { px: 100 },
             M: { px: '60px' },
             S: { px: 8 },
             XS: { px: 5 },
             gap: { S: 11, XS: '23px', XSDown: '23px' },
             zIndex: 110,
-            top: { M: 'auto', S: 158, XS: 129, XSDown: 129 },
+            top: { M: 69, S: 158, XS: 129, XSDown: 129 },
             bottom: { L: 148, M: 119 }
           })}
           animate={{ opacity: 1, ...handleStyle() }}
           transition={{ delay: 1.2, type: 'spring', stiffness: 120, damping: 20 }}
         >
-          {/* <Spline
-            scene="https://prod.spline.design/whnLKtVDGcOFe9uK/scene.splinecode"
-            className={css({ h: 'full' })}
-            style={{ borderRadius: clicked ? 0 : '40px' }}
-          /> */}
-          <img
-            src={SplineGif}
-            alt="spline Gif"
-            className={css({ h: 'full' })}
-            style={{ borderRadius: clicked ? 0 : '40px' }}
-          />
-          {/* <div className={css({ w: 'full', h: 'full', bgColor: 'black', rounded: clicked ? 0 : 40 })}></div> */}
+          <video
+            id="landing-video"
+            muted
+            autoPlay
+            loop
+            className={css({ rounded: clicked ? 0 : '40px' })}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          >
+            <source src={video} type="video/mp4" />
+          </video>
           {!mediaQuery.M && (
             <Button variant="colored" size={mediaQuery.S ? 'L' : 'default'} onClick={handleClick}>
               지원하기
@@ -135,20 +138,20 @@ const LandingPage = () => {
             justifyContent: 'center',
             w: 'full',
             alignSelf: 'center',
-            h: { L: 728, M: 530, S: 603, XS: 469, XSDown: 469 },
+            h: { XL: 1200, L: 728, M: 530, S: 687, XS: 533, XSDown: 533 },
             L: { px: 100 },
             M: { px: '60px' },
             S: { px: 8 },
             XS: { px: 5 },
             gap: { S: 11, XS: '23px', XSDown: '23px' },
             zIndex: 110,
-            top: { M: 'auto', S: 158, XS: 129, XSDown: 129 },
+            top: { M: 69, S: 158, XS: 129, XSDown: 129 },
             bottom: { L: 148, M: 119 },
             rounded: 40
           })}
           animate={{ opacity: 1, ...handleStyle(), borderRadius: 0 }}
           transition={{ delay: 1.2, type: 'spring', stiffness: 120, damping: 20 }}
-          style={clicked ? { backgroundColor: 'rgba(255, 255, 255, 0.10)', backdropFilter: 'blur(20px)' } : undefined}
+          // style={clicked ? { backgroundColor: 'rgba(255, 255, 255, 0.10)', backdropFilter: 'blur(20px)' } : undefined}
         >
           <motion.div
             className={css({
@@ -156,12 +159,17 @@ const LandingPage = () => {
               h: 'full',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
-              // rounded: 40
+              justifyContent: 'center',
+              rounded: 40
             })}
             transition={{ type: 'spring', stiffness: 120, damping: 20 }}
+            style={
+              clicked
+                ? { borderRadius: '40px', backgroundColor: 'rgba(255, 255, 255, 0.10)', backdropFilter: 'blur(20px)' }
+                : undefined
+            }
           >
-            {!clicked && <LandingIntro handleClick={handleClick} />}
+            {<LandingIntro clicked={clicked} handleClick={handleClick} />}
             {clicked && <ClickedIntro />}
           </motion.div>
         </motion.div>

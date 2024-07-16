@@ -1,15 +1,18 @@
 import { css } from '@styled-stytem/css'
+import { motion } from 'framer-motion'
 
 import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 
 interface LandingIntroProps {
+  clicked: boolean
   handleClick: () => void
 }
-const LandingIntro = ({ handleClick }: LandingIntroProps) => {
+const LandingIntro = ({ clicked, handleClick }: LandingIntroProps) => {
   const mediaQuery = useMatchLayout()
   return (
-    <div
+    <motion.div
+      initial={{ display: 'flex' }}
       className={css({
         display: 'flex',
         flexDir: 'column',
@@ -17,6 +20,9 @@ const LandingIntro = ({ handleClick }: LandingIntroProps) => {
         gap: '15px',
         color: 'label.100'
       })}
+      animate={{ display: clicked ? 'none' : undefined }}
+      // style={{ display: clicked ? 'none' : 'flex' }}
+      transition={{ delay: 0.5 }}
     >
       <div
         className={css({
@@ -48,7 +54,7 @@ const LandingIntro = ({ handleClick }: LandingIntroProps) => {
           지원하기
         </Button>
       )}
-    </div>
+    </motion.div>
   )
 }
 

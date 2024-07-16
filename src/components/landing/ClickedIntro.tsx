@@ -5,6 +5,7 @@ import Globe from '@/assets/globe.svg'
 const ClickedIntro = () => {
   return (
     <motion.div
+      initial={{ display: 'none' }}
       className={css({
         display: 'flex',
         flexDir: 'column',
@@ -14,6 +15,8 @@ const ClickedIntro = () => {
         fontWeight: 700,
         color: 'label.100'
       })}
+      animate={{ display: 'flex' }}
+      transition={{ delay: 1 }}
     >
       <motion.p
         initial={{ x: -1800, y: 0 }}
