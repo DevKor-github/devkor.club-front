@@ -3,6 +3,7 @@ import { button } from '@styled-stytem/recipes'
 import { easeInOut, motion, useMotionTemplate, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
+import ActivityBackground from '@/assets/activity-background.png'
 import Calendar from '@/assets/calendar.png'
 import Direction from '@/assets/Direction.svg'
 import RecruitImg from '@/assets/RecruitImg.png'
@@ -335,6 +336,7 @@ const RecruitingPage = () => {
         })}
       >
         <h5 className={css({ color: 'label.50', fontSize: '48px', fontWeight: 700 })}>DevKor의 활동</h5>
+        <img src={ActivityBackground} alt="활동 배경" />
         <div>
           <div>기능을 잘 만드는 개발자보다 코드 레벨에서의 최적화와 다양한 트러블 슈팅을 경험해본 개발자</div>
           <div>보기 좋은 UI에 머물기 보다 더 나아가 유저 경험이 좋은 화면을 설계하는 디자이너</div>
