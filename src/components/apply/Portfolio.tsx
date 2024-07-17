@@ -42,7 +42,7 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
       </div>
       <div className={css({ display: 'flex', gap: 2.5 })}>
         <Button variant="icon" type="button" size="icon" onClick={() => setIsOpen(true)}>
-          {file ? '파일 변경' : '파일 추가'}
+          {fileName ? '파일 변경' : '파일 추가'}
           <Upload className={css({ w: 5, h: 5 })} />
         </Button>
         {originalFileName && (
