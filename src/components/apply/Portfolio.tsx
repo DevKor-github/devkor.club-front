@@ -50,15 +50,18 @@ const Portfolio = ({ file, handleFileSelect, handleDeleteFile }: PortfolioProps)
               <FileText className={css({ w: 5, h: 5 })} />
               {file?.name}
             </Button>
-            <motion.button
-              initial={{ x: -50, opacity: 0 }}
-              animate={deleteFile ? { x: 0, opacity: 1 } : undefined}
-              type="button"
-              className={css({ cursor: 'pointer' })}
-              onClick={handleDeleteFile}
-            >
-              <CircleX className={css({ color: 'label.80' })} />
-            </motion.button>
+            {deleteFile && (
+              <motion.button
+                initial={{ x: -50, opacity: 0 }}
+                animate={deleteFile ? { x: 0, opacity: 1 } : undefined}
+                type="button"
+                className={css({ cursor: 'pointer' })}
+                onClick={handleDeleteFile}
+                disabled={!deleteFile}
+              >
+                <CircleX className={css({ color: 'label.80' })} />
+              </motion.button>
+            )}
           </div>
         )}
       </div>
