@@ -31,7 +31,7 @@ const ApplyPage = () => {
         variant="gray"
         disabled={!track}
         className={css({ display: 'flex', alignSelf: 'flex-end' })}
-        onClick={() => navigate(`/application/${track}`)}
+        onClick={() => navigate(`/apply/application/${track}`)}
       >
         다음
       </Button>

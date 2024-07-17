@@ -1,8 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
+import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import Portfolio from '@/components/apply/Portfolio'
 import Question from '@/components/apply/Question'
 import { designerSchema } from '@/lib/zod/designer-schema'
 
@@ -28,6 +30,9 @@ const Designer = () => {
     // ✅ This will be type-safe and validated.
     console.log(values)
   }
+  const [file, setFile] = useState<File | null>(null)
+  const handleFileSelect = useCallback((file: File | null) => setFile(file), [])
+  const handleDeleteFile = useCallback(() => setFile(null), [])
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -84,6 +89,7 @@ const Designer = () => {
         errors={errors}
         filed={'answer6'}
       />
+      <Portfolio file={file} handleDeleteFile={handleDeleteFile} handleFileSelect={handleFileSelect} />
     </form>
   )
 }

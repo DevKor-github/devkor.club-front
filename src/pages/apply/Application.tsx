@@ -38,12 +38,13 @@ const Application = () => {
       className={css({
         display: 'flex',
         w: 'full',
-        h: '100vh',
+        h: 'full',
         flexDir: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         px: 310,
-        gap: 45
+        gap: 45,
+        py: 144
       })}
     >
       <div className={css({ display: 'flex', width: 'full', flexDir: 'column', alignItems: 'center', gap: 85 })}>
@@ -55,9 +56,19 @@ const Application = () => {
       <PersonalInfo />
       <TrackComponent />
       <AvailableTime />
-      <Button variant="gray" disabled={!track} className={css({ display: 'flex', alignSelf: 'flex-end' })}>
-        다음
-      </Button>
+      <div
+        className={css({
+          display: 'flex',
+          w: 'full',
+          maxW: 820,
+          justifyContent: 'flex-end',
+          alignItems: 'center'
+        })}
+      >
+        <Button variant="gray" disabled={!track}>
+          다음
+        </Button>
+      </div>
     </section>
   )
 }

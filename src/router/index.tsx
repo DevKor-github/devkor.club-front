@@ -17,7 +17,7 @@ const routes: RouteObject[] = [
         path: '/apply',
         element: <ApplyPage />
       },
-      { path: '/application/:track', element: <Application /> }
+      { path: '/apply/application/:track', element: <Application /> }
     ]
   }
 ]
