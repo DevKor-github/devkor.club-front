@@ -70,7 +70,7 @@ const Application = () => {
         })}
       >
         <Button variant="gray" disabled={!track}>
-          다음
+          제출하기
         </Button>
       </div>
     </section>
