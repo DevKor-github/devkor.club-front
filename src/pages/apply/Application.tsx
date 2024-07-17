@@ -9,6 +9,11 @@ import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
 import Button from '@/components/ui/button'
 import { Track } from '@/types/track'
+import { personalInfoSchema } from '@/lib/zod/personal-info'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { useGenericForm } from '@/utils/useGenericForm'
 
 type TrackConfigType = {
   [key in Track]: string
@@ -20,19 +25,44 @@ const trackConfig: TrackConfigType = {
   DE: 'Designer 디자이너'
 }
 
-type TackComponentType = {
-  [key in Track]: React.FC
-}
-const tackComponent: TackComponentType = {
-  FE: Frontend,
-  BE: Backend,
-  PM: ProjectManager,
-  DE: Designer
-}
 const Application = () => {
   const { track } = useParams()
   const trackTitle = trackConfig[track as Track]
-  const TrackComponent = tackComponent[track as Track]
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<z.infer<typeof personalInfoSchema>>({
+    resolver: zodResolver(personalInfoSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      major: '',
+      studentId: ''
+    },
+    mode: 'onBlur'
+  })
+  function onSubmit(values: z.infer<typeof personalInfoSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values)
+  }
+
+  const { feform, beform, pmform, deform } = useGenericForm(track as Track)
+
+  const formHandlers = {
+    FE: feform.handleSubmit,
+    BE: beform.handleSubmit,
+    PM: pmform.handleSubmit,
+    DE: deform.handleSubmit
+  }
+
+  const handleFromSubmit = () => {
+    handleSubmit(onSubmit)()
+    formHandlers[track as Track](() => {})()
+  }
   return (
     <section
       className={css({
@@ -57,8 +87,11 @@ const Application = () => {
           </h2>
         </div>
       </div>
-      <PersonalInfo />
-      <TrackComponent />
+      <PersonalInfo handleSubmit={handleSubmit} onSubmit={onSubmit} register={register} errors={errors} />
+      {track === 'FE' && <Frontend form={feform} />}
+      {track === 'BE' && <Backend form={beform} />}
+      {track === 'PM' && <ProjectManager form={pmform} />}
+      {track === 'DE' && <Designer form={deform} />}
       <AvailableTime />
       <div
         className={css({
@@ -69,7 +102,7 @@ const Application = () => {
           alignItems: 'center'
         })}
       >
-        <Button variant="gray" disabled={!track}>
+        <Button variant="gray" disabled={!track} onClick={() => handleFromSubmit()} type="submit">
           제출하기
         </Button>
       </div>

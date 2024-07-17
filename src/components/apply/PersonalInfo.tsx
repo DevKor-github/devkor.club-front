@@ -1,32 +1,17 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
-import { useForm } from 'react-hook-form'
+import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
 import { z } from 'zod'
 
 import Question from '@/components/apply/Question'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
 
-const PersonalInfo = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<z.infer<typeof personalInfoSchema>>({
-    resolver: zodResolver(personalInfoSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      major: '',
-      studentId: ''
-    },
-    mode: 'onBlur'
-  })
-  function onSubmit(values: z.infer<typeof personalInfoSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
-  }
+interface PersonalInfoProps {
+  handleSubmit: UseFormHandleSubmit<z.infer<typeof personalInfoSchema>>
+  onSubmit: (values: z.infer<typeof personalInfoSchema>) => void
+  register: UseFormRegister<z.infer<typeof personalInfoSchema>>
+  errors: FieldErrors<z.infer<typeof personalInfoSchema>>
+}
+const PersonalInfo = ({ handleSubmit, onSubmit, register, errors }: PersonalInfoProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
