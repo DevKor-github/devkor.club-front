@@ -45,7 +45,7 @@ export const buttonRecipe = defineRecipe({
       M: { px: 10, py: '5px' },
       XS: { px: 5, py: 2.5 },
       lg: { h: 11, px: 8 },
-      icon: { fontWeight: 600, fontSize: { L: 20, M: 18, S: 14 }, px: 5, py: '7px', gap: 1, M: { h: '50px' } }
+      icon: { fontWeight: 600, fontSize: { L: 20, S: 18, XS: 14 }, px: 5, py: '7px', gap: 1, M: { h: '50px' } }
     }
   },
   defaultVariants: {

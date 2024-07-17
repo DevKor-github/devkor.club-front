@@ -31,8 +31,8 @@ const Portfolio = ({ file, handleFileSelect, handleDeleteFile }: PortfolioProps)
           alignSelf: 'stretch',
           whiteSpace: 'pre-wrap',
           color: 'label.80',
-          fontSize: 16,
-          fontWeight: 600
+          S: { fontSize: 16, fontWeight: 600 },
+          XS: { fontSize: 14, fontWeight: 600 }
         })}
       >
         {track === 'DE' ? '포트폴리오를 첨부해주세요!' : ' 포트폴리오가 있다면 첨부해주세요! '}

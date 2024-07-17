@@ -5,14 +5,15 @@ import { TrackCardProps } from '@/types/track'
 
 const TrackCards = ({ selectedTrack, handleSelectTrack }: Omit<TrackCardProps, 'track'>) => {
   return (
-    <div className={css({ display: 'flex', flexDir: 'column', gap: 5 })}>
-      <p className={css({ fontSize: 18, fontWeight: 700 })}>지원 파트</p>
+    <div className={css({ display: 'flex', flexDir: 'column', gap: 5, px: { S: 8, XS: 4 } })}>
+      <p className={css({ fontSize: { S: 18, XSDown: 16 }, fontWeight: { S: 700, XSDown: 600 } })}>지원 파트</p>
       <div
         className={css({
           display: 'flex',
           alignItems: 'center',
-          gap: 5
-          //   alignSelf: 'stretch'
+          gap: { M: 5, S: 4, SDown: 4, XS: 1 },
+          flexWrap: 'wrap',
+          justifyContent: 'center'
         })}
       >
         <TrackCard track="FE" selectedTrack={selectedTrack} handleSelectTrack={handleSelectTrack} />

@@ -29,8 +29,8 @@ const Question = <T extends z.ZodType<any, any, any>>({
         alignItems: 'flex-start',
         gap: 2.5,
         alignSelf: 'stretch',
-        fontSize: 16,
-        fontWeight: 600,
+        S: { fontSize: 16, fontWeight: 600 },
+        XS: { fontSize: 14, fontWeight: 600 },
         color: 'label.80',
         w: 'full'
       })}
