@@ -12,5 +12,6 @@ export const useMatchLayout = () => {
   const MOnly = useMediaQuery(`(min-width: ${Layout.M}) and (max-width: 79.9975rem)`)
   const S = useMediaQuery(`(min-width: ${Layout.S})`)
   const XS = useMediaQuery(`(min-width: ${Layout.XS})`)
-  return { L, M, MOnly, S, XS }
+  const XSDown = useMediaQuery(`(max-width: ${Layout.XS})`)
+  return { L, M, MOnly, S, XS, XSDown }
 }

@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 
 import FileUploadModal from '@/components/apply/FileUploadModal'
 import Button from '@/components/ui/button'
+import { useMatchLayout } from '@/utils/useMatchLayout'
 
 interface PortfolioProps {
   fileName: string | null
@@ -19,6 +20,7 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
   const [deleteFile, setDeleteFile] = useState(false)
   const handleCloseModal = useCallback(() => setIsOpen(false), [])
 
+  const mediaQuery = useMatchLayout()
   const { track } = useParams()
   return (
     <>
@@ -49,7 +51,9 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
           <div className={css({ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 })}>
             <Button variant="iconActive" size="icon" type="button" onClick={() => setDeleteFile(f => !f)}>
               <FileText className={css({ w: 5, h: 5 })} />
-              {originalFileName}
+              {mediaQuery.XSDown && originalFileName.length > 4
+                ? `${originalFileName.slice(0, 4)}...jpg`
+                : originalFileName}
             </Button>
             {deleteFile && (
               <motion.button
