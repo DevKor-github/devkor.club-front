@@ -40,13 +40,22 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
 
     // 드래그되는 데이터 정보와 메서드를 제공하는 dataTransfer 객체 사용
     if (e.dataTransfer) {
+      if (e.dataTransfer.files[0].name.split('.').pop() !== 'pdf') {
+        alert('PDF 파일만 업로드 가능합니다.')
+        return
+      }
       setFile(e.dataTransfer.files[0])
     }
   }
 
   // Drag & Drop이 아닌 클릭 이벤트로 업로드되는 기능도 추가
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFile(e.target.files ? e.target.files[0] : null)
+    if (!e.target.files) return
+    if (e.target.files[0].name.split('.').pop() !== 'pdf') {
+      alert('PDF 파일만 업로드 가능합니다.')
+      return
+    }
+    setFile(e.target.files[0])
     // input 요소의 값 초기화
     e.target.value = ''
   }
@@ -145,9 +154,9 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
               color: '#676767'
             })}
           >
-            <p>Supported formats: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT</p>
+            <p>Supported formats: PDF</p>
           </div>
-          <input id="fileUpload" type="file" hidden onChange={handleChange} />
+          <input id="fileUpload" type="file" accept=".pdf" hidden onChange={handleChange} />
         </label>
         <div
           className={css({
