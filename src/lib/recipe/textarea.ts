@@ -17,11 +17,12 @@ export const textareaRecipe = defineRecipe({
     border: '1.5px solid {colors.label.98}',
     bgColor: 'label.BG',
     _focus: { border: '1.5px solid {colors.primary.70}', outline: 'none' },
-    fontSize: 18,
-    fontWeight: 400,
+    S: { fontSize: 16, fontWeight: 600 },
+    XS: { fontSize: 14, fontWeight: 600 },
     color: 'label.50',
     resize: 'none',
-    overflow: 'auto'
+    overflow: 'auto',
+    _placeholder: { color: 'label.80' }
   },
   variants: {
     variant: {

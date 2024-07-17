@@ -32,8 +32,8 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
           alignSelf: 'stretch',
           whiteSpace: 'pre-wrap',
           color: 'label.80',
-          fontSize: 16,
-          fontWeight: 600
+          S: { fontSize: 16, fontWeight: 600 },
+          XS: { fontSize: 14, fontWeight: 600 }
         })}
       >
         {track === 'DE' ? '포트폴리오를 첨부해주세요!' : ' 포트폴리오가 있다면 첨부해주세요! '}
@@ -42,7 +42,7 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
       </div>
       <div className={css({ display: 'flex', gap: 2.5 })}>
         <Button variant="icon" type="button" size="icon" onClick={() => setIsOpen(true)}>
-          파일 추가
+          {file ? '파일 변경' : '파일 추가'}
           <Upload className={css({ w: 5, h: 5 })} />
         </Button>
         {originalFileName && (

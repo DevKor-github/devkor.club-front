@@ -32,12 +32,12 @@ const TrackCard = ({ track, handleSelectTrack, selectedTrack }: TrackCardProps) 
         justifyContent: 'flex-start',
         alignItems: 'center',
         flexShrink: 0,
-        w: 190,
-        h: 200,
+        w: { M: 190, S: 342, XS: 162, XSDown: 162 },
+        h: { M: 200, S: 140, XS: 100, XSDown: 100 },
         bgColor: 'label.BG',
         px: 38,
-        py: 29,
-        gap: 8,
+        py: { M: 25, S: 18, XS: '25px', XSDown: '25px' },
+        gap: { M: 8, S: 3, SDown: 3 },
         border: '1px solid {colors.label.98}',
         rounded: 20,
         cursor: 'pointer',
@@ -56,12 +56,12 @@ const TrackCard = ({ track, handleSelectTrack, selectedTrack }: TrackCardProps) 
           px: 2.5,
           py: 1,
           rounded: 25,
-          fontSize: 18,
-          fontWeight: 700,
+          fontSize: { S: 18, XSDown: 16 },
+          fontWeight: { S: 700, XSDown: 16 },
           color: 'label.80',
           bgColor: 'label.98',
-          w: 47,
-          h: 29,
+          w: { S: '50px', XS: '40px', XSDown: '40px' },
+          h: { S: '30px', XS: '20px', XSDown: '20px' },
           _checked: { bgColor: 'rgba(255, 197, 19, 0.20)', transition: 'background-color 0.1s ease-in-out' }
         })}
       >
@@ -69,11 +69,11 @@ const TrackCard = ({ track, handleSelectTrack, selectedTrack }: TrackCardProps) 
       </div>
       <div
         className={css({
-          fontSize: 24,
+          fontSize: { S: 24, XSDown: 18 },
           fontWeight: 500,
           color: 'label.70',
           textAlign: 'center',
-          whiteSpace: 'pre-wrap'
+          whiteSpace: { M: 'pre-wrap', S: 'nowrap', SDown: 'nowrap' }
         })}
       >
         {title}

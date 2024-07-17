@@ -41,7 +41,15 @@ const PersonalInfo = () => {
         gap: 2.5
       })}
     >
-      <p className={css({ fontSize: 18, fontWeight: 700, color: 'label.50' })}>인적 사항</p>
+      <p
+        className={css({
+          S: { fontSize: 18, fontWeight: 700 },
+          XS: { fontSize: 16, fontWeight: 600 },
+          color: 'label.50'
+        })}
+      >
+        인적 사항
+      </p>
       <Question<typeof personalInfoSchema>
         title="이름"
         placeholder="이름을 입력해주세요."
@@ -58,7 +66,7 @@ const PersonalInfo = () => {
       />
       <Question<typeof personalInfoSchema>
         title="휴대폰 번호"
-        placeholder="휴대폰 번호를 입력해주세요. (형식 010-0000-0000)"
+        placeholder="형식: 010-0000-0000"
         register={register}
         errors={errors}
         filed={'phone'}
@@ -66,14 +74,14 @@ const PersonalInfo = () => {
       <div className={css({ display: 'flex', gap: 5, alignItems: 'center', alignSelf: 'stretch' })}>
         <Question<typeof personalInfoSchema>
           title="학과"
-          placeholder="학과를 입력해주세요."
+          placeholder="학과"
           register={register}
           errors={errors}
           filed={'major'}
         />
         <Question<typeof personalInfoSchema>
           title="학번"
-          placeholder="10자리 학번을 입력해주세요"
+          placeholder="10자리 학번"
           register={register}
           errors={errors}
           filed={'studentId'}

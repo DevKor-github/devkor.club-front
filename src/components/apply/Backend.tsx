@@ -56,7 +56,15 @@ const Backend = () => {
         gap: 2.5
       })}
     >
-      <p className={css({ fontSize: 18, fontWeight: 700, color: 'label.50' })}>파트별 질문</p>
+      <p
+        className={css({
+          S: { fontSize: 18, fontWeight: 700 },
+          XS: { fontSize: 16, fontWeight: 600 },
+          color: 'label.50'
+        })}
+      >
+        파트별 질문
+      </p>
       <Question<typeof backendSchema>
         title="본인을 자유롭게 소개해주세요."
         limit

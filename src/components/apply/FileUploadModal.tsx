@@ -88,9 +88,10 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
           display: 'flex',
           flexDir: 'column',
           maxW: 540,
+          w: 'calc(100% - 50px)',
           rounded: 4,
           py: '30px',
-          px: 12,
+          px: { S: 12, XS: 4 },
           bgColor: 'white',
           boxShadow: ' 0px 6px 8px 0px rgba(0, 0, 0, 0.05)',
           zIndex: 100,
@@ -117,7 +118,7 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
             justifyContent: 'center',
             alignItems: 'center',
             py: 30,
-            px: 31,
+            px: { S: 31, XS: 2 },
             mt: 30
           })}
           htmlFor="fileUpload"

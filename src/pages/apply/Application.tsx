@@ -42,15 +42,19 @@ const Application = () => {
         flexDir: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        px: 310,
+        px: 8,
         gap: 45,
         py: 144
       })}
     >
       <div className={css({ display: 'flex', width: 'full', flexDir: 'column', alignItems: 'center', gap: 85 })}>
         <div className={css({ display: 'flex', flexDir: 'column', alignItems: 'center', gap: 2.5 })}>
-          <h1 className={css({ fontSize: 48, fontWeight: 700, color: 'label.50' })}>지원서 작성하기</h1>
-          <h2 className={css({ fontSize: 20, fontWeight: 500, color: 'label.80' })}>{trackTitle}</h2>
+          <h1 className={css({ fontSize: { M: 48, S: 40, XS: 32, XSDown: 32 }, fontWeight: 700, color: 'label.50' })}>
+            지원서 작성하기
+          </h1>
+          <h2 className={css({ fontSize: { M: 20, S: 16, XS: 14, XSDown: 14 }, fontWeight: 500, color: 'label.80' })}>
+            {trackTitle}
+          </h2>
         </div>
       </div>
       <PersonalInfo />
@@ -66,7 +70,7 @@ const Application = () => {
         })}
       >
         <Button variant="gray" disabled={!track}>
-          다음
+          제출하기
         </Button>
       </div>
     </section>
