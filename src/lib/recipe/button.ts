@@ -24,15 +24,18 @@ export const buttonRecipe = defineRecipe({
         bgColor: 'primary.70',
         _hover: { transition: 'background 0.3s ease-in-out', bgColor: 'rgba(255, 197, 19, 0.50)' }
       },
-      outline: {
-        bg: 'background',
-        border: 'input',
-        color: 'primary',
-        _hover: { transition: 'background 0.25s', bg: 'accent', color: 'accent.foreground' }
+      gray: {
+        bgColor: 'label.90',
+        _hover: { transition: 'background 0.3s ease-in-out', bgColor: 'rgba(255, 197, 19, 0.50)' }
       },
-      ghost: {
-        color: 'primary',
-        _hover: { bg: 'accent', color: 'accent.foreground' }
+      icon: {
+        bgColor: 'label.80',
+        _hover: { transition: 'background 0.3s ease-in-out', bgColor: 'label.90' }
+      },
+      iconActive: {
+        border: '1.5px solid {colors.label.80}',
+        color: 'label.80',
+        _hover: { transition: 'background 0.3s ease-in-out', bgColor: 'label.BG' }
       }
     },
     size: {
@@ -42,7 +45,7 @@ export const buttonRecipe = defineRecipe({
       M: { px: 10, py: '5px' },
       XS: { px: 5, py: 2.5 },
       lg: { h: 11, px: 8 },
-      icon: { h: 10, w: 10 }
+      icon: { fontWeight: 600, fontSize: { L: 20, M: 18, S: 14 }, px: 5, py: '7px', gap: 1, M: { h: '50px' } }
     }
   },
   defaultVariants: {
