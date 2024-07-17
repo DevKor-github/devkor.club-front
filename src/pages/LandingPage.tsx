@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import video from '@/assets/DevKor_landing.webm'
+import video from '@/assets/Landing.mp4'
 import ClickedIntro from '@/components/landing/ClickedIntro'
 import LandingIntro from '@/components/landing/LandingIntro'
 import TrackCard from '@/components/landing/TrackCard'

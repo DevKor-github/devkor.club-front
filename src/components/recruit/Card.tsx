@@ -56,12 +56,13 @@ const Card = ({ icons, children }: CardProps) => {
   return (
     <div
       className={css({
-        width: '400px',
+        width: { L: '400px', XS: 220 },
         height: '264px',
         borderRadius: '30px',
         boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.08)',
         backdropFilter: 'blur(5px)',
-        padding: '20px',
+        py: '20px',
+        px: { XS: 2 },
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -83,10 +84,11 @@ const Card = ({ icons, children }: CardProps) => {
       <p
         className={css({
           color: 'label.70',
-          fontSize: '20px',
+          fontSize: { L: 20, XS: 16 },
           fontWeight: 400,
           wordBreak: 'keep-all',
-          whiteSpace: 'pre-wrap'
+          whiteSpace: 'pre-wrap',
+          textAlign: { L: 'unset', XS: 'center' }
         })}
       >
         {children}
