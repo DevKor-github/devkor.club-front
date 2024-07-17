@@ -27,6 +27,7 @@ import Card from '@/components/recruit/Card'
 import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 import Spline from '@splinetool/react-spline'
+import { useNavigate } from 'react-router-dom'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
   const x = useTransform(scrollY, [0, 200], [0, -1000], { ease: easeInOut })
@@ -62,7 +63,7 @@ const RecruitingPage = () => {
     if (mediaQuery.L) return Calendar
     if (mediaQuery.M) return CalendarM
     return CalendarXS
-  }, [])
+  }, [mediaQuery])
 
   const [calendarSrc, setCalendarSrc] = useState(handleCalendarMediaQuery)
   useEffect(() => setCalendarSrc(handleCalendarMediaQuery()), [mediaQuery, handleCalendarMediaQuery])
@@ -83,6 +84,8 @@ const RecruitingPage = () => {
   const { scrollYProgress } = useScroll({ target: targetRef })
   const test = useTransform(scrollYProgress, [0, 1], ['80%', '-30%'])
 
+  const navigate = useNavigate()
+  const handleNavigate = useCallback(() => navigate('/apply'), [navigate])
   return (
     <div
       className={css({
@@ -230,6 +233,7 @@ const RecruitingPage = () => {
               )}
               animate={{ x: 0 }}
               transition={{ delay: 1.7, type: 'spring', stiffness: 100, damping: 10, mass: 0.5 }}
+              onClick={handleNavigate}
             >
               지원서 작성하기
             </motion.button>
@@ -323,7 +327,9 @@ const RecruitingPage = () => {
               유저 경험을 더욱 중시하는 서비스를 출시 하고자 합니다. <br />
               모든 포지션이 프로젝트의 기획부터 개발 및 디자인, 운영까지 모든 과정에 참여합니다.
             </p>
-            <Button variant="colored">지원서 작성하기</Button>
+            <Button variant="colored" onClick={handleNavigate}>
+              지원서 작성하기
+            </Button>
           </motion.section>
         )}
       </AnimatePresence>
