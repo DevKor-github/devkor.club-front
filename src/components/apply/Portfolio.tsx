@@ -48,7 +48,7 @@ const Portfolio = ({ file, handleFileSelect, handleDeleteFile }: PortfolioProps)
           <div className={css({ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 })}>
             <Button variant="iconActive" size="icon" type="button" onClick={() => setDeleteFile(f => !f)}>
               <FileText className={css({ w: 5, h: 5 })} />
-              {file?.name}
+              {file?.name.length > 10 ? `${file?.name.slice(0, 5)}...jpg` : file?.name}
             </Button>
             {deleteFile && (
               <motion.button
