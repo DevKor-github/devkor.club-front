@@ -5,7 +5,7 @@ import { fetchPresignedUrl, uploadImageToS3 } from '@/api/recruit'
 import UploadIcon from '@/assets/UploadIcon.svg'
 
 interface FileUploadModalProps {
-  onChangeFile: (fileName: string, originalFileName: string) => void
+  onChangeFile: (fileName: string, originalFileName: string, url: string) => void
   handleClose: () => void
 }
 const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) => {
@@ -70,7 +70,8 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
       // TODO: 진행중 스피너, 모달 등 추가
       const presignedUrl = await fetchPresignedUrl(fileName)
       await uploadImageToS3(presignedUrl, file)
-      onChangeFile(fileName, file.name)
+      const url = `https://devkor-recruiting-files.s3.ap-northeast-2.amazonaws.com/${fileName}`
+      onChangeFile(fileName, file.name, url)
       handleClose()
     } catch (error) {
       // alert
@@ -113,7 +114,13 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
           transform: 'translate(-50%, -50%)'
         })}
       >
-        <div className={css({ display: 'flex', px: 2.5, alignItems: 'flex-start' })}>
+        <div
+          className={css({
+            display: 'flex',
+            px: 2.5,
+            alignItems: 'flex-start'
+          })}
+        >
           <h1 className={css({ fontSize: 22, fontWeight: 700 })}>Upload</h1>
         </div>
         <label
@@ -135,13 +142,30 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
-          style={{ borderColor: dragOver ? 'primary.70' : 'rgba(183, 170, 56, 0.30)' }}
+          style={{
+            borderColor: dragOver ? 'primary.70' : 'rgba(183, 170, 56, 0.30)'
+          }}
         >
           <img src={UploadIcon} alt="upload" />
-          <div className={css({ display: 'flex', p: '5px', alignItems: 'flex-start', fontSize: 16, fontWeight: 700 })}>
+          <div
+            className={css({
+              display: 'flex',
+              p: '5px',
+              alignItems: 'flex-start',
+              fontSize: 16,
+              fontWeight: 700
+            })}
+          >
             <p>
               Drag & drop files or{' '}
-              <span className={css({ textDecoration: 'underline', color: 'primary.70' })}>Browse</span>
+              <span
+                className={css({
+                  textDecoration: 'underline',
+                  color: 'primary.70'
+                })}
+              >
+                Browse
+              </span>
             </p>
           </div>
           <div

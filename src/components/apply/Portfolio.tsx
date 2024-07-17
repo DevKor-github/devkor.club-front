@@ -12,7 +12,7 @@ import { useMatchLayout } from '@/utils/useMatchLayout'
 interface PortfolioProps {
   fileName: string | null
   originalFileName: string | null
-  handleFileSelect: (fileName: string, originalFileName: string) => void
+  handleFileSelect: (fileName: string, originalFileName: string, url) => void
   handleDeleteFile: () => void
 }
 const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteFile }: PortfolioProps) => {
@@ -39,8 +39,17 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
         })}
       >
         {track === 'DE' ? '포트폴리오를 첨부해주세요!' : ' 포트폴리오가 있다면 첨부해주세요! '}
-        <p className={css({ fontSize: 12, fontWeight: 400 })}>500mb 이하의 파일만 업로드 가능합니다.</p>
-        <div className={css({ w: 1.5, h: 1.5, rounded: 'full', bgColor: 'secondary.70' })} />
+        <p className={css({ fontSize: 12, fontWeight: 400 })}>500MB 이하의 파일만 업로드 가능합니다.</p>
+        {track === 'DE' && (
+          <div
+            className={css({
+              w: 1.5,
+              h: 1.5,
+              rounded: 'full',
+              bgColor: 'secondary.70'
+            })}
+          />
+        )}
       </div>
       <div className={css({ display: 'flex', gap: 2.5 })}>
         <Button variant="icon" type="button" size="icon" onClick={() => setIsOpen(true)}>
@@ -48,11 +57,18 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
           <Upload className={css({ w: 5, h: 5 })} />
         </Button>
         {originalFileName && (
-          <div className={css({ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 })}>
+          <div
+            className={css({
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 1
+            })}
+          >
             <Button variant="iconActive" size="icon" type="button" onClick={() => setDeleteFile(f => !f)}>
               <FileText className={css({ w: 5, h: 5 })} />
               {mediaQuery.XSDown && originalFileName.length > 4
-                ? `${originalFileName.slice(0, 4)}...jpg`
+                ? `${originalFileName.slice(0, 4)}...${originalFileName.split('.').pop()}`
                 : originalFileName}
             </Button>
             {deleteFile && (

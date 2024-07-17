@@ -1,6 +1,13 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
+import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
+import { z } from 'zod'
 
+import { usePostBackApplication } from '@/api/hooks/backend'
+import { usePostDeApplication } from '@/api/hooks/designer'
+import { usePostFrontApplication } from '@/api/hooks/frontend'
+import { usePostPmApplication } from '@/api/hooks/pm'
 import AvailableTime from '@/components/apply/AvailableTime'
 import Backend from '@/components/apply/Backend'
 import Designer from '@/components/apply/Designer'
@@ -8,13 +15,9 @@ import Frontend from '@/components/apply/Frontend'
 import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
 import Button from '@/components/ui/button'
-import { Track } from '@/types/track'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
-import { usePostFrontApplication } from '@/api/hooks/frontend'
 
 type TrackConfigType = {
   [key in Track]: string
@@ -28,12 +31,13 @@ const trackConfig: TrackConfigType = {
 
 const Application = () => {
   const { track } = useParams()
-  const trackTitle = trackConfig[track as Track]
 
+  const trackTitle = trackConfig[track as Track]
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    setValue,
     getValues
   } = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
@@ -42,10 +46,12 @@ const Application = () => {
       email: '',
       phone: '',
       major: '',
-      studentId: ''
+      studentId: '',
+      interviewTime: 0
     },
     mode: 'onBlur'
   })
+  const setInterviewTime = (time: number) => setValue('interviewTime', time)
   function onSubmit(values: z.infer<typeof personalInfoSchema>) {
     console.log(values)
   }
@@ -60,16 +66,43 @@ const Application = () => {
   }
 
   const { mutate: postFe } = usePostFrontApplication()
-  const handleFromSubmit = () => {
-    handleSubmit(() => {})()
-    forms[track as Track].handleSubmit(() => {})()
+  const { mutate: postBe } = usePostBackApplication()
+  const { mutate: postPm } = usePostPmApplication()
+  const { mutate: postDe } = usePostDeApplication()
+
+  const handleFromSubmit = async () => {
+    await forms[track as Track].trigger()
+    await handleSubmit(() => {})()
+    await forms[track as Track].handleSubmit(() => {})()
+
     if (isValid && forms[track as Track].formState.isValid) {
-      postFe({
-        ...getValues(),
-        interviewTime: '10',
-        ...feform.getValues()
-      })
-    } else console.log('hi')
+      if (track === 'FE') {
+        postFe({
+          ...getValues(),
+          ...feform.getValues()
+        })
+      }
+      if (track === 'BE') {
+        postBe({
+          ...getValues(),
+          ...beform.getValues()
+        })
+      }
+      if (track === 'PM') {
+        postPm({
+          ...getValues(),
+          ...pmform.getValues()
+        })
+      }
+      if (track === 'DE') {
+        postDe({
+          ...getValues(),
+          ...deform.getValues()
+        })
+      }
+    } else {
+      alert('입력 정보를 다시 한 번 확인해주세요!')
+    }
   }
   return (
     <section
@@ -85,12 +118,39 @@ const Application = () => {
         py: 144
       })}
     >
-      <div className={css({ display: 'flex', width: 'full', flexDir: 'column', alignItems: 'center', gap: 85 })}>
-        <div className={css({ display: 'flex', flexDir: 'column', alignItems: 'center', gap: 2.5 })}>
-          <h1 className={css({ fontSize: { M: 48, S: 40, XS: 32, XSDown: 32 }, fontWeight: 700, color: 'label.50' })}>
+      <div
+        className={css({
+          display: 'flex',
+          width: 'full',
+          flexDir: 'column',
+          alignItems: 'center',
+          gap: 85
+        })}
+      >
+        <div
+          className={css({
+            display: 'flex',
+            flexDir: 'column',
+            alignItems: 'center',
+            gap: 2.5
+          })}
+        >
+          <h1
+            className={css({
+              fontSize: { M: 48, S: 40, XS: 32, XSDown: 32 },
+              fontWeight: 700,
+              color: 'label.50'
+            })}
+          >
             지원서 작성하기
           </h1>
-          <h2 className={css({ fontSize: { M: 20, S: 16, XS: 14, XSDown: 14 }, fontWeight: 500, color: 'label.80' })}>
+          <h2
+            className={css({
+              fontSize: { M: 20, S: 16, XS: 14, XSDown: 14 },
+              fontWeight: 500,
+              color: 'label.80'
+            })}
+          >
             {trackTitle}
           </h2>
         </div>
@@ -100,7 +160,7 @@ const Application = () => {
       {track === 'BE' && <Backend form={beform} />}
       {track === 'PM' && <ProjectManager form={pmform} />}
       {track === 'DE' && <Designer form={deform} />}
-      <AvailableTime />
+      <AvailableTime setInterviewTime={setInterviewTime} />
       <div
         className={css({
           display: 'flex',

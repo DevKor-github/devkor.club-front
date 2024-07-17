@@ -6,7 +6,10 @@ export const personalInfoSchema = z.object({
   phone: z
     .string()
     .length(13, { message: '휴대폰 번호 형식이 올바르지 않습니다.' })
-    .regex(/^010-\d{4}-\d{4}$/, { message: '휴대폰 번호 형식이 올바르지 않습니다.' }),
+    .regex(/^010-\d{4}-\d{4}$/, {
+      message: '휴대폰 번호 형식이 올바르지 않습니다.'
+    }),
   major: z.string().min(4, { message: '학과를 입력해주셔야 합니다' }),
-  studentId: z.string().length(10, { message: '학번은 10자리여야 합니다.' })
+  studentId: z.string().length(10, { message: '학번은 10자리여야 합니다.' }),
+  interviewTime: z.number()
 })

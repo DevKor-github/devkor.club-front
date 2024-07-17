@@ -7,5 +7,15 @@ export const selectedTimes = atom([
   { selected: false },
   { selected: false },
   { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
   { selected: false }
 ])

@@ -1,11 +1,10 @@
-import { apiClient } from '@/api/apiClient'
-import { FeApplicationRequest } from '@/api/types/frontend'
 import { useMutation } from '@tanstack/react-query'
 
+import { apiClient } from '@/api/apiClient'
+import { FeApplicationRequest } from '@/api/types/application'
+
 const postFrontApplication = async (data: FeApplicationRequest) => {
-  const response = await apiClient.post('/recruit/apply/fe', {
-    data
-  })
+  const response = await apiClient.post('/recruit/apply/fe', data)
   return response.data
 }
 

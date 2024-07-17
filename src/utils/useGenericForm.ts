@@ -1,11 +1,12 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
 import { backendSchema } from '@/lib/zod/backend-schema'
 import { designerSchema } from '@/lib/zod/designer-schema'
 import { techSchema } from '@/lib/zod/fontend-schema'
 import { pmSchema } from '@/lib/zod/pm-schema'
 import { Track } from '@/types/track'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 const defaultValues = {
   FE: {
@@ -39,7 +40,8 @@ const defaultValues = {
     answer3: '',
     answer4: '',
     answer5: '',
-    answer6: ''
+    answer6: '',
+    answer7: ''
   }
 }
 
