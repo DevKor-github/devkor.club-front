@@ -9,7 +9,7 @@ import {
   useScroll,
   useTransform
 } from 'framer-motion'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Calendar from '@/assets/calendar_L.png'
 import CalendarM from '@/assets/calendar_M.png'
 import CalendarXS from '@/assets/calendar_XS.png'
@@ -78,6 +78,11 @@ const RecruitingPage = () => {
     if (phase >= window.innerHeight * 2) return '100%'
     return mediaQuery.M ? '50%' : '100%'
   }, [phase])
+
+  const targetRef = useRef<HTMLDivElement | null>(null)
+  const { scrollYProgress } = useScroll({ target: targetRef })
+  const test = useTransform(scrollYProgress, [0, 1], ['80%', '-30%'])
+
   return (
     <div
       className={css({
@@ -89,7 +94,7 @@ const RecruitingPage = () => {
         alignItems: 'center',
         overflow: 'scroll'
       })}
-      style={{ height: window.innerHeight * 4 }}
+      style={{ height: mediaQuery.S ? window.innerHeight * 4 : window.innerHeight * 10 }}
     >
       <AnimatePresence>
         {!phase && (
@@ -217,7 +222,7 @@ const RecruitingPage = () => {
                 button({ variant: 'colored', size: { S: 'XL', SDown: 'XS' } }),
                 css({
                   pos: 'absolute',
-                  bottom: { L: 94, M: 78, S: 24, SDown: 49 },
+                  bottom: { L: 94, M: 78, S: 24, SDown: 53 },
                   left: { M: '24px', S: 8, SDown: 21 },
                   fontSize: { S: 24, SDown: 16 },
                   fontWeight: 700
@@ -394,14 +399,14 @@ const RecruitingPage = () => {
           zIndex: -1,
           right: mediaQuery.M ? 0 : '50%',
           translateX: mediaQuery.M ? 0 : '50%',
-          display: phase >= 600 && phase <= window.innerHeight * 3 ? 'flex' : 'none'
+          display: phase >= 600 && phase <= window.innerHeight * 10 ? 'flex' : 'none'
         }}
         transition={{ duration: 0.5 }}
       >
         <Spline scene="https://prod.spline.design/DUh5k8bG5Vo5Xedl/scene.splinecode" />
       </motion.div>
       <AnimatePresence>
-        {phase >= window.innerHeight * 2 && phase <= window.innerHeight * 3 && (
+        {phase >= window.innerHeight * 2 && (
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -424,11 +429,13 @@ const RecruitingPage = () => {
             <h5 className={css({ color: 'label.50', fontSize: { S: 48, XS: 24 }, fontWeight: 700 })}>
               이런 분들과 함께하고 싶습니다.
             </h5>
-            <div
+            <motion.div
               className={css({
                 display: 'flex',
                 gap: '20px'
               })}
+              // style={{ x: '-30%' }}
+              style={mediaQuery.S ? undefined : { x: test }}
             >
               <Card icons={['FE', 'BE']}>
                 기능을 잘 만드는 개발자보다{'\n'}코드 레벨에서의 최적화와{'\n'}다양한 트러블 슈팅을 경험해본{' '}
@@ -442,7 +449,7 @@ const RecruitingPage = () => {
                 아이디어를 잘내는 기획자보다,{'\n'}구체적인 근거를 바탕으로 어떤 아이템이{'\n'}시장에 수요가 있을지
                 생각하고,{'\n'}User flow를 기획하는 <span className={css({ color: 'label.50' })}>기획자</span>
               </Card>
-            </div>
+            </motion.div>
           </motion.section>
         )}
       </AnimatePresence>
