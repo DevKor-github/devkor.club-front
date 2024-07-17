@@ -1,15 +1,16 @@
 import { css } from '@styled-stytem/css'
 import { ChangeEvent, useState } from 'react'
 
+import { fetchPresignedUrl, uploadImageToS3 } from '@/api/recruit'
 import UploadIcon from '@/assets/UploadIcon.svg'
 
 interface FileUploadModalProps {
-  onChangeFile: (file: File | null) => void
+  onChangeFile: (fileName: string, originalFileName: string) => void
   handleClose: () => void
-  description?: string
 }
-const FileUploadModal = ({ onChangeFile, description, handleClose }: FileUploadModalProps) => {
+const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) => {
   const [dragOver, setDragOver] = useState(false)
+  const [file, setFile] = useState<File | null>(null)
 
   // 드래그 중인 요소가 목표 지점 진입할때
   const handleDragEnter = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -39,19 +40,35 @@ const FileUploadModal = ({ onChangeFile, description, handleClose }: FileUploadM
 
     // 드래그되는 데이터 정보와 메서드를 제공하는 dataTransfer 객체 사용
     if (e.dataTransfer) {
-      const file = e.dataTransfer.files[0]
-      onChangeFile(file)
+      setFile(e.dataTransfer.files[0])
     }
   }
 
   // Drag & Drop이 아닌 클릭 이벤트로 업로드되는 기능도 추가
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null
-    onChangeFile(file)
-
+    setFile(e.target.files ? e.target.files[0] : null)
     // input 요소의 값 초기화
     e.target.value = ''
   }
+
+  const handleUpload = async () => {
+    if (!file) {
+      handleClose()
+      return
+    }
+    const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.pdf` // file name 생성
+    try {
+      // TODO: 진행중 스피너, 모달 등 추가
+      const presignedUrl = await fetchPresignedUrl(fileName)
+      await uploadImageToS3(presignedUrl, file)
+      onChangeFile(fileName, file.name)
+      handleClose()
+    } catch (error) {
+      // alert
+      alert('포트폴리오 업로드에 실패했습니다. 다시 시도해주세요.')
+    }
+  }
+
   return (
     <>
       <button
@@ -128,7 +145,7 @@ const FileUploadModal = ({ onChangeFile, description, handleClose }: FileUploadM
               color: '#676767'
             })}
           >
-            <p>Supported formates: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT</p>
+            <p>Supported formats: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT</p>
           </div>
           <input id="fileUpload" type="file" hidden onChange={handleChange} />
         </label>
@@ -144,7 +161,6 @@ const FileUploadModal = ({ onChangeFile, description, handleClose }: FileUploadM
             flexDir: 'column'
           })}
         >
-          Uploading
           <div
             className={css({
               display: 'flex',
@@ -155,7 +171,7 @@ const FileUploadModal = ({ onChangeFile, description, handleClose }: FileUploadM
               py: 2
             })}
           >
-            {description ?? 'your-file-here.PDF'}
+            {file ? file.name : 'your-file-here.PDF'}
           </div>
         </div>
         <button
@@ -174,7 +190,7 @@ const FileUploadModal = ({ onChangeFile, description, handleClose }: FileUploadM
             mt: 47,
             cursor: 'pointer'
           })}
-          onClick={handleClose}
+          onClick={handleUpload}
         >
           UPLOAD FILES
         </button>

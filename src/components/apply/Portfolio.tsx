@@ -9,11 +9,12 @@ import FileUploadModal from '@/components/apply/FileUploadModal'
 import Button from '@/components/ui/button'
 
 interface PortfolioProps {
-  file: File | null
-  handleFileSelect: (file: File | null) => void
+  fileName: string | null
+  originalFileName: string | null
+  handleFileSelect: (fileName: string, originalFileName: string) => void
   handleDeleteFile: () => void
 }
-const Portfolio = ({ file, handleFileSelect, handleDeleteFile }: PortfolioProps) => {
+const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteFile }: PortfolioProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [deleteFile, setDeleteFile] = useState(false)
   const handleCloseModal = useCallback(() => setIsOpen(false), [])
@@ -44,11 +45,11 @@ const Portfolio = ({ file, handleFileSelect, handleDeleteFile }: PortfolioProps)
           {file ? '파일 변경' : '파일 추가'}
           <Upload className={css({ w: 5, h: 5 })} />
         </Button>
-        {file && (
+        {originalFileName && (
           <div className={css({ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 })}>
             <Button variant="iconActive" size="icon" type="button" onClick={() => setDeleteFile(f => !f)}>
               <FileText className={css({ w: 5, h: 5 })} />
-              {file?.name.length > 10 ? `${file?.name.slice(0, 5)}...jpg` : file?.name}
+              {originalFileName}
             </Button>
             {deleteFile && (
               <motion.button
@@ -66,9 +67,7 @@ const Portfolio = ({ file, handleFileSelect, handleDeleteFile }: PortfolioProps)
         )}
       </div>
       {createPortal(
-        isOpen && (
-          <FileUploadModal onChangeFile={handleFileSelect} description={file?.name} handleClose={handleCloseModal} />
-        ),
+        isOpen && <FileUploadModal onChangeFile={handleFileSelect} handleClose={handleCloseModal} />,
         document.body
       )}
     </>
