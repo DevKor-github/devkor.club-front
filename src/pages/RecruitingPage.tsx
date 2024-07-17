@@ -28,6 +28,10 @@ import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 import Spline from '@splinetool/react-spline'
 import { useNavigate } from 'react-router-dom'
+import ChannelTalk from '@/assets/ChannelTalk.svg'
+import insta from '@/assets/insta.svg'
+import KakaoTalk from '@/assets/KakaoTalk.svg'
+import LinkedIn from '@/assets/LinkedIn.svg'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
   const x = useTransform(scrollY, [0, 200], [0, -1000], { ease: easeInOut })
@@ -503,6 +507,78 @@ const RecruitingPage = () => {
           <div>Project Manager</div>
         </div>
       </section> */}
+      <footer
+        className={css({
+          display: { S: 'flex', XS: 'none' },
+          w: 'full',
+          pos: 'fixed',
+          maxWidth: 'calc(1240px + 64px)',
+          bottom: 8,
+          zIndex: 100,
+          justifyContent: 'space-between',
+          px: 5
+        })}
+      >
+        <div
+          className={css({
+            display: 'flex',
+            px: 2.5,
+            py: 1,
+            alignItems: 'center',
+            color: 'label.80',
+            fontSize: { S: 16, XS: 10 },
+            fontWeight: { S: 500, XS: 400 },
+            rounded: 20,
+            bgColor: 'label.BG',
+            gap: 2
+          })}
+        >
+          Sponsored by <img src={ChannelTalk} alt="채널톡" />
+        </div>
+        <div
+          className={css({
+            display: 'flex',
+            px: 5,
+            py: 1,
+            alignItems: 'center',
+            color: 'label.80',
+            fontSize: { S: 16, XS: 10 },
+            fontWeight: { S: 500, XS: 400 },
+            rounded: 50,
+            bgColor: 'label.BG',
+            gap: 5
+          })}
+        >
+          <div className={css({ display: 'flex', alignItems: 'flex-start', gap: 5 })}>
+            {/* <p>© 2021 DevKor</p>
+            <p>Privacy Policy</p>
+            <p>Terms of Service</p> */}
+            <img src={LinkedIn} alt="LinkedIn" style={{ width: '34px' }} />
+            <button
+              className={css({
+                cursor: 'pointer',
+                rounded: 'full',
+                _hover: { bgColor: 'label.98', transition: 'background-color 0.3s ease-in' }
+              })}
+              onClick={() =>
+                window.open('https://www.instagram.com/devkor.ku?igsh=MTZjcTZybHBlYmZrdQ%3D%3D&utm_source=qr')
+              }
+            >
+              <img src={insta} alt="insta" style={{ width: '34px' }} />
+            </button>
+          </div>
+          <button
+            className={css({
+              cursor: 'pointer',
+              rounded: 'full',
+              _hover: { bgColor: 'label.98', transition: 'background-color 0.3s ease-in' }
+            })}
+            onClick={() => window.open('https://open.kakao.com/o/sqM7rsDg')}
+          >
+            <img src={KakaoTalk} alt="카카오톡" style={{ width: '34px' }} />
+          </button>
+        </div>
+      </footer>
     </div>
   )
 }
