@@ -44,6 +44,7 @@ const RecruitingPage = () => {
   const [phase, setPhase] = useState(0)
   useMotionValueEvent(scrollY, 'change', latest => setPhase(latest))
 
+
   const mediaQuery = useMatchLayout()
 
   const handleImgMediaQuery = useCallback(() => {
