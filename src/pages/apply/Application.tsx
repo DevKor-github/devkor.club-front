@@ -14,6 +14,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useGenericForm } from '@/utils/useGenericForm'
+import { usePostFrontApplication } from '@/api/hooks/frontend'
 
 type TrackConfigType = {
   [key in Track]: string
@@ -32,7 +33,8 @@ const Application = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isValid },
+    getValues
   } = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
@@ -45,23 +47,34 @@ const Application = () => {
     mode: 'onBlur'
   })
   function onSubmit(values: z.infer<typeof personalInfoSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values)
   }
 
   const { feform, beform, pmform, deform } = useGenericForm(track as Track)
 
-  const formHandlers = {
-    FE: feform.handleSubmit,
-    BE: beform.handleSubmit,
-    PM: pmform.handleSubmit,
-    DE: deform.handleSubmit
+  const forms = {
+    FE: feform,
+    BE: beform,
+    PM: pmform,
+    DE: deform
   }
 
+  const test = feform.getValues()
+  const { mutate: postFe } = usePostFrontApplication()
   const handleFromSubmit = () => {
-    handleSubmit(onSubmit)()
-    formHandlers[track as Track](() => {})()
+    handleSubmit(() => {})()
+    forms[track as Track].handleSubmit(() => {})()
+    if (isValid && forms[track as Track].formState.isValid) {
+      postFe({
+        name: getValues('name'),
+        email: getValues('email'),
+        phone: getValues('phone'),
+        major: getValues('major'),
+        studentId: getValues('studentId'),
+        interviewTime: '10',
+        ...feform.getValues()
+      })
+    } else console.log('hi')
   }
   return (
     <section
