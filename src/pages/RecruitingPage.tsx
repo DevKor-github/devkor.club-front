@@ -26,7 +26,7 @@ const RecruitingPage = () => {
   const i = useTransform(scrollY, [100, 250], [1, 0.6], { ease: easeInOut })
   const filter = useMotionTemplate`brightness(${i})`
   const [phase, setPhase] = useState(false)
-  useMotionValueEvent(scrollY, 'change', latest => setPhase(latest > 600 ? true : false))
+  useMotionValueEvent(scrollY, 'change', latest => setPhase(latest > 600))
 
   const mediaQuery = useMatchLayout()
 

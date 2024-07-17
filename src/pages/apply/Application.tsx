@@ -59,18 +59,13 @@ const Application = () => {
     DE: deform
   }
 
-  const test = feform.getValues()
   const { mutate: postFe } = usePostFrontApplication()
   const handleFromSubmit = () => {
     handleSubmit(() => {})()
     forms[track as Track].handleSubmit(() => {})()
     if (isValid && forms[track as Track].formState.isValid) {
       postFe({
-        name: getValues('name'),
-        email: getValues('email'),
-        phone: getValues('phone'),
-        major: getValues('major'),
-        studentId: getValues('studentId'),
+        ...getValues(),
         interviewTime: '10',
         ...feform.getValues()
       })
