@@ -32,9 +32,16 @@ const Backend = () => {
     // ✅ This will be type-safe and validated.
     console.log(values)
   }
-  const [file, setFile] = useState<File | null>(null)
-  const handleFileSelect = useCallback((file: File | null) => setFile(file), [])
-  const handleDeleteFile = useCallback(() => setFile(null), [])
+  const [fileName, setFileName] = useState<string | null>(null) // 저장되는 파일 이름 -> 나중에 DB에 보낼 값
+  const [originalFileName, setOriginalFileName] = useState<string | null>(null) // 화면에 표시되는, 원래 파일 이름
+  const handleFileSelect = useCallback((fileName: string, originalFileName: string) => {
+    setFileName(fileName)
+    setOriginalFileName(originalFileName)
+  }, [])
+  const handleDeleteFile = useCallback(() => {
+    setFileName(null)
+    setOriginalFileName(null)
+  }, [])
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -105,7 +112,12 @@ const Backend = () => {
         errors={errors}
         filed={'answer8'}
       />
-      <Portfolio file={file} handleDeleteFile={handleDeleteFile} handleFileSelect={handleFileSelect} />
+      <Portfolio
+        fileName={fileName}
+        originalFileName={originalFileName}
+        handleDeleteFile={handleDeleteFile}
+        handleFileSelect={handleFileSelect}
+      />
     </form>
   )
 }
