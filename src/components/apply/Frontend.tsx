@@ -28,6 +28,7 @@ const Frontend = ({ form }: FrontendProps) => {
     setOriginalFileName(null)
     form.setValue('answer8', undefined)
   }, [])
+
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
