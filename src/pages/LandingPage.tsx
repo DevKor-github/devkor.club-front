@@ -103,13 +103,19 @@ const LandingPage = () => {
             bottom: { L: 148, M: 119 }
           })}
           animate={{ opacity: 1, ...handleStyle() }}
-          transition={{ delay: 1.2, type: 'spring', stiffness: 120, damping: 20 }}
+          transition={{
+            delay: 1.2,
+            type: 'spring',
+            stiffness: 120,
+            damping: 20
+          }}
         >
           <video
             id="landing-video"
             muted
             autoPlay
             loop
+            playsInline
             className={css({ rounded: clicked ? 0 : '40px' })}
             style={{
               width: '100%',
@@ -149,7 +155,12 @@ const LandingPage = () => {
             rounded: 40
           })}
           animate={{ opacity: 1, ...handleStyle(), borderRadius: 0 }}
-          transition={{ delay: 1.2, type: 'spring', stiffness: 120, damping: 20 }}
+          transition={{
+            delay: 1.2,
+            type: 'spring',
+            stiffness: 120,
+            damping: 20
+          }}
           // style={clicked ? { backgroundColor: 'rgba(255, 255, 255, 0.10)', backdropFilter: 'blur(20px)' } : undefined}
         >
           <motion.div
@@ -164,7 +175,11 @@ const LandingPage = () => {
             transition={{ type: 'spring', stiffness: 120, damping: 20 }}
             style={
               clicked
-                ? { borderRadius: '40px', backgroundColor: 'rgba(255, 255, 255, 0.10)', backdropFilter: 'blur(20px)' }
+                ? {
+                    borderRadius: '40px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.10)',
+                    backdropFilter: 'blur(20px)'
+                  }
                 : undefined
             }
           >
@@ -177,7 +192,10 @@ const LandingPage = () => {
         layout
         className={trackCardWrapper()}
         transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-        style={{ justifyContent: defined ? justifyContent : 'center', gap: defined ? handleGap() : undefined }}
+        style={{
+          justifyContent: defined ? justifyContent : 'center',
+          gap: defined ? handleGap() : undefined
+        }}
       >
         <TrackCard track="FE" />
         <TrackCard track="BE" />

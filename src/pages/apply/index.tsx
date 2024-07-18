@@ -15,7 +15,7 @@ const ApplyPage = () => {
       className={css({
         display: 'flex',
         w: 'full',
-        h: 'full',
+        h: 'screen',
         flexDir: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -23,15 +23,33 @@ const ApplyPage = () => {
         py: 180
       })}
     >
-      <div className={css({ display: 'flex', flexDir: 'column', alignItems: 'center', gap: 85 })}>
-        <h1 className={css({ fontSize: { M: 48, S: 40, XS: 32, XSDown: 32 }, fontWeight: 700, color: 'label.50' })}>
+      <div
+        className={css({
+          display: 'flex',
+          flexDir: 'column',
+          alignItems: 'center',
+          gap: 85
+        })}
+      >
+        <h1
+          className={css({
+            fontSize: { M: 48, S: 40, XS: 32, XSDown: 32 },
+            fontWeight: 700,
+            color: 'label.50'
+          })}
+        >
           지원서 작성하기
         </h1>
         <TrackCards selectedTrack={track} handleSelectTrack={handlSelectTrack} />
         <Button
           variant="gray"
           disabled={!track}
-          className={css({ display: 'flex', alignSelf: 'flex-end', mt: 180 })}
+          className={css({
+            display: 'flex',
+            alignSelf: 'flex-end',
+
+            mr: 30
+          })}
           onClick={() => navigate(`/apply/application/${track}`)}
         >
           다음
