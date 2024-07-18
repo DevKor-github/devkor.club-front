@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import { Track } from '@/types/track'
 import { z } from 'zod'
 
 import { usePostBackApplication } from '@/api/hooks/backend'
@@ -16,7 +18,6 @@ import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
 import Button from '@/components/ui/button'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
-import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
 
 type TrackConfigType = {
@@ -31,6 +32,11 @@ const trackConfig: TrackConfigType = {
 
 const Application = () => {
   const { track } = useParams()
+  const navigate = useNavigate()
+  const navigateToResult = () => {
+    localStorage.setItem('application', 'true')
+    navigate('/apply/result')
+  }
 
   const trackTitle = trackConfig[track as Track]
   const {
@@ -77,28 +83,40 @@ const Application = () => {
 
     if (isValid && forms[track as Track].formState.isValid) {
       if (track === 'FE') {
-        postFe({
-          ...getValues(),
-          ...feform.getValues()
-        })
+        postFe(
+          {
+            ...getValues(),
+            ...feform.getValues()
+          },
+          { onSuccess: navigateToResult }
+        )
       }
       if (track === 'BE') {
-        postBe({
-          ...getValues(),
-          ...beform.getValues()
-        })
+        postBe(
+          {
+            ...getValues(),
+            ...beform.getValues()
+          },
+          { onSuccess: navigateToResult }
+        )
       }
       if (track === 'PM') {
-        postPm({
-          ...getValues(),
-          ...pmform.getValues()
-        })
+        postPm(
+          {
+            ...getValues(),
+            ...pmform.getValues()
+          },
+          { onSuccess: navigateToResult }
+        )
       }
       if (track === 'DE') {
-        postDe({
-          ...getValues(),
-          ...deform.getValues()
-        })
+        postDe(
+          {
+            ...getValues(),
+            ...deform.getValues()
+          },
+          { onSuccess: navigateToResult }
+        )
       }
     } else {
       alert('입력 정보를 다시 한 번 확인해주세요!')
