@@ -68,12 +68,15 @@ const LandingPage = () => {
 
   const handleClick = useCallback(() => {
     setClicked(true)
+    setTimeout(() => setBorderRadius(0), 1500)
     setTimeout(() => navigate('/recruit'), 5000)
   }, [navigate])
 
   const handleStyle = useCallback(() => {
     return clicked ? { padding: 0, height: '100vh', top: 0, bottom: 0 } : undefined
   }, [clicked])
+
+  const [borderRadius, setBorderRadius] = useState(40)
 
   return (
     <motion.div
@@ -116,7 +119,7 @@ const LandingPage = () => {
             autoPlay
             loop
             playsInline
-            className={css({ rounded: clicked ? 0 : '40px' })}
+            className={css({ rounded: borderRadius })}
             style={{
               width: '100%',
               height: '100%',
@@ -154,14 +157,13 @@ const LandingPage = () => {
             bottom: { L: 148, M: 119 },
             rounded: 40
           })}
-          animate={{ opacity: 1, ...handleStyle(), borderRadius: 0 }}
+          animate={{ opacity: 1, ...handleStyle(), borderRadius }}
           transition={{
             delay: 1.2,
             type: 'spring',
             stiffness: 120,
             damping: 20
           }}
-          // style={clicked ? { backgroundColor: 'rgba(255, 255, 255, 0.10)', backdropFilter: 'blur(20px)' } : undefined}
         >
           <motion.div
             className={css({
@@ -172,7 +174,6 @@ const LandingPage = () => {
               justifyContent: 'center',
               rounded: 40
             })}
-            transition={{ type: 'spring', stiffness: 120, damping: 20 }}
             style={
               clicked
                 ? {
