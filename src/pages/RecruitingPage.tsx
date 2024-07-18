@@ -91,6 +91,7 @@ const RecruitingPage = () => {
 
   const navigate = useNavigate()
   const handleNavigate = useCallback(() => navigate('/apply'), [navigate])
+
   return (
     <div
       className={css({

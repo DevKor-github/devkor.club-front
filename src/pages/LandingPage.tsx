@@ -178,7 +178,8 @@ const LandingPage = () => {
                 ? {
                     borderRadius: '40px',
                     backgroundColor: 'rgba(255, 255, 255, 0.10)',
-                    backdropFilter: 'blur(20px)'
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)'
                   }
                 : undefined
             }
