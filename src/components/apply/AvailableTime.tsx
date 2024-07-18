@@ -107,7 +107,7 @@ const AvailableTime = ({ setInterviewTime }: AvaliableTimeProps) => {
         </div>
         {timeConfig.map((time, index) => (
           <DateOption
-            key={index}
+            key={index + (selected - 29) * 5} // prevent animation inconsistency between date
             index={index + (selected - 29) * 5}
             dateOption={time}
             selected={selectedTime[index + (selected - 29) * 5].selected}
