@@ -105,7 +105,7 @@ const RecruitingPage = () => {
       style={{ height: mediaQuery.S ? window.innerHeight * 4 : window.innerHeight * 10 }}
     >
       <AnimatePresence>
-        {!phase && (
+        {phase <= 600 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -125,7 +125,7 @@ const RecruitingPage = () => {
               transform: 'translateY(-50%)',
               wordBreak: 'keep-all'
             })}
-            style={{ position: phase ? 'absolute' : 'fixed' }}
+            style={{ position: phase <= 600 ? 'fixed' : 'absolute' }}
           >
             <motion.img
               src={src}
@@ -510,7 +510,7 @@ const RecruitingPage = () => {
       </section> */}
       <footer
         className={css({
-          display: { S: 'flex', XS: 'none' },
+          display: 'none',
           w: 'full',
           pos: 'fixed',
           maxWidth: 'calc(1240px + 64px)',

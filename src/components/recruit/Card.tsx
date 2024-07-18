@@ -32,7 +32,7 @@ const iconStyles = cva({
       BE: {
         bgColor: 'label.80',
         padding: '14px 17px',
-        boxShadow: 'box-shadow: 0px 0px 20px 0px rgba(193, 193, 193, 0.50)'
+        boxShadow: '0px 0px 20px 0px rgba(193, 193, 193, 0.50)'
       },
       DE: {
         bgColor: 'secondary.70',
