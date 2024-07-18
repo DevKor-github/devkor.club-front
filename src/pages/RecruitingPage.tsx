@@ -508,7 +508,7 @@ const RecruitingPage = () => {
           <div>Project Manager</div>
         </div>
       </section> */}
-      <footer
+      {/* <footer
         className={css({
           display: 'none',
           w: 'full',
@@ -551,9 +551,9 @@ const RecruitingPage = () => {
           })}
         >
           <div className={css({ display: 'flex', alignItems: 'flex-start', gap: 5 })}>
-            {/* <p>© 2021 DevKor</p>
+            <p>© 2021 DevKor</p>
             <p>Privacy Policy</p>
-            <p>Terms of Service</p> */}
+            <p>Terms of Service</p>
             <img src={LinkedIn} alt="LinkedIn" style={{ width: '34px' }} />
             <button
               className={css({
@@ -579,7 +579,7 @@ const RecruitingPage = () => {
             <img src={KakaoTalk} alt="카카오톡" style={{ width: '34px' }} />
           </button>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }
