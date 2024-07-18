@@ -152,7 +152,9 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           style={{
-            borderColor: dragOver ? 'primary.70' : 'rgba(183, 170, 56, 0.30)'
+            borderColor: dragOver ? 'primary.70' : 'rgba(183, 170, 56, 0.30)',
+            backgroundColor: dragOver ? '#FFF9E5' : '#FFFDF2',
+            transition: 'background-color 0.3s ease-in-out'
           }}
         >
           <img src={UploadIcon} alt="upload" />
