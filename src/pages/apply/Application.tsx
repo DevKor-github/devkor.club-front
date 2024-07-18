@@ -2,8 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-
-import { Track } from '@/types/track'
 import { z } from 'zod'
 
 import { usePostBackApplication } from '@/api/hooks/backend'
@@ -18,6 +16,7 @@ import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
 import Button from '@/components/ui/button'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
+import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
 
 type TrackConfigType = {

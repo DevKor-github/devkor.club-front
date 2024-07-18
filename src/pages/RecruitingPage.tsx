@@ -1,3 +1,4 @@
+import Spline from '@splinetool/react-spline'
 import { css, cx } from '@styled-stytem/css'
 import { button } from '@styled-stytem/recipes'
 import {
@@ -10,12 +11,17 @@ import {
   useTransform
 } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import Calendar from '@/assets/calendar_L.png'
 import CalendarM from '@/assets/calendar_M.png'
 import CalendarXS from '@/assets/calendar_XS.png'
+import ChannelTalk from '@/assets/ChannelTalk.svg'
 import Direction from '@/assets/Direction.svg'
 import DirectionXS from '@/assets/DirectionXS.svg'
-import WormXS from '@/assets/WormXS.svg'
+import insta from '@/assets/insta.svg'
+import KakaoTalk from '@/assets/KakaoTalk.svg'
+import LinkedIn from '@/assets/LinkedIn.svg'
 import RecruitImg from '@/assets/RecruitImg.png'
 import RecruitImgL from '@/assets/RecruitImgL.png'
 import RecruitImgM from '@/assets/RecruitImgM.png'
@@ -23,15 +29,10 @@ import RecruitImgXS from '@/assets/RecruitImgXS.png'
 import RecruiteLogo from '@/assets/RecruitLogo.svg'
 import ScrollDown from '@/assets/ScrollDown.svg'
 import Worm from '@/assets/Worm.svg'
+import WormXS from '@/assets/WormXS.svg'
 import Card from '@/components/recruit/Card'
 import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
-import Spline from '@splinetool/react-spline'
-import { useNavigate } from 'react-router-dom'
-import ChannelTalk from '@/assets/ChannelTalk.svg'
-import insta from '@/assets/insta.svg'
-import KakaoTalk from '@/assets/KakaoTalk.svg'
-import LinkedIn from '@/assets/LinkedIn.svg'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
   const x = useTransform(scrollY, [0, 200], [0, -1000], { ease: easeInOut })
@@ -43,7 +44,6 @@ const RecruitingPage = () => {
   const filter = useMotionTemplate`brightness(${i})`
   const [phase, setPhase] = useState(0)
   useMotionValueEvent(scrollY, 'change', latest => setPhase(latest))
-
 
   const mediaQuery = useMatchLayout()
 

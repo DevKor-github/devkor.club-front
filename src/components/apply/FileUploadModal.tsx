@@ -47,7 +47,7 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
       setFile(e.dataTransfer.files[0])
     }
   }
-
+  const [progress, setProgress] = useState(0)
   // Drag & Drop이 아닌 클릭 이벤트로 업로드되는 기능도 추가
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
@@ -59,7 +59,6 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
     // input 요소의 값 초기화
     e.target.value = ''
   }
-
   const handleUpload = async () => {
     if (!file) {
       handleClose()
@@ -69,12 +68,22 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
     try {
       // TODO: 진행중 스피너, 모달 등 추가
       const presignedUrl = await fetchPresignedUrl(fileName)
+      const progressUpdate = file.size / 200000000
+      const intervalId = setInterval(() => {
+        setProgress(old => {
+          if (old < 90) return Math.min(old + progressUpdate, 90)
+          return old
+        })
+      }, 1000)
       await uploadImageToS3(presignedUrl, file)
+      clearInterval(intervalId)
+      setProgress(100)
       const url = `https://devkor-recruiting-files.s3.ap-northeast-2.amazonaws.com/${fileName}`
       onChangeFile(fileName, file.name, url)
-      handleClose()
+
+      setTimeout(handleClose, 500)
     } catch (error) {
-      // alert
+      console.log(error)
       alert('포트폴리오 업로드에 실패했습니다. 다시 시도해주세요.')
     }
   }
@@ -157,14 +166,14 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
             })}
           >
             <p>
-              Drag & drop files or{' '}
+              파일 드래그 & 드랍 또는{' '}
               <span
                 className={css({
                   textDecoration: 'underline',
                   color: 'primary.70'
                 })}
               >
-                Browse
+                찾아보기
               </span>
             </p>
           </div>
@@ -178,7 +187,7 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
               color: '#676767'
             })}
           >
-            <p>Supported formats: PDF</p>
+            <p>PDF 파일만 업로드 가능합니다.</p>
           </div>
           <input id="fileUpload" type="file" accept=".pdf" hidden onChange={handleChange} />
         </label>
@@ -194,17 +203,28 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
             flexDir: 'column'
           })}
         >
-          <div
-            className={css({
-              display: 'flex',
-              rounded: 4,
-              border: '0.5px solid #E3E3E3',
-              bgColor: 'white',
-              px: 2.5,
-              py: 2
-            })}
-          >
-            {file ? file.name : 'your-file-here.PDF'}
+          <div className={css({ display: 'flex', flexDir: 'column' })}>
+            <div
+              className={css({
+                display: 'flex',
+                rounded: 4,
+                border: '0.5px solid #E3E3E3',
+                bgColor: 'white',
+                px: 2.5,
+                py: 2
+              })}
+            >
+              {file ? file.name : '업로드 이전'}
+            </div>
+            <div
+              className={css({
+                transition: '0.4s linear',
+                height: '3px',
+
+                bgColor: 'primary.70'
+              })}
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
         <button
@@ -225,7 +245,7 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
           })}
           onClick={handleUpload}
         >
-          UPLOAD FILES
+          파일 업로드
         </button>
       </div>
     </>
