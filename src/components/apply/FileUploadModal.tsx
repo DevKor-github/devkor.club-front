@@ -5,10 +5,11 @@ import { fetchPresignedUrl, uploadImageToS3 } from '@/api/recruit'
 import UploadIcon from '@/assets/UploadIcon.svg'
 
 interface FileUploadModalProps {
-  onChangeFile: (fileName: string, originalFileName: string, url: string) => void
+  onChangeFile: (fileName: string, originalFileName: string) => void
   handleClose: () => void
+  onUpload: (url: string) => void
 }
-const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) => {
+const FileUploadModal = ({ onChangeFile, handleClose, onUpload }: FileUploadModalProps) => {
   const [dragOver, setDragOver] = useState(false)
   const [file, setFile] = useState<File | null>(null)
 
@@ -79,7 +80,8 @@ const FileUploadModal = ({ onChangeFile, handleClose }: FileUploadModalProps) =>
       clearInterval(intervalId)
       setProgress(100)
       const url = `https://devkor-recruiting-files.s3.ap-northeast-2.amazonaws.com/${fileName}`
-      onChangeFile(fileName, file.name, url)
+      onChangeFile(fileName, file.name)
+      onUpload(url)
 
       setTimeout(handleClose, 500)
     } catch (error) {
