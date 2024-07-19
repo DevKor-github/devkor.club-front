@@ -35,11 +35,15 @@ import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitingPage = () => {
   const { scrollY } = useScroll()
-  const x = useTransform(scrollY, [0, 200], [0, -1000], { ease: easeInOut })
-  const x2 = useTransform(scrollY, [0, 200], [0, 1000], { ease: easeInOut })
-  const x3 = useTransform(scrollY, [0, 200], [-1000, 0], { ease: easeInOut })
-  const x4 = useTransform(scrollY, [250, 350], [2000, 0], { ease: easeInOut })
-  const x5 = useTransform(scrollY, [400, 450], [-2000, 0], { ease: easeInOut })
+  const x = useTransform(scrollY, [0, window.innerHeight / 2], [0, -1000], { ease: easeInOut })
+  const x2 = useTransform(scrollY, [0, window.innerHeight / 2], [0, 1000], { ease: easeInOut })
+  const x3 = useTransform(scrollY, [0, window.innerHeight / 2], [-1000, 0], { ease: easeInOut })
+  const x4 = useTransform(scrollY, [window.innerHeight / 2 + 250, window.innerHeight], [2000, 0], {
+    ease: easeInOut
+  })
+  const x5 = useTransform(scrollY, [window.innerHeight + 400, window.innerHeight + 450], [-2000, 0], {
+    ease: easeInOut
+  })
   const i = useTransform(scrollY, [100, 250], [1, 0.6], { ease: easeInOut })
   const filter = useMotionTemplate`brightness(${i})`
   const [phase, setPhase] = useState(0)
@@ -66,7 +70,7 @@ const RecruitingPage = () => {
 
   const handleCalendarMediaQuery = useCallback(() => {
     if (mediaQuery.L) return Calendar
-    if (mediaQuery.M) return CalendarM
+    if (mediaQuery.S) return CalendarM
     return CalendarXS
   }, [mediaQuery])
 
@@ -74,14 +78,16 @@ const RecruitingPage = () => {
   useEffect(() => setCalendarSrc(handleCalendarMediaQuery()), [mediaQuery, handleCalendarMediaQuery])
 
   const handleZoom = useCallback(() => {
-    if (phase >= window.innerHeight && phase <= window.innerHeight * 2) return '120%'
-    if (phase >= window.innerHeight * 2) return '180%'
+    if (phase >= window.innerHeight * 2 && phase <= window.innerHeight * 3) return mediaQuery.L ? '120%' : '70%'
+    if (phase >= window.innerHeight * 3 && phase < window.innerHeight * 4) return mediaQuery.L ? '130%' : '80%'
+    if (phase >= window.innerHeight * 4) return mediaQuery.L ? '180%' : '130%'
     return mediaQuery.M ? '100%' : '50%'
   }, [phase])
 
   const handleWidth = useCallback(() => {
-    if (phase >= window.innerHeight && phase <= window.innerHeight * 2) return '70%'
-    if (phase >= window.innerHeight * 2) return '100%'
+    if (phase >= window.innerHeight * 2 && phase <= window.innerHeight * 3) return '50%'
+    if (phase >= window.innerHeight * 3 && phase < window.innerHeight * 4) return '60%'
+    if (phase >= window.innerHeight * 4) return '80%'
     return mediaQuery.M ? '50%' : '100%'
   }, [phase])
 
@@ -103,10 +109,10 @@ const RecruitingPage = () => {
         alignItems: 'center',
         overflow: 'scroll'
       })}
-      style={{ height: mediaQuery.S ? window.innerHeight * 4 : window.innerHeight * 10 }}
+      style={{ height: mediaQuery.S ? window.innerHeight * 5 : window.innerHeight * 10 }}
     >
       <AnimatePresence>
-        {phase <= 600 && (
+        {phase <= window.innerHeight * 2 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -126,7 +132,7 @@ const RecruitingPage = () => {
               transform: 'translateY(-50%)',
               wordBreak: 'keep-all'
             })}
-            style={{ position: phase <= 600 ? 'fixed' : 'absolute' }}
+            style={{ position: phase <= window.innerHeight * 2 ? 'fixed' : 'absolute' }}
           >
             <motion.img
               src={src}
@@ -231,7 +237,7 @@ const RecruitingPage = () => {
                 button({ variant: 'colored', size: { S: 'XL', SDown: 'XS' } }),
                 css({
                   pos: 'absolute',
-                  bottom: { L: 94, M: 78, S: 24, SDown: 53 },
+                  bottom: { L: 94, M: 78, S: 24, XS: 49, XSDown: 49 },
                   left: { M: '24px', S: 8, SDown: 21 },
                   fontSize: { S: 24, SDown: 16 },
                   fontWeight: 700
@@ -289,7 +295,7 @@ const RecruitingPage = () => {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {phase >= 600 && phase <= window.innerHeight && (
+        {phase >= window.innerHeight * 2 && phase <= window.innerHeight * 3 && (
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -340,7 +346,7 @@ const RecruitingPage = () => {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {phase >= window.innerHeight && phase <= window.innerHeight * 2 && (
+        {phase >= window.innerHeight * 3 && phase < window.innerHeight * 4 && (
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -357,7 +363,7 @@ const RecruitingPage = () => {
               top: 0
             })}
             style={{
-              display: phase >= window.innerHeight && phase <= window.innerHeight * 2 ? 'flex' : 'none',
+              // display: phase >= window.innerHeight && phase <= window.innerHeight * 2 ? 'flex' : 'none',
               height: window.innerHeight
             }}
           >
@@ -411,14 +417,14 @@ const RecruitingPage = () => {
           zIndex: -1,
           right: mediaQuery.M ? 0 : '50%',
           translateX: mediaQuery.M ? 0 : '50%',
-          display: phase >= 600 && phase <= window.innerHeight * 10 ? 'flex' : 'none'
+          display: phase >= window.innerHeight * 2 && phase <= window.innerHeight * 10 ? 'flex' : 'none'
         }}
         transition={{ duration: 0.5 }}
       >
         <Spline scene="https://prod.spline.design/DUh5k8bG5Vo5Xedl/scene.splinecode" />
       </motion.div>
       <AnimatePresence>
-        {phase >= window.innerHeight * 2 && (
+        {phase >= window.innerHeight * 4 && (
           <motion.section
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
