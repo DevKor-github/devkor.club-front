@@ -15,7 +15,6 @@ const screenWrapper = cva({
     display: 'flex',
     w: 'full',
     h: '100vh',
-    border: '1px solid black',
     justifyContent: 'center',
     alignItems: 'center',
     L: { px: 100, pb: '47px' },
