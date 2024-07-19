@@ -15,6 +15,7 @@ const screenWrapper = cva({
     display: 'flex',
     w: 'full',
     h: '100vh',
+    border: '1px solid black',
     justifyContent: 'center',
     alignItems: 'center',
     L: { px: 100, pb: '47px' },
@@ -82,7 +83,7 @@ const LandingPage = () => {
     <motion.div
       className={screenWrapper()}
       transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
-      style={{ alignItems: defined ? alignItems : 'center' }}
+      style={{ alignItems: defined ? alignItems : 'center', height: defined ? '100vh' : window.innerHeight }}
     >
       {show && (
         <motion.div
