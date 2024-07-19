@@ -111,6 +111,39 @@ const RecruitingPage = () => {
       })}
       style={{ height: mediaQuery.S ? window.innerHeight * 5 : window.innerHeight * 10 }}
     >
+      {phase <= window.innerHeight * 2 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          className={css({
+            display: { XS: 'none', XSOnly: 'flex', XSDown: 'flex' },
+            pos: 'fixed',
+            flexDir: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '7px',
+            flexShrink: 0,
+            mb: 27,
+            XS: { bottom: 0 }
+          })}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, type: 'spring', stiffness: 100, damping: 10, mass: 0.5 }}
+        >
+          <p className={css({ fontSize: 18, fontWeight: 700, color: 'label.90', opacity: 0.5 })}>Scroll Down</p>
+          <motion.img
+            src={ScrollDown}
+            alt="scroll down"
+            animate={{
+              y: ['0%', '20%', '0%'],
+              transition: {
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: 'loop'
+              }
+            }}
+            style={{ filter: 'brightness(0.9)' }}
+          />
+        </motion.div>
+      )}
       <AnimatePresence>
         {phase <= window.innerHeight * 2 && (
           <motion.div
@@ -238,7 +271,7 @@ const RecruitingPage = () => {
                 css({
                   pos: 'absolute',
                   bottom: { L: 94, M: 78, S: 24, XS: 49, XSDown: 49 },
-                  left: { M: '24px', S: 8, SDown: 21 },
+                  left: { M: '24px', S: 8, SDown: 23 },
                   fontSize: { S: 24, SDown: 16 },
                   fontWeight: 700
                 })
@@ -264,7 +297,7 @@ const RecruitingPage = () => {
             <motion.div
               initial={{ opacity: 0 }}
               className={css({
-                display: 'flex',
+                display: { XS: 'flex', XSOnly: 'none', XSDown: 'none' },
                 pos: 'absolute',
                 flexDir: 'column',
                 justifyContent: 'center',
