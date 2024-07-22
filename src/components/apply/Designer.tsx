@@ -26,6 +26,9 @@ const Designer = ({ form }: DesignerProps) => {
     setFileName(null)
     setOriginalFileName(null)
   }, [])
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  const onUpload = useCallback((url: string) => form.setValue('answer7', url), [])
+
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
@@ -95,6 +98,7 @@ const Designer = ({ form }: DesignerProps) => {
         originalFileName={originalFileName}
         handleDeleteFile={handleDeleteFile}
         handleFileSelect={handleFileSelect}
+        onUpload={onUpload}
       />
     </form>
   )

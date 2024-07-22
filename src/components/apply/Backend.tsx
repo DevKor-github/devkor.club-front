@@ -26,6 +26,9 @@ const Backend = ({ form }: BackendProps) => {
     setFileName(null)
     setOriginalFileName(null)
   }, [])
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  const onUpload = useCallback((url: string) => form.setValue('answer9', url), [])
+
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
@@ -109,6 +112,7 @@ const Backend = ({ form }: BackendProps) => {
         originalFileName={originalFileName}
         handleDeleteFile={handleDeleteFile}
         handleFileSelect={handleFileSelect}
+        onUpload={onUpload}
       />
     </form>
   )

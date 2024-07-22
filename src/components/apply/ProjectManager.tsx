@@ -25,6 +25,10 @@ const ProjectManager = ({ form }: ProjectManagerProps) => {
     setFileName(null)
     setOriginalFileName(null)
   }, [])
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  const onUpload = useCallback((url: string) => form.setValue('answer5', url), [])
+
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
@@ -80,6 +84,7 @@ const ProjectManager = ({ form }: ProjectManagerProps) => {
         originalFileName={originalFileName}
         handleDeleteFile={handleDeleteFile}
         handleFileSelect={handleFileSelect}
+        onUpload={onUpload}
       />
     </form>
   )

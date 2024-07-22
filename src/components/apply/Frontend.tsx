@@ -1,11 +1,12 @@
 import { css } from '@styled-stytem/css'
 import { useCallback, useState } from 'react'
-import { UseFormReturn } from 'react-hook-form'
-import { z } from 'zod'
+
+import type { techSchema } from '@/lib/zod/fontend-schema'
+import type { UseFormReturn } from 'react-hook-form'
+import type { z } from 'zod'
 
 import Portfolio from '@/components/apply/Portfolio'
 import Question from '@/components/apply/Question'
-import { techSchema } from '@/lib/zod/fontend-schema'
 
 interface FrontendProps {
   form: UseFormReturn<z.infer<typeof techSchema>>
@@ -17,10 +18,9 @@ const Frontend = ({ form }: FrontendProps) => {
   const [fileName, setFileName] = useState<string | null>(null) // 저장되는 파일 이름 -> 나중에 DB에 보낼 값
   const [originalFileName, setOriginalFileName] = useState<string | null>(null) // 화면에 표시되는, 원래 파일 이름
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  const handleFileSelect = useCallback((fileName: string, originalFileName: string, url: string) => {
+  const handleFileSelect = useCallback((fileName: string, originalFileName: string) => {
     setFileName(fileName)
     setOriginalFileName(originalFileName)
-    form.setValue('answer8', url)
   }, [])
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const handleDeleteFile = useCallback(() => {
@@ -28,6 +28,9 @@ const Frontend = ({ form }: FrontendProps) => {
     setOriginalFileName(null)
     form.setValue('answer8', undefined)
   }, [])
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  const onUpload = useCallback((url: string) => form.setValue('answer8', url), [])
 
   return (
     <form
@@ -104,6 +107,7 @@ const Frontend = ({ form }: FrontendProps) => {
         originalFileName={originalFileName}
         handleDeleteFile={handleDeleteFile}
         handleFileSelect={handleFileSelect}
+        onUpload={onUpload}
       />
     </form>
   )

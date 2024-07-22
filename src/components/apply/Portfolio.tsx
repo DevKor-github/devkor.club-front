@@ -12,10 +12,11 @@ import { useMatchLayout } from '@/utils/useMatchLayout'
 interface PortfolioProps {
   fileName: string | null
   originalFileName: string | null
-  handleFileSelect: (fileName: string, originalFileName: string, url: string) => void
+  handleFileSelect: (fileName: string, originalFileName: string) => void
   handleDeleteFile: () => void
+  onUpload: (url: string) => void
 }
-const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteFile }: PortfolioProps) => {
+const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteFile, onUpload }: PortfolioProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [deleteFile, setDeleteFile] = useState(false)
   const handleCloseModal = useCallback(() => setIsOpen(false), [])
@@ -87,7 +88,9 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
         )}
       </div>
       {createPortal(
-        isOpen && <FileUploadModal onChangeFile={handleFileSelect} handleClose={handleCloseModal} />,
+        isOpen && (
+          <FileUploadModal onChangeFile={handleFileSelect} handleClose={handleCloseModal} onUpload={onUpload} />
+        ),
         document.body
       )}
     </>
