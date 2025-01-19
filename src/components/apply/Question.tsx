@@ -4,7 +4,7 @@ import { FieldError, Path, UseFormRegister } from 'react-hook-form'
 import ReactTextareaAutosize from 'react-textarea-autosize'
 import { z } from 'zod'
 
-interface QuestionProps<T extends z.ZodType<any, any, any>> {
+interface QuestionProps<T extends z.ZodObject<Record<string, z.ZodTypeAny>>> {
   title: string
   placeholder?: string
   limit?: boolean
@@ -13,7 +13,7 @@ interface QuestionProps<T extends z.ZodType<any, any, any>> {
   filed: Path<z.infer<T>>
 }
 
-const Question = <T extends z.ZodType<any, any, any>>({
+const Question = <T extends z.ZodObject<Record<string, z.ZodTypeAny>>>({
   title,
   placeholder,
   limit,
@@ -31,7 +31,7 @@ const Question = <T extends z.ZodType<any, any, any>>({
         alignSelf: 'stretch',
         S: { fontSize: 16, fontWeight: 600 },
         XS: { fontSize: 14, fontWeight: 600 },
-        color: 'label.80',
+        color: 'label.50/80',
         w: 'full'
       })}
     >

@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
+import { match } from 'ts-pattern'
 import { z } from 'zod'
 
 import { usePostBackApplication } from '@/api/hooks/backend'
@@ -30,7 +31,7 @@ const trackConfig: TrackConfigType = {
 }
 
 const Application = () => {
-  const { track } = useParams()
+  const { track = 'FE' } = useParams<{ track: Track }>()
   const navigate = useNavigate()
   const navigateToResult = () => {
     localStorage.setItem('application', 'true')
@@ -41,7 +42,7 @@ const Application = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid: isPersonalInfoValid },
     setValue,
     getValues
   } = useForm<z.infer<typeof personalInfoSchema>>({
@@ -76,50 +77,21 @@ const Application = () => {
   const { mutate: postDe } = usePostDeApplication()
 
   const handleFromSubmit = async () => {
-    await forms[track as Track].trigger()
+    await forms[track].trigger()
     await handleSubmit(() => {})()
-    await forms[track as Track].handleSubmit(() => {})()
+    await forms[track].handleSubmit(() => {})()
 
-    if (isValid && forms[track as Track].formState.isValid) {
-      if (track === 'FE') {
-        postFe(
-          {
-            ...getValues(),
-            ...feform.getValues()
-          },
-          { onSuccess: navigateToResult }
-        )
-      }
-      if (track === 'BE') {
-        postBe(
-          {
-            ...getValues(),
-            ...beform.getValues()
-          },
-          { onSuccess: navigateToResult }
-        )
-      }
-      if (track === 'PM') {
-        postPm(
-          {
-            ...getValues(),
-            ...pmform.getValues()
-          },
-          { onSuccess: navigateToResult }
-        )
-      }
-      if (track === 'DE') {
-        postDe(
-          {
-            ...getValues(),
-            ...deform.getValues()
-          },
-          { onSuccess: navigateToResult }
-        )
-      }
-    } else {
-      alert('입력 정보를 다시 한 번 확인해주세요!')
+    if (!isPersonalInfoValid || !forms[track].formState.isValid) {
+      return alert('입력 정보를 다시 한 번 확인해주세요!')
     }
+
+    const personalInfo = getValues()
+    match(track)
+      .with('FE', () => postFe({ ...personalInfo, ...feform.getValues() }, { onSuccess: navigateToResult }))
+      .with('BE', () => postBe({ ...personalInfo, ...beform.getValues() }, { onSuccess: navigateToResult }))
+      .with('PM', () => postPm({ ...personalInfo, ...pmform.getValues() }, { onSuccess: navigateToResult }))
+      .with('DE', () => postDe({ ...personalInfo, ...deform.getValues() }, { onSuccess: navigateToResult }))
+      .exhaustive()
   }
   return (
     <section

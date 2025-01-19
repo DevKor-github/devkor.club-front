@@ -69,7 +69,7 @@ const AvailableTime = ({ setInterviewTime }: AvaliableTimeProps) => {
             className={css({
               S: { fontSize: 16, fontWeight: 600 },
               XS: { fontSize: 14, fontWeight: 600 },
-              color: 'label.80'
+              color: 'label.50/80'
             })}
           >
             가능한 면접 날짜를 모두 선택해 주세요.
