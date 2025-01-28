@@ -13,7 +13,7 @@ type LogoType = {
 const logos: LogoType = {
   FE: FeLogo,
   BE: BeLogo,
-  DE: DeLogo,
+  PD: DeLogo,
   PM: PmLogo
 }
 
