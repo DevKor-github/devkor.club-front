@@ -23,12 +23,15 @@ const DevKorSplineM = ({ scrollYProgress }: Props) => {
         zoom: 0.4,
         scale,
         willChange: 'transform',
-        transform: 'translateZ(0)'
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden', // 성능 최적화
+        perspective: 1000, // 3D 렌더링 최적화
+        WebkitFontSmoothing: 'antialiased' // 텍스트 렌더링 개선
       }}
     >
       <Spline
         scene="https://prod.spline.design/DUh5k8bG5Vo5Xedl/scene.splinecode"
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', contain: 'paint' }}
       />
     </motion.div>
   )

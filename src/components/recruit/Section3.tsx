@@ -41,7 +41,9 @@ const RecruitSection3 = () => {
         className={css({
           display: 'flex',
           gap: 16,
-          width: 'max-content'
+          width: 'max-content',
+          willChange: 'transform',
+          transform: 'translateZ(0)'
         })}
         animate={{
           x: [0, '-20%'],
@@ -50,7 +52,8 @@ const RecruitSection3 = () => {
               repeat: Infinity,
               repeatType: 'loop',
               duration: 5,
-              ease: 'linear'
+              ease: 'linear',
+              useTransform: true
             }
           }
         }}

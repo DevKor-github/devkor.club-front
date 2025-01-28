@@ -1,7 +1,7 @@
 import { css, cx } from '@styled-stytem/css'
 import { button } from '@styled-stytem/recipes'
 import { easeInOut, motion, useMotionTemplate, useScroll, useTransform } from 'framer-motion'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import RecruitImg from '@/assets/RecruitImg.png'
 import RecruitImgL from '@/assets/RecruitImgL.png'
@@ -13,11 +13,14 @@ import { useMatchLayout } from '@/utils/useMatchLayout'
 
 const RecruitIntro = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll({ target: scrollRef })
+  const { scrollY } = useScroll({
+    target: scrollRef,
+    layoutEffect: false,
+    smooth: 16
+  })
   const mediaQuery = useMatchLayout()
 
-  // 화면 높이를 3등분하여 애니메이션 구간 설정
-  const sectionHeight = window.innerHeight / 3
+  const sectionHeight = useMemo(() => window.innerHeight / 3, [])
 
   const handleImgMediaQuery = useCallback(() => {
     if (mediaQuery.L) return RecruitImg
@@ -26,19 +29,23 @@ const RecruitIntro = () => {
     return RecruitImgXS
   }, [mediaQuery])
 
-  const animationDefaultConfig = { ease: easeInOut, clamp: true }
+  const animationDefaultConfig = {
+    ease: easeInOut,
+    clamp: true,
+    restSpeed: 0.01,
+    restDelta: 0.01
+  }
+
   const [src, setSrc] = useState(handleImgMediaQuery)
   const i = useTransform(scrollY, [100, 250], [1, 0.6], animationDefaultConfig)
   const filter = useMotionTemplate`brightness(${i})`
 
-  // 스크롤 위치에 따른 텍스트 애니메이션 값 계산
   const text1X = useTransform(scrollY, [0, sectionHeight], [-1000, 0], animationDefaultConfig)
 
-  const text2X = useTransform(scrollY, [sectionHeight, sectionHeight * 2], [1000, 0], animationDefaultConfig)
+  const text2X = useTransform(scrollY, [sectionHeight, sectionHeight * 2], [1500, 0], animationDefaultConfig)
 
-  const text3X = useTransform(scrollY, [sectionHeight * 2, sectionHeight * 3], [-1000, 0], animationDefaultConfig)
+  const text3X = useTransform(scrollY, [sectionHeight * 2, sectionHeight * 3], [-1500, 0], animationDefaultConfig)
 
-  // DevKor와 신입 부원 모집 텍스트 애니메이션
   const titleX = useTransform(scrollY, [0, sectionHeight], [0, -3000], animationDefaultConfig)
   const subtitleX = useTransform(scrollY, [0, sectionHeight], [0, 3000], animationDefaultConfig)
 
@@ -58,6 +65,9 @@ const RecruitIntro = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      style={{
+        willChange: 'transform'
+      }}
       className={css({
         display: 'flex',
         justifyContent: 'center',
