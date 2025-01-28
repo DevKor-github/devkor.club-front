@@ -26,7 +26,7 @@ const Header = () => {
       })}
     >
       <motion.nav
-        initial={{ opacity: 0 }}
+        // initial={{ opacity: 0 }}
         className={css({
           display: 'flex',
           w: 115,

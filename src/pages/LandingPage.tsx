@@ -1,6 +1,6 @@
 import { css, cva } from '@styled-stytem/css'
 import { motion } from 'framer-motion'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import video from '@/assets/Landing.mp4'
@@ -45,20 +45,10 @@ const trackCardWrapper = cva({
 })
 const LandingPage = () => {
   const navigate = useNavigate()
-  const [alignItems, setAlignItems] = useState('center')
-  const [justifyContent, setJustifyContent] = useState('center')
 
   const mediaQuery = useMatchLayout()
-  const [show, setShow] = useState(false)
-  const [defined, setDefined] = useState(false)
-  const [clicked, setClicked] = useState(false)
 
-  useEffect(() => {
-    setAlignItems(mediaQuery.M ? 'flex-end' : 'flex-start')
-    setJustifyContent(mediaQuery.M ? 'flex-end' : 'center')
-  }, [mediaQuery])
-  useEffect(() => void setTimeout(() => setDefined(true), 3000), [])
-  useEffect(() => void setTimeout(() => setShow(true), 3000), [])
+  const [clicked, setClicked] = useState(false)
 
   const handleGap = () => {
     if (mediaQuery.M) return '20px'
@@ -79,133 +69,121 @@ const LandingPage = () => {
   const [borderRadius, setBorderRadius] = useState(40)
 
   return (
-    <motion.div
-      className={screenWrapper()}
-      transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
-      style={{ alignItems: defined ? alignItems : 'center' }}
-    >
-      {show && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          className={css({
-            display: 'flex',
-            pos: 'fixed',
-            flexDir: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            w: 'full',
-            alignSelf: 'center',
-            h: { XL: 1200, L: 728, M: 530, S: 687, XS: 466, XSDown: 466 },
-            L: { px: 100 },
-            M: { px: '60px' },
-            S: { px: 8 },
-            XS: { px: 5 },
-            gap: { S: 11, XS: '23px', XSDown: '23px' },
-            zIndex: 110,
-            top: { M: 69, S: 158, XS: 129, XSDown: 129 },
-            bottom: { L: 148, M: 119 }
-          })}
-          animate={{ opacity: 1, ...handleStyle() }}
-          transition={{
-            delay: 1.2,
-            type: 'spring',
-            stiffness: 120,
-            damping: 20
+    <div className={screenWrapper()} style={{ alignItems: mediaQuery.M ? 'flex-end' : 'flex-start' }}>
+      <motion.div
+        className={css({
+          display: 'flex',
+          pos: 'fixed',
+          flexDir: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          w: 'full',
+          alignSelf: 'center',
+          h: { XL: 1200, L: 728, M: 530, S: 687, XS: 466, XSDown: 466 },
+          L: { px: 100 },
+          M: { px: '60px' },
+          S: { px: 8 },
+          XS: { px: 5 },
+          gap: { S: 11, XS: '23px', XSDown: '23px' },
+          zIndex: 110,
+          top: { M: 69, S: 158, XS: 129, XSDown: 129 },
+          bottom: { L: 148, M: 119 }
+        })}
+        animate={{ ...handleStyle() }}
+        transition={{
+          delay: clicked ? 1.2 : 0,
+          type: 'spring',
+          stiffness: 120,
+          damping: 20
+        }}
+      >
+        <video
+          id="landing-video"
+          muted
+          autoPlay
+          loop
+          playsInline
+          className={css({ rounded: borderRadius })}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
           }}
         >
-          <video
-            id="landing-video"
-            muted
-            autoPlay
-            loop
-            playsInline
-            className={css({ rounded: borderRadius })}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
-          >
-            <source src={video} type="video/mp4" />
-          </video>
-          {!mediaQuery.M && (
-            <Button variant="colored" size={mediaQuery.S ? 'L' : 'default'} onClick={handleClick}>
-              지원하기
-            </Button>
-          )}
-        </motion.div>
-      )}
-      {show && (
+          <source src={video} type="video/mp4" />
+        </video>
+        {!mediaQuery.M && (
+          <Button variant="colored" size={mediaQuery.S ? 'L' : 'default'} onClick={handleClick}>
+            지원하기
+          </Button>
+        )}
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        className={css({
+          display: 'flex',
+          pos: 'fixed',
+          flexDir: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          w: 'full',
+          alignSelf: 'center',
+          h: { XL: 1200, L: 728, M: 530, S: 603, XS: 407, XSDown: 407 },
+          L: { px: 100 },
+          M: { px: '60px' },
+          S: { px: 8 },
+          XS: { px: 5 },
+          gap: { S: 11, XS: '23px', XSDown: '23px' },
+          zIndex: 110,
+          top: { M: 69, S: 158, XS: 129, XSDown: 129 },
+          bottom: { L: 148, M: 119 },
+          rounded: 40
+        })}
+        animate={{ opacity: 1, ...handleStyle(), borderRadius }}
+        transition={{
+          delay: clicked ? 1.2 : 0,
+          type: 'spring',
+          stiffness: 120,
+          damping: 20
+        }}
+      >
         <motion.div
-          initial={{ opacity: 0 }}
           className={css({
+            w: 'full',
+            h: 'full',
             display: 'flex',
-            pos: 'fixed',
-            flexDir: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            w: 'full',
-            alignSelf: 'center',
-            h: { XL: 1200, L: 728, M: 530, S: 603, XS: 407, XSDown: 407 },
-            L: { px: 100 },
-            M: { px: '60px' },
-            S: { px: 8 },
-            XS: { px: 5 },
-            gap: { S: 11, XS: '23px', XSDown: '23px' },
-            zIndex: 110,
-            top: { M: 69, S: 158, XS: 129, XSDown: 129 },
-            bottom: { L: 148, M: 119 },
             rounded: 40
           })}
-          animate={{ opacity: 1, ...handleStyle(), borderRadius }}
-          transition={{
-            delay: 1.2,
-            type: 'spring',
-            stiffness: 120,
-            damping: 20
-          }}
+          style={
+            clicked
+              ? {
+                  borderRadius: '40px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.10)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)'
+                }
+              : undefined
+          }
         >
-          <motion.div
-            className={css({
-              w: 'full',
-              h: 'full',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              rounded: 40
-            })}
-            style={
-              clicked
-                ? {
-                    borderRadius: '40px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.10)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)'
-                  }
-                : undefined
-            }
-          >
-            {<LandingIntro clicked={clicked} handleClick={handleClick} />}
-            {clicked && <ClickedIntro />}
-          </motion.div>
+          {<LandingIntro clicked={clicked} handleClick={handleClick} />}
+          {clicked && <ClickedIntro />}
         </motion.div>
-      )}
-      <motion.div
-        layout
+      </motion.div>
+      <div
         className={trackCardWrapper()}
-        transition={{ type: 'spring', stiffness: 120, damping: 20 }}
         style={{
-          justifyContent: defined ? justifyContent : 'center',
-          gap: defined ? handleGap() : undefined
+          justifyContent: mediaQuery.M ? 'flex-end' : 'center',
+          gap: handleGap()
         }}
       >
         <TrackCard track="FE" />
         <TrackCard track="BE" />
         <TrackCard track="DE" />
         <TrackCard track="PM" />
-      </motion.div>
-      <motion.p
-        initial={{ opacity: 0 }}
+      </div>
+      <p
         className={css({
           position: 'fixed',
           left: { L: 100, M: '60px', S: 8, XS: 5, XSDown: 5 },
@@ -214,12 +192,10 @@ const LandingPage = () => {
           fontWeight: 400,
           color: 'label.80'
         })}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
       >
         고려대학교 소프트웨어 서비스 학회 DevKor
-      </motion.p>
-    </motion.div>
+      </p>
+    </div>
   )
 }
 export default LandingPage
