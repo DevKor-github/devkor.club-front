@@ -43,21 +43,25 @@ const RecruitSection3 = () => {
           gap: 16,
           width: 'max-content',
           willChange: 'transform',
-          transform: 'translateZ(0)'
+          transform: 'translateZ(0)',
+          position: 'relative'
         })}
         animate={{
-          x: [0, '-20%'],
+          x: [0, '-50%'],
           transition: {
             x: {
               repeat: Infinity,
-              repeatType: 'loop',
-              duration: 5,
+              repeatType: 'mirror',
+              duration: 15,
               ease: 'linear',
               useTransform: true
             }
           }
         }}
       >
+        <MarqueeItem />
+        <MarqueeItem />
+        <MarqueeItem />
         <MarqueeItem />
         <MarqueeItem />
         <MarqueeItem />
