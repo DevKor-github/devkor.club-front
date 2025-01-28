@@ -20,7 +20,8 @@ const screenWrapper = cva({
     L: { px: 100, pb: '47px' },
     M: { px: '60px', pb: '37px', pt: 0 },
     S: { px: 8, pt: 82 },
-    XS: { px: 5, pt: '55px' }
+    XS: { px: 5, pt: '55px' },
+    zIndex: 200
   }
 })
 const trackCardWrapper = cva({
@@ -32,8 +33,8 @@ const trackCardWrapper = cva({
     L: { gap: '60px' },
     M: { gap: '30px' },
     S: { gap: '20px' },
-    XS: { gap: '10px' },
-    XSDown: { gap: '10px' }
+    XS: { gap: '10px', mt: 10 },
+    XSDown: { gap: '10px', mt: 10 }
   },
   variants: {
     size: {
@@ -86,7 +87,7 @@ const LandingPage = () => {
           XS: { px: 5 },
           gap: { S: 11, XS: '23px', XSDown: '23px' },
           zIndex: 110,
-          top: { M: 69, S: 158, XS: 129, XSDown: 129 },
+          top: { M: 69, S: 158, XS: 170, XSDown: 170 },
           bottom: { L: 148, M: 119 }
         })}
         animate={{ ...handleStyle() }}
@@ -114,7 +115,7 @@ const LandingPage = () => {
         </video>
         {!mediaQuery.M && (
           <Button variant="colored" size={mediaQuery.S ? 'L' : 'default'} onClick={handleClick}>
-            지원하기
+            더 알아보기
           </Button>
         )}
       </motion.div>
@@ -135,7 +136,7 @@ const LandingPage = () => {
           XS: { px: 5 },
           gap: { S: 11, XS: '23px', XSDown: '23px' },
           zIndex: 110,
-          top: { M: 69, S: 158, XS: 129, XSDown: 129 },
+          top: { M: 69, S: 158, XS: 170, XSDown: 170 },
           bottom: { L: 148, M: 119 },
           rounded: 40
         })}

@@ -51,7 +51,7 @@ const LandingIntro = ({ clicked, handleClick }: LandingIntroProps) => {
       </div>
       {mediaQuery.M && (
         <Button size={mediaQuery.MOnly ? 'M' : 'default'} onClick={handleClick}>
-          지원하기
+          더 알아보기
         </Button>
       )}
     </motion.div>
