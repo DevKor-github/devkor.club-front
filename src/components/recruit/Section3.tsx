@@ -47,12 +47,12 @@ const RecruitSection3 = () => {
           position: 'relative'
         })}
         animate={{
-          x: [0, '-50%'],
+          x: [0, '-25%'],
           transition: {
             x: {
               repeat: Infinity,
-              repeatType: 'mirror',
-              duration: 15,
+              repeatType: 'loop',
+              duration: 5,
               ease: 'linear',
               useTransform: true
             }

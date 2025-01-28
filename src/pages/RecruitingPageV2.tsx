@@ -63,9 +63,9 @@ const RecruitingPageV2 = () => {
       <AnimatePresence>
         {currentSection === 0 && <RecruitIntro key="intro" />}
         <Render key="section" condition={currentSection !== 0}>
-          <RecruitSection2 key="section2" />
+          {/* <RecruitSection2 key="section2" /> */}
           <RecruitSection3 key="section3" />
-          <RecruitSection4 key="section4" />
+          {/* <RecruitSection4 key="section4" /> */}
           {mediaQuery.Mobile ? (
             <DevKorSplineM key="spline-mobile" scrollYProgress={scrollYProgress} />
           ) : (
