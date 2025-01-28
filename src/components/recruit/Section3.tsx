@@ -21,11 +21,8 @@ const RecruitSection3 = () => {
   const [calendarSrc, setCalendarSrc] = useState(handleCalendarMediaQuery)
   useEffect(() => setCalendarSrc(handleCalendarMediaQuery()), [mediaQuery, handleCalendarMediaQuery])
   return (
-    <motion.section
+    <section
       key="section3"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       className={css({
         width: '100%',
         overflowX: 'hidden',
@@ -73,7 +70,7 @@ const RecruitSection3 = () => {
       >
         <img src={calendarSrc} alt="모집공고 일정 캘린더" className={css({ w: { L: 842, M: 404 } })} />
       </div>
-    </motion.section>
+    </section>
   )
 }
 

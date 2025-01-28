@@ -1,15 +1,11 @@
 import { css } from '@styled-stytem/css'
-import { motion } from 'framer-motion'
 
 import Card from '@/components/recruit/Card'
 
 const RecruitSection4 = () => {
   return (
-    <motion.section
+    <section
       key="section4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       className={css({
         display: 'flex',
         flexDirection: 'column',
@@ -52,7 +48,7 @@ const RecruitSection4 = () => {
           {'\n'}User flow를 기획하는 <span className={css({ color: 'label.50' })}>기획자</span>
         </Card>
       </div>
-    </motion.section>
+    </section>
   )
 }
 

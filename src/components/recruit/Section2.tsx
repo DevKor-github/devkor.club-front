@@ -1,5 +1,4 @@
 import { css } from '@styled-stytem/css'
-import { motion } from 'framer-motion'
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,11 +8,8 @@ const RecruitSection2 = () => {
   const navigate = useNavigate()
   const handleNavigate = useCallback(() => navigate('/apply'), [navigate])
   return (
-    <motion.section
+    <section
       key="section2"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       className={css({
         display: 'flex',
         flexDir: 'column',
@@ -52,7 +48,7 @@ const RecruitSection2 = () => {
       <Button variant="colored" onClick={handleNavigate}>
         지원서 작성하기
       </Button>
-    </motion.section>
+    </section>
   )
 }
 

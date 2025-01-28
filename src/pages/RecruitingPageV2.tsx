@@ -6,9 +6,9 @@ import Render from '@/common/components/Render'
 import DevKorSpline from '@/components/recruit/DevKorSpline'
 import DevKorSplineM from '@/components/recruit/DevKorSplineM'
 import RecruitIntro from '@/components/recruit/Intro'
-// import RecruitSection2 from '@/components/recruit/Section2'
+import RecruitSection2 from '@/components/recruit/Section2'
 import RecruitSection3 from '@/components/recruit/Section3'
-// import RecruitSection4 from '@/components/recruit/Section4'
+import RecruitSection4 from '@/components/recruit/Section4'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 
 const RecruitingPageV2 = () => {
@@ -63,9 +63,9 @@ const RecruitingPageV2 = () => {
       <AnimatePresence>
         {currentSection === 0 && <RecruitIntro key="intro" />}
         <Render key="section" condition={currentSection !== 0}>
-          {/* <RecruitSection2 key="section2" /> */}
+          <RecruitSection2 key="section2" />
           <RecruitSection3 key="section3" />
-          {/* <RecruitSection4 key="section4" /> */}
+          <RecruitSection4 key="section4" />
           {mediaQuery.Mobile ? (
             <DevKorSplineM key="spline-mobile" scrollYProgress={scrollYProgress} />
           ) : (
