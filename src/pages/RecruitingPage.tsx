@@ -31,6 +31,7 @@ import ScrollDown from '@/assets/ScrollDown.svg'
 import Worm from '@/assets/Worm.svg'
 import WormXS from '@/assets/WormXS.svg'
 import Card from '@/components/recruit/Card'
+import MobileScrollDownPointer from '@/components/recruit/MobileScrollDownPointer'
 import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitingPage = () => {
@@ -104,46 +105,14 @@ const RecruitingPage = () => {
         display: 'flex',
         flexDir: 'column',
         w: 'full',
-        // h: 'calc(400vh)',
         justifyContent: 'center',
         alignItems: 'center',
-        overflow: 'scroll'
+        overflow: 'scroll',
+        scrollSnapType: 'y proximity'
       })}
       style={{ height: mediaQuery.S ? window.innerHeight * 5 : window.innerHeight * 10 }}
     >
-      {phase <= window.innerHeight * 2 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          className={css({
-            display: { XS: 'none', XSOnly: 'flex', XSDown: 'flex' },
-            pos: 'fixed',
-            flexDir: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '7px',
-            flexShrink: 0,
-            mb: 27,
-            XS: { bottom: 0 }
-          })}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, type: 'spring', stiffness: 100, damping: 10, mass: 0.5 }}
-        >
-          <p className={css({ fontSize: 18, fontWeight: 700, color: 'label.90', opacity: 0.5 })}>Scroll Down</p>
-          <motion.img
-            src={ScrollDown}
-            alt="scroll down"
-            animate={{
-              y: ['0%', '20%', '0%'],
-              transition: {
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: 'loop'
-              }
-            }}
-            style={{ filter: 'brightness(0.9)' }}
-          />
-        </motion.div>
-      )}
+      {phase <= window.innerHeight * 2 && <MobileScrollDownPointer />}
       <AnimatePresence>
         {phase <= window.innerHeight * 2 && (
           <motion.div

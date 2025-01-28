@@ -12,6 +12,7 @@ const Header = () => {
       className={css({
         position: 'fixed',
         top: 0,
+        w: 'full',
         display: 'flex',
         justifyContent: 'flex-start',
         fontWeight: 700,

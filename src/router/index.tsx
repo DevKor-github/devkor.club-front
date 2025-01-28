@@ -6,6 +6,7 @@ import Application from '@/pages/apply/Application'
 import ApplyResultPage from '@/pages/apply/Result'
 import LandingPage from '@/pages/LandingPage'
 import RecruitingPage from '@/pages/RecruitingPage'
+import RecruitingPageV2 from '@/pages/RecruitingPageV2'
 
 const routes: RouteObject[] = [
   {
@@ -14,6 +15,7 @@ const routes: RouteObject[] = [
     children: [
       { path: '/', element: <LandingPage /> },
       { path: '/recruit', element: <RecruitingPage /> },
+      { path: '/recruit-v2', element: <RecruitingPageV2 /> },
       {
         path: '/apply',
         element: <ApplyPage />

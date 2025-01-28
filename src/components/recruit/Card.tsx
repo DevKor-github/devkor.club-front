@@ -66,7 +66,8 @@ const Card = ({ icons, children }: CardProps) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '30px'
+        gap: '30px',
+        minWidth: 220
       })}
     >
       <div

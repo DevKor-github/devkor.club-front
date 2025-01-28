@@ -13,5 +13,6 @@ export const useMatchLayout = () => {
   const S = useMediaQuery(`(min-width: ${Layout.S})`)
   const XS = useMediaQuery(`(min-width: ${Layout.XS})`)
   const XSDown = useMediaQuery(`(max-width: ${Layout.XS})`)
-  return { L, M, MOnly, S, XS, XSDown }
+  const Mobile = useMediaQuery(`(max-width: ${Layout.S})`) // 768px 이하를 모바일로 간주
+  return { L, M, MOnly, S, XS, XSDown, Mobile }
 }
