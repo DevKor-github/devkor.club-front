@@ -28,7 +28,7 @@ const trackCard = cva({
       BE: {
         bgColor: 'label.80'
       },
-      DE: {
+      PD: {
         bgColor: 'secondary.70'
       },
       PM: {

@@ -18,7 +18,7 @@ const TrackCards = ({ selectedTrack, handleSelectTrack }: Omit<TrackCardProps, '
       >
         <TrackCard track="FE" selectedTrack={selectedTrack} handleSelectTrack={handleSelectTrack} />
         <TrackCard track="BE" selectedTrack={selectedTrack} handleSelectTrack={handleSelectTrack} />
-        <TrackCard track="DE" selectedTrack={selectedTrack} handleSelectTrack={handleSelectTrack} />
+        <TrackCard track="PD" selectedTrack={selectedTrack} handleSelectTrack={handleSelectTrack} />
         <TrackCard track="PM" selectedTrack={selectedTrack} handleSelectTrack={handleSelectTrack} />
       </div>
     </div>

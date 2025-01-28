@@ -14,8 +14,8 @@ const trackConfig: TrackConfig = {
   BE: {
     title: 'Back-End'
   },
-  DE: {
-    title: 'Designer'
+  PD: {
+    title: 'Product Designer'
   },
   PM: {
     title: 'Project \n Manager'

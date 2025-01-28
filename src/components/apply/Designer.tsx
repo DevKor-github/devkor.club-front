@@ -12,8 +12,6 @@ interface DesignerProps {
 }
 const Designer = ({ form }: DesignerProps) => {
   function onSubmit(values: z.infer<typeof designerSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values)
   }
   const [fileName, setFileName] = useState<string | null>(null) // 저장되는 파일 이름 -> 나중에 DB에 보낼 값
@@ -26,8 +24,7 @@ const Designer = ({ form }: DesignerProps) => {
     setFileName(null)
     setOriginalFileName(null)
   }, [])
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  const onUpload = useCallback((url: string) => form.setValue('answer7', url), [])
+  const onUpload = useCallback((url: string) => form.setValue('answer7', url), [form])
 
   return (
     <form

@@ -20,6 +20,10 @@ import { personalInfoSchema } from '@/lib/zod/personal-info'
 import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
 
+const availablePeriod = {
+  from: '2025-02-10T00:00:00',
+  to: '2025-02-21T23:59:59'
+}
 type TrackConfigType = {
   [key in Track]: string
 }
@@ -27,7 +31,7 @@ const trackConfig: TrackConfigType = {
   FE: 'Front-End 프론트엔드 개발자',
   BE: 'Back-End 백엔드 개발자',
   PM: 'Project Manager 프로젝트 매니저',
-  DE: 'Designer 디자이너'
+  PD: 'Product Designer 제품 디자이너'
 }
 
 const Application = () => {
@@ -64,7 +68,7 @@ const Application = () => {
 
   const { feform, beform, pmform, deform } = useGenericForm(track as Track)
 
-  const forms = { FE: feform, BE: beform, PM: pmform, DE: deform }
+  const forms = { FE: feform, BE: beform, PM: pmform, PD: deform }
 
   const { mutate: postFe } = usePostFrontApplication()
   const { mutate: postBe } = usePostBackApplication()
@@ -72,6 +76,9 @@ const Application = () => {
   const { mutate: postDe } = usePostDeApplication()
 
   const handleFromSubmit = async () => {
+    const currentTime = new Date().toISOString()
+    if (currentTime < availablePeriod.from || currentTime > availablePeriod.to) return alert('지원 기간이 아닙니다.')
+
     await forms[track].trigger()
     await handleSubmit(() => {})()
     await forms[track].handleSubmit(() => {})()
@@ -85,7 +92,7 @@ const Application = () => {
       .with('FE', () => postFe({ ...personalInfo, ...feform.getValues() }, { onSuccess: navigateToResult }))
       .with('BE', () => postBe({ ...personalInfo, ...beform.getValues() }, { onSuccess: navigateToResult }))
       .with('PM', () => postPm({ ...personalInfo, ...pmform.getValues() }, { onSuccess: navigateToResult }))
-      .with('DE', () => postDe({ ...personalInfo, ...deform.getValues() }, { onSuccess: navigateToResult }))
+      .with('PD', () => postDe({ ...personalInfo, ...deform.getValues() }, { onSuccess: navigateToResult }))
       .exhaustive()
   }
   return (
@@ -143,7 +150,7 @@ const Application = () => {
       {track === 'FE' && <Frontend form={feform} />}
       {track === 'BE' && <Backend form={beform} />}
       {track === 'PM' && <ProjectManager form={pmform} />}
-      {track === 'DE' && <Designer form={deform} />}
+      {track === 'PD' && <Designer form={deform} />}
       <AvailableTime setInterviewTime={setInterviewTime} />
       <div
         className={css({

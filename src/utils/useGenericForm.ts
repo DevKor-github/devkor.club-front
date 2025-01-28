@@ -34,7 +34,7 @@ const defaultValues = {
     answer3: '',
     answer4: ''
   },
-  DE: {
+  PD: {
     answer1: '',
     answer2: '',
     answer3: '',
@@ -59,9 +59,9 @@ export const useGenericForm = (track: Track) => {
       resolver: zodResolver(pmSchema),
       defaultValues: defaultValues.PM
     },
-    DE: {
+    PD: {
       resolver: zodResolver(designerSchema),
-      defaultValues: defaultValues.DE
+      defaultValues: defaultValues.PD
     }
   }
   const feform = useForm<z.infer<typeof techSchema>>({

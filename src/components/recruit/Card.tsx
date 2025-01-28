@@ -9,7 +9,7 @@ import { Track } from '@/types/track'
 const iconImages: Record<Track, string> = {
   FE: FeLogo,
   BE: BeLogo,
-  DE: DeLogo,
+  PD: DeLogo,
   PM: PmLogo
 }
 
@@ -34,7 +34,7 @@ const iconStyles = cva({
         padding: '14px 17px',
         boxShadow: '0px 0px 20px 0px rgba(193, 193, 193, 0.50)'
       },
-      DE: {
+      PD: {
         bgColor: 'secondary.70',
         padding: '13px',
         boxShadow: '0px 0px 20px 0px rgba(255, 153, 0, 0.50)'

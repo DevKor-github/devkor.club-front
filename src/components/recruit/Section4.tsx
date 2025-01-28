@@ -39,7 +39,7 @@ const RecruitSection4 = () => {
           기능을 잘 만드는 개발자보다{'\n'}코드 레벨에서의 최적화와{'\n'}다양한 트러블 슈팅을 경험해본{' '}
           <span className={css({ color: 'label.50' })}>개발자</span>
         </Card>
-        <Card icons={['DE']}>
+        <Card icons={['PD']}>
           보기 좋은 UI에 머물기 보다{'\n'}더 나아가 유저 경험이{'\n'}좋은 화면을 설계하는{' '}
           <span className={css({ color: 'label.50' })}>디자이너</span>
         </Card>

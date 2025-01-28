@@ -1,4 +1,4 @@
-export type Track = 'FE' | 'BE' | 'PM' | 'DE'
+export type Track = 'FE' | 'BE' | 'PM' | 'PD'
 
 export interface TrackCardProps {
   track: Track
