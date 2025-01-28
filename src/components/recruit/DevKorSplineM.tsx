@@ -21,10 +21,15 @@ const DevKorSplineM = ({ scrollYProgress }: Props) => {
         pointerEvents: 'none',
         zIndex: -1,
         zoom: 0.4,
-        scale
+        scale,
+        willChange: 'transform',
+        transform: 'translateZ(0)'
       }}
     >
-      <Spline scene="https://prod.spline.design/DUh5k8bG5Vo5Xedl/scene.splinecode" />
+      <Spline
+        scene="https://prod.spline.design/DUh5k8bG5Vo5Xedl/scene.splinecode"
+        style={{ width: '100%', height: '100%' }}
+      />
     </motion.div>
   )
 }
