@@ -27,7 +27,7 @@ const RecruitingPageV2 = () => {
     }
     setCurrentSection(0)
 
-    if (latest < (scrollY.getPrevious() ?? 0)) return
+    if (latest < (scrollY.getPrevious() ?? 0) || mediaQuery.Mobile) return
 
     const snapThreshold = 0.3 // 30% 이상 스크롤 됐을 때 스냅
 
@@ -37,7 +37,7 @@ const RecruitingPageV2 = () => {
       const progress = (latest - sectionStart) / sectionHeight
 
       if (latest > sectionStart && latest < sectionEnd && progress > snapThreshold) {
-        window.scrollTo({ top: sectionEnd, behavior: 'auto' })
+        window.scrollTo({ top: sectionEnd, behavior: 'smooth' })
         break
       }
     }
