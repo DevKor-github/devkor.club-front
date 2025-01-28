@@ -37,7 +37,7 @@ const RecruitingPageV2 = () => {
       const progress = (latest - sectionStart) / sectionHeight
 
       if (latest > sectionStart && latest < sectionEnd && progress > snapThreshold) {
-        window.scrollTo({ top: sectionEnd, behavior: 'smooth' })
+        window.scrollTo({ top: sectionEnd, behavior: 'auto' })
         break
       }
     }
