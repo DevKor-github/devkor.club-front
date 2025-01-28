@@ -33,13 +33,10 @@ const RecruitIntro = () => {
 
   // 스크롤 위치에 따른 텍스트 애니메이션 값 계산
   const text1X = useTransform(scrollY, [0, sectionHeight], [-1000, 0], animationDefaultConfig)
-  const text1Opacity = useTransform(scrollY, [0, sectionHeight], [0, 1], animationDefaultConfig)
 
   const text2X = useTransform(scrollY, [sectionHeight, sectionHeight * 2], [1000, 0], animationDefaultConfig)
-  const text2Opacity = useTransform(scrollY, [sectionHeight, sectionHeight * 2], [0, 1], animationDefaultConfig)
 
   const text3X = useTransform(scrollY, [sectionHeight * 2, sectionHeight * 3], [-1000, 0], animationDefaultConfig)
-  const text3Opacity = useTransform(scrollY, [sectionHeight * 2, sectionHeight * 3], [0, 1], animationDefaultConfig)
 
   // DevKor와 신입 부원 모집 텍스트 애니메이션
   const titleX = useTransform(scrollY, [0, sectionHeight], [0, -3000], animationDefaultConfig)
@@ -80,7 +77,16 @@ const RecruitIntro = () => {
       <motion.img
         src={src}
         alt="recruit img"
-        className={css({ w: { L: 'full', M: '952px', S: '705px', XS: '335px', XSDown: '335px' } })}
+        className={css({
+          w: {
+            L: 'full',
+            M: '952px',
+            S: '705px',
+            XS: '335px',
+            XSDown: '335px'
+          },
+          willChange: 'filter'
+        })}
         style={{ filter }}
       />
       <div
@@ -102,12 +108,10 @@ const RecruitIntro = () => {
             fontWeight: { M: 700, S: 600 },
             color: 'label.100',
             textAlign: 'center',
-            SDown: { whiteSpace: 'pre-wrap' }
+            SDown: { whiteSpace: 'pre-wrap' },
+            willChange: 'transform'
           })}
-          style={{
-            x: text1X,
-            opacity: text1Opacity
-          }}
+          style={{ x: text1X }}
         >
           우리는 SW 기반 서비스에서{'\n'}기획, 개발, 디자인이 분리되어있다고 생각하지 않습니다.
         </motion.p>
@@ -118,12 +122,10 @@ const RecruitIntro = () => {
             fontWeight: { M: 700, S: 600 },
             color: 'label.100',
             textAlign: 'center',
-            MDown: { whiteSpace: 'pre-wrap' }
+            MDown: { whiteSpace: 'pre-wrap' },
+            willChange: 'transform'
           })}
-          style={{
-            x: text2X,
-            opacity: text2Opacity
-          }}
+          style={{ x: text2X }}
         >
           개발자, 디자이너, 기획자가 한 팀이 되어 기획부터 개발, 운영까지 일련의 프로세스를 함께하며{'\n'}
           유저 확보가 가능한 프로덕트를 만들고자 합니다.
@@ -135,12 +137,10 @@ const RecruitIntro = () => {
             fontWeight: { M: 700, S: 600 },
             color: 'label.100',
             textAlign: 'center',
-            MDown: { whiteSpace: 'pre-wrap' }
+            MDown: { whiteSpace: 'pre-wrap' },
+            willChange: 'transform'
           })}
-          style={{
-            x: text3X,
-            opacity: text3Opacity
-          }}
+          style={{ x: text3X }}
         >
           세가지 관점을 합쳐 기술적으로 문제를 해결하고, 시장의 수요가 있으며,{'\n'}
           유저 경험이 좋은 프로덕트를 함께 만들어 사용자를 확보하는 경험을 하려 합니다.
@@ -154,7 +154,8 @@ const RecruitIntro = () => {
           bottom: { M: 255, S: 228, SDown: 174 },
           fontSize: { M: 128, S: 96, SDown: 56 },
           fontWeight: 700,
-          color: 'label.100'
+          color: 'label.100',
+          willChange: 'transform'
         })}
         animate={{ x: 0, y: 0 }}
         transition={{ delay: 0.3, type: 'spring', duration: 0.6, stiffness: 150, damping: 20, mass: 1, repeat: 0 }}
@@ -170,7 +171,8 @@ const RecruitIntro = () => {
           bottom: { M: 199, S: 206, SDown: 132 },
           fontSize: { M: 48, MDown: 32 },
           fontWeight: 300,
-          color: 'label.100'
+          color: 'label.100',
+          willChange: 'transform'
         })}
         animate={{ x: 0, y: 0 }}
         transition={{ delay: 1, type: 'spring', duration: 0.6, stiffness: 150, damping: 20, mass: 1 }}
@@ -187,7 +189,8 @@ const RecruitIntro = () => {
             bottom: { L: 94, M: 78, S: 24, XS: 49, XSDown: 49 },
             left: { M: '24px', S: 8, SDown: 23 },
             fontSize: { S: 24, SDown: 16 },
-            fontWeight: 700
+            fontWeight: 700,
+            willChange: 'transform'
           })
         )}
         animate={{ x: 0 }}
