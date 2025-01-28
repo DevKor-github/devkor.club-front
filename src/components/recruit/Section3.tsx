@@ -63,10 +63,6 @@ const RecruitSection3 = () => {
         <MarqueeItem />
         <MarqueeItem />
         <MarqueeItem />
-        <MarqueeItem />
-        <MarqueeItem />
-        <MarqueeItem />
-        <MarqueeItem />
       </motion.div>
       <div
         className={css({
