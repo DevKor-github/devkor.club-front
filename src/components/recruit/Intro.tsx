@@ -16,7 +16,7 @@ const RecruitIntro = () => {
   const { scrollY } = useScroll({
     target: scrollRef,
     layoutEffect: false,
-    smooth: 16
+    smooth: 0.3
   })
   const mediaQuery = useMatchLayout()
 
