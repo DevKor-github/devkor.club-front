@@ -17,20 +17,19 @@ const Frontend = ({ form }: FrontendProps) => {
   }
   const [fileName, setFileName] = useState<string | null>(null) // 저장되는 파일 이름 -> 나중에 DB에 보낼 값
   const [originalFileName, setOriginalFileName] = useState<string | null>(null) // 화면에 표시되는, 원래 파일 이름
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+
   const handleFileSelect = useCallback((fileName: string, originalFileName: string) => {
     setFileName(fileName)
     setOriginalFileName(originalFileName)
   }, [])
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+
   const handleDeleteFile = useCallback(() => {
     setFileName(null)
     setOriginalFileName(null)
     form.setValue('answer8', undefined)
-  }, [])
+  }, [form])
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  const onUpload = useCallback((url: string) => form.setValue('answer8', url), [])
+  const onUpload = useCallback((url: string) => form.setValue('answer8', url), [form])
 
   return (
     <form

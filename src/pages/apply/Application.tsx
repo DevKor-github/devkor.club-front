@@ -64,12 +64,7 @@ const Application = () => {
 
   const { feform, beform, pmform, deform } = useGenericForm(track as Track)
 
-  const forms = {
-    FE: feform,
-    BE: beform,
-    PM: pmform,
-    DE: deform
-  }
+  const forms = { FE: feform, BE: beform, PM: pmform, DE: deform }
 
   const { mutate: postFe } = usePostFrontApplication()
   const { mutate: postBe } = usePostBackApplication()
@@ -102,7 +97,7 @@ const Application = () => {
         flexDir: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        px: 8,
+        px: 4,
         gap: 45,
         py: 144
       })}

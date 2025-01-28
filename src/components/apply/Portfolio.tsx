@@ -34,28 +34,35 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
           alignItems: 'center',
           alignSelf: 'stretch',
           whiteSpace: 'pre-wrap',
-          color: 'label.80',
+          color: 'label.50/80',
           S: { fontSize: 16, fontWeight: 600 },
           XS: { fontSize: 14, fontWeight: 600 }
         })}
       >
-        {track === 'DE' ? '포트폴리오를 첨부해주세요!' : ' 포트폴리오가 있다면 첨부해주세요! '}
-        <p className={css({ fontSize: 12, fontWeight: 400 })}>500MB 이하의 파일만 업로드 가능합니다.</p>
-        {track === 'DE' && (
-          <div
-            className={css({
-              w: 1.5,
-              h: 1.5,
-              rounded: 'full',
-              bgColor: 'secondary.70'
-            })}
-          />
-        )}
+        <div className={css({ display: 'inline-flex', alignItems: 'center', gap: 1 })}>
+          <span>
+            {track === 'DE' ? '포트폴리오를 첨부해주세요!' : ' 포트폴리오가 있다면 첨부해주세요! '}
+            <span className={css({ fontSize: 12, fontWeight: 400 })}>
+              {` (500MB 이하의 파일만 업로드 가능합니다.)`}
+              <span
+                className={css({
+                  display: 'inline-block',
+                  w: 1.5,
+                  h: 1.5,
+                  rounded: 'full',
+                  bgColor: 'secondary.70',
+                  flexShrink: 0,
+                  ml: 1
+                })}
+              />
+            </span>
+          </span>
+        </div>
       </div>
       <div className={css({ display: 'flex', gap: 2.5 })}>
         <Button variant="icon" type="button" size="icon" onClick={() => setIsOpen(true)}>
           {fileName ? '파일 변경' : '파일 추가'}
-          <Upload className={css({ w: 5, h: 5 })} />
+          <Upload className={css({ w: 4, h: 4 })} />
         </Button>
         {originalFileName && (
           <div

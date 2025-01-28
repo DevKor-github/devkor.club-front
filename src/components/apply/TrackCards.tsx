@@ -6,7 +6,7 @@ import { TrackCardProps } from '@/types/track'
 const TrackCards = ({ selectedTrack, handleSelectTrack }: Omit<TrackCardProps, 'track'>) => {
   return (
     <div className={css({ display: 'flex', flexDir: 'column', gap: 5, px: { S: 8, XS: 4 } })}>
-      <p className={css({ fontSize: { S: 18, XSDown: 16 }, fontWeight: { S: 700, XSDown: 600 } })}>지원 파트</p>
+      {/* <p className={css({ fontSize: { S: 18, XSDown: 16 }, fontWeight: { S: 700, XSDown: 600 } })}>지원 파트</p> */}
       <div
         className={css({
           display: 'flex',

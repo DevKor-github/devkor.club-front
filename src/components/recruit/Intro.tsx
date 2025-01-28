@@ -2,6 +2,7 @@ import { css, cx } from '@styled-stytem/css'
 import { button } from '@styled-stytem/recipes'
 import { easeInOut, motion, useMotionTemplate, useScroll, useTransform } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import RecruitImg from '@/assets/RecruitImg.png'
 import RecruitImgL from '@/assets/RecruitImgL.png'
@@ -20,6 +21,8 @@ const RecruitIntro = () => {
   const mediaQuery = useMatchLayout()
 
   const sectionHeight = useMemo(() => window.innerHeight / 3, [])
+  const navigate = useNavigate()
+  const handleNavigate = useCallback(() => navigate('/apply'), [navigate])
 
   const handleImgMediaQuery = useCallback(() => {
     if (mediaQuery.L) return RecruitImg
@@ -204,6 +207,7 @@ const RecruitIntro = () => {
         )}
         animate={{ x: 0 }}
         transition={{ delay: 1.7, type: 'spring', stiffness: 100, damping: 10, mass: 0.5 }}
+        onClick={handleNavigate}
       >
         지원서 작성하기
       </motion.button>

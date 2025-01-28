@@ -22,9 +22,9 @@ const DateOption = memo(({ index, dateOption, selected, handleSelecteTime }: Dat
         w: 'full',
         pos: 'relative',
         maxW: 820,
-        h: 53,
+        h: '44px',
         px: 30,
-        py: '13px',
+        py: '10px',
         justifyContent: 'flex-start',
         alignItems: 'center',
         alignSelf: 'stretch',
@@ -92,9 +92,9 @@ const DateOption = memo(({ index, dateOption, selected, handleSelecteTime }: Dat
       </AnimatePresence>
       <p
         className={css({
-          fontSize: 18,
-          fontWeight: 500,
-          color: 'label.80',
+          fontSize: 14,
+          fontWeight: 600,
+          color: 'label.50/50',
           ml: 10
         })}
       >

@@ -41,14 +41,24 @@ const Question = <T extends z.ZodObject<Record<string, z.ZodTypeAny>>>({
           px: 5,
           gap: 1,
           justifyContent: 'flex-start',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           alignSelf: 'stretch',
           whiteSpace: 'pre-wrap'
         })}
       >
-        {title}
-        {limit && <p className={css({ fontSize: 12, fontWeight: 400 })}>(300자 내외)</p>}
-        <div className={css({ w: 1.5, h: 1.5, rounded: 'full', bgColor: 'secondary.70' })} />
+        <div className={css({ display: 'inline-flex', alignItems: 'center', gap: 1 })}>
+          <span>
+            {title}
+            {limit && (
+              <span
+                className={css({ fontSize: 12, fontWeight: 400, display: 'inline-flex', alignItems: 'center', gap: 1 })}
+              >
+                {` (300자 내외)`}
+                <div className={css({ w: 1.5, h: 1.5, rounded: 'full', bgColor: 'secondary.70', flexShrink: 0 })} />
+              </span>
+            )}
+          </span>
+        </div>
       </div>
       <div
         className={css({
