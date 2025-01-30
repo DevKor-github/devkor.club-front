@@ -1,6 +1,6 @@
 import { defineConfig } from '@pandacss/dev'
 
-import { buttonRecipe, textareaRecipe, screenWrapperRecipe } from './src/lib/recipe/index'
+import { accordionRecipe, buttonRecipe, textareaRecipe, screenWrapperRecipe } from './src/lib/recipe/index'
 import { semanticTokens } from './src/lib/semantic-tokens'
 
 export default defineConfig({
@@ -20,6 +20,9 @@ export default defineConfig({
         button: buttonRecipe,
         screenWrapper: screenWrapperRecipe,
         textarea: textareaRecipe
+      },
+      slotRecipes: {
+        accordion: accordionRecipe
       },
       tokens: {
         fonts: {
@@ -42,6 +45,16 @@ export default defineConfig({
         M: '1024px',
         S: '768px',
         XS: '375px'
+      }
+    },
+    keyframes: {
+      'accordion-down': {
+        from: { height: '-10' },
+        to: { height: 'var(--radix-accordion-content-height)' }
+      },
+      'accordion-up': {
+        from: { height: 'var(--radix-accordion-content-height)' },
+        to: { height: '0' }
       }
     },
     semanticTokens

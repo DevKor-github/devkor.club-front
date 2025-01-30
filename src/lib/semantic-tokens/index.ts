@@ -202,6 +202,8 @@ export const semanticTokens = defineSemanticTokens({
   //     sm: { value: 'calc({radii.radius} - 4px)' }
   //   },
   animations: {
-    slideDownAndFade: { value: 'slideDownAndFade 0.2s ease-out' }
+    slideDownAndFade: { value: 'slideDownAndFade 0.2s ease-out' },
+    'accordion-down': { value: 'accordion-down 0.2s ease-out' },
+    'accordion-up': { value: 'accordion-up 0.2s ease-out' }
   }
 })

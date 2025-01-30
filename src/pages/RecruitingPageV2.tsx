@@ -5,6 +5,7 @@ import { useRef, useState } from 'react'
 import Render from '@/common/components/Render'
 import DevKorSpline from '@/components/recruit/DevKorSpline'
 import DevKorSplineM from '@/components/recruit/DevKorSplineM'
+import FAQSection from '@/components/recruit/FAQSection'
 import RecruitIntro from '@/components/recruit/Intro'
 import RecruitSection2 from '@/components/recruit/Section2'
 import RecruitSection3 from '@/components/recruit/Section3'
@@ -71,6 +72,7 @@ const RecruitingPageV2 = () => {
           ) : (
             <DevKorSpline key="spline" scrollYProgress={scrollYProgress} />
           )}
+          <FAQSection key="faq" />
         </Render>
       </AnimatePresence>
     </div>
