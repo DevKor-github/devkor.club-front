@@ -1,5 +1,5 @@
 import { css } from '@styled-stytem/css'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 import Button from '@/components/ui/button'
 import { useMatchLayout } from '@/utils/useMatchLayout'

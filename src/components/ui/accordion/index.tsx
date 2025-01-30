@@ -1,8 +1,8 @@
 import * as RadixAccordion from '@radix-ui/react-accordion'
 import { css, cx, type RecipeVariantProps } from '@styled-stytem/css'
 import { accordion as accordionRecipe } from '@styled-stytem/recipes'
-import { AnimatePresence, motion } from 'framer-motion'
 import { MinusIcon, PlusIcon } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
 import { forwardRef, useEffect, useRef, useState } from 'react'
 
 type AccordionProps = Parameters<typeof RadixAccordion.Root>[0] & {

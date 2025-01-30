@@ -1,5 +1,5 @@
 import { css, cva } from '@styled-stytem/css'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 

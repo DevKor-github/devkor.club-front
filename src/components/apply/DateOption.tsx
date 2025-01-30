@@ -1,5 +1,5 @@
 import { css } from '@styled-stytem/css'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 import { memo, useState } from 'react'
 
 import Checked from '@/assets/Checked.svg'

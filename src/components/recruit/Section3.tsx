@@ -1,5 +1,5 @@
 import { css } from '@styled-stytem/css'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useCallback, useEffect, useState } from 'react'
 
 import Calendar from '@/assets/calendar_L.png'

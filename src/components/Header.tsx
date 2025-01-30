@@ -1,6 +1,6 @@
 import { css, cx } from '@styled-stytem/css'
 import { button } from '@styled-stytem/recipes'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import DeKorLogo from '@/assets/devkorLogo.svg'

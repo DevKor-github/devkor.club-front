@@ -1,12 +1,15 @@
 import { css } from '@styled-stytem/css'
-import { AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion'
+import { AnimatePresence, useMotionValueEvent, useScroll } from 'motion/react'
 import { useRef, useState } from 'react'
 
 import Render from '@/common/components/Render'
 import DevKorSpline from '@/components/recruit/DevKorSpline'
 import DevKorSplineM from '@/components/recruit/DevKorSplineM'
 import FAQSection from '@/components/recruit/FAQSection'
+import FAQSpline from '@/components/recruit/FAQSpline'
+import FAQSplineM from '@/components/recruit/FAQSplineM'
 import RecruitIntro from '@/components/recruit/Intro'
+import MobileScrollDownPointer from '@/components/recruit/MobileScrollDownPointer'
 import RecruitSection2 from '@/components/recruit/Section2'
 import RecruitSection3 from '@/components/recruit/Section3'
 import RecruitSection4 from '@/components/recruit/Section4'
@@ -55,24 +58,30 @@ const RecruitingPageV2 = () => {
         alignItems: 'center',
         minHeight: '400vh',
         overflowY: 'scroll',
-        scrollPadding: `1000px 0`
+        pos: 'relative'
       })}
     >
       <div className={css({ w: 'full', h: `calc(100vh/3)` })} />
       <div className={css({ w: 'full', h: `calc(100vh/3)` })} />
       <div className={css({ w: 'full', h: `calc(100vh/3 + 100vh / 3 * 0.1)` })} />
       <AnimatePresence>
-        {currentSection === 0 && <RecruitIntro key="intro" />}
+        <Render key="intro" condition={currentSection === 0}>
+          <RecruitIntro key="intro" />
+          <MobileScrollDownPointer />
+        </Render>
         <Render key="section" condition={currentSection !== 0}>
           <RecruitSection2 key="section2" />
           <RecruitSection3 key="section3" />
           <RecruitSection4 key="section4" />
-          {mediaQuery.Mobile ? (
-            <DevKorSplineM key="spline-mobile" scrollYProgress={scrollYProgress} />
-          ) : (
-            <DevKorSpline key="spline" scrollYProgress={scrollYProgress} />
-          )}
+          {currentSection < 8 &&
+            (mediaQuery.Mobile ? (
+              <DevKorSplineM key="spline-mobile" scrollYProgress={scrollYProgress} />
+            ) : (
+              <DevKorSpline key="spline" scrollYProgress={scrollYProgress} />
+            ))}
           <FAQSection key="faq" />
+          {currentSection >= 8 &&
+            (mediaQuery.Mobile ? <FAQSplineM key="faq-spline-mobile" /> : <FAQSpline key="faq-spline" />)}
         </Render>
       </AnimatePresence>
     </div>

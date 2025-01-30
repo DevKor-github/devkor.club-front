@@ -1,6 +1,6 @@
 import { css, cx } from '@styled-stytem/css'
 import { button } from '@styled-stytem/recipes'
-import { easeInOut, motion, useMotionTemplate, useScroll, useTransform } from 'framer-motion'
+import { easeInOut, motion, useMotionTemplate, useScroll, useTransform } from 'motion/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,10 +14,7 @@ import { useMatchLayout } from '@/utils/useMatchLayout'
 
 const RecruitIntro = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll({
-    target: scrollRef,
-    layoutEffect: false
-  })
+  const { scrollY } = useScroll({ target: scrollRef, layoutEffect: false })
   const mediaQuery = useMatchLayout()
 
   const sectionHeight = useMemo(() => window.innerHeight / 3, [])

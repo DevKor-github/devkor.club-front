@@ -1,5 +1,5 @@
 import { cva } from '@styled-stytem/css'
-import { motion, useSpring } from 'framer-motion'
+import { motion, useSpring } from 'motion/react'
 import { useEffect, useState } from 'react'
 
 import Logo from '@/components/landing/Logo'

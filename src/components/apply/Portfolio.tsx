@@ -1,6 +1,6 @@
 import { css } from '@styled-stytem/css'
-import { motion } from 'framer-motion'
 import { CircleX, FileText, Upload } from 'lucide-react'
+import { motion } from 'motion/react'
 import { useCallback, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useParams } from 'react-router-dom'

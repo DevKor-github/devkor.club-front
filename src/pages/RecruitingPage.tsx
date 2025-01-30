@@ -9,7 +9,7 @@ import {
   useMotionValueEvent,
   useScroll,
   useTransform
-} from 'framer-motion'
+} from 'motion/react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 

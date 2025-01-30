@@ -1,5 +1,5 @@
 import Spline from '@splinetool/react-spline'
-import { motion, MotionValue, useTransform } from 'framer-motion'
+import { motion, MotionValue, useTransform } from 'motion/react'
 
 type Props = {
   scrollYProgress: MotionValue<number>
@@ -18,14 +18,17 @@ const DevKorSpline = ({ scrollYProgress }: Props) => {
         top: 0,
         right: 0,
         width: '50%',
-        height: '100%',
-        pointerEvents: 'none',
+        height: '100vh',
         zIndex: -1,
         scale,
-        translateX
+        translateX,
+        touchAction: 'none'
       }}
     >
-      <Spline scene="https://prod.spline.design/DUh5k8bG5Vo5Xedl/scene.splinecode" />
+      <Spline
+        scene="https://prod.spline.design/DUh5k8bG5Vo5Xedl/scene.splinecode"
+        style={{ width: '100%', height: '100%' }}
+      />
     </motion.div>
   )
 }

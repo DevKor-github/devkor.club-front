@@ -1,5 +1,5 @@
 import { css } from '@styled-stytem/css'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 import Globe from '@/assets/globe.svg'
 const ClickedIntro = () => {
