@@ -26,10 +26,10 @@ const Frontend = ({ form }: FrontendProps) => {
   const handleDeleteFile = useCallback(() => {
     setFileName(null)
     setOriginalFileName(null)
-    form.setValue('answer8', undefined)
+    form.setValue('answer6', undefined)
   }, [form])
 
-  const onUpload = useCallback((url: string) => form.setValue('answer8', url), [form])
+  const onUpload = useCallback((url: string) => form.setValue('answer6', url), [form])
 
   return (
     <form
@@ -62,44 +62,31 @@ const Frontend = ({ form }: FrontendProps) => {
         filed={'answer1'}
       />
       <Question<typeof techSchema>
-        title="GitHub 또는 개인 블로그가 있다면, 링크를 입력해주세요."
+        title="GitHub 링크를 입력해주세요."
         register={form.register}
         errors={form.formState.errors}
         filed={'answer2'}
       />
       <Question<typeof techSchema>
-        title="본인의 Github 저장소 중 가장 코드 퀄리티가 높은 저장소가 무엇인지, 그리고 어떤 저장소인지 간략하게 설명해주세요."
+        title="진행했던 프로젝트가 있다면 소개해주세요. 또한, 그 프로젝트를 통해 무엇을 경험했는지 설명해주세요."
+        limit
         register={form.register}
         errors={form.formState.errors}
         filed={'answer3'}
       />
       <Question<typeof techSchema>
-        title="과거에 본인이 수행했던 프로젝트나 설계했던 프로그램, 공부했던 경험에 대해 자세히 서술해주세요."
+        title="본인이 개발을 하는 이유를 설명하고, 뛰어난 FE 개발자는 어떤 개발자인지 정의해주세요."
         limit
         register={form.register}
         errors={form.formState.errors}
         filed={'answer4'}
       />
       <Question<typeof techSchema>
-        title="본인이 생각하는 잘하는 FE 개발자는 어떤 개발자인지 서술해주세요."
+        title="DevKor에서 하고 싶은 활동과 얻어가고자 하는 것을 제시하고, 이를 통해 어떤 FE 개발자로 성장하고 싶은지 서술해주세요."
         limit
         register={form.register}
         errors={form.formState.errors}
         filed={'answer5'}
-      />
-      <Question<typeof techSchema>
-        title="본인의 개발 실력을 평가하고 평가에 대한 이유도 함께 서술해주세요."
-        limit
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer6'}
-      />
-      <Question<typeof techSchema>
-        title="지원자분이 개발을 하는 이유와 DevKor에서 성장하고 싶은 점에 대해서 작성해주세요."
-        limit
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer7'}
       />
       <Portfolio
         fileName={fileName}

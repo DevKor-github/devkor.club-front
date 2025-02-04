@@ -13,9 +13,7 @@ export interface FeApplicationRequest extends ApplyBase {
   answer3: string
   answer4: string
   answer5: string
-  answer6: string
-  answer7: string
-  answer8?: string
+  answer6?: string
 }
 
 export interface BeApplicationRequest extends ApplyBase {
@@ -24,10 +22,7 @@ export interface BeApplicationRequest extends ApplyBase {
   answer3: string
   answer4: string
   answer5: string
-  answer6: string
-  answer7: string
-  answer8: string
-  answer9?: string
+  answer6?: string
 }
 
 export interface DeApplicationRequest extends ApplyBase {
@@ -45,5 +40,6 @@ export interface PmApplicationRequest extends ApplyBase {
   answer2: string
   answer3: string
   answer4: string
-  answer5?: string
+  answer5: string
+  answer6?: string
 }

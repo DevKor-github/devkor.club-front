@@ -57,7 +57,7 @@ const Designer = ({ form }: DesignerProps) => {
         filed={'answer1'}
       />
       <Question<typeof designerSchema>
-        title="과거에 디자인했던 프로젝트나 경험에 대해서 자세히 서술해주세요"
+        title="과거에 디자인했던 프로젝트나 경험에서 느낀 점(얻은 점, 아쉬웠던 점, 기억에 남는 점)들을 서술해주세요."
         register={form.register}
         errors={form.formState.errors}
         filed={'answer2'}
@@ -77,14 +77,14 @@ const Designer = ({ form }: DesignerProps) => {
         filed={'answer4'}
       />
       <Question<typeof designerSchema>
-        title={`개발자, 프로젝트 매니저 등 다른 팀원과 협업할 때 \n중요하게 생각하는 가치와 갈등 상황에서 본인의 대처 방안을 서술해주세요.`}
+        title={`개발자와 PM 등 다른 팀원과 협업할 때 중요하게 생각하는 가치와, 갈등 상황에서 본인의 대처 방안을 서술해주세요.`}
         limit
         register={form.register}
         errors={form.formState.errors}
         filed={'answer5'}
       />
       <Question<typeof designerSchema>
-        title="DevKor에서 얻어가고 싶은 것들, 하고 싶은 활동들에 대해 서술해주세요."
+        title="DevKor에서 하고 싶은 활동과 얻어가고자 하는 것을 제시하고, 이를 통해 어떤 프로덕트 디자이너로 성장하고 싶은지 서술해주세요."
         limit
         register={form.register}
         errors={form.formState.errors}

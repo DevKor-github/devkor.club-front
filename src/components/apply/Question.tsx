@@ -58,6 +58,9 @@ const Question = <T extends z.ZodObject<Record<string, z.ZodTypeAny>>>({
               </span>
             )}
           </span>
+          {!limit && (
+            <div className={css({ w: 1.5, h: 1.5, rounded: 'full', bgColor: 'secondary.70', flexShrink: 0 })} />
+          )}
         </div>
       </div>
       <div

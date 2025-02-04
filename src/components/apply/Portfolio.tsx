@@ -41,12 +41,12 @@ const Portfolio = ({ fileName, originalFileName, handleFileSelect, handleDeleteF
       >
         <div className={css({ display: 'inline-flex', alignItems: 'center', gap: 1 })}>
           <span>
-            {track === 'DE' ? '포트폴리오를 첨부해주세요!' : ' 포트폴리오가 있다면 첨부해주세요! '}
+            {track === 'PD' ? '포트폴리오를 첨부해주세요!' : ' 포트폴리오가 있다면 첨부해주세요! '}
             <span className={css({ fontSize: 12, fontWeight: 400 })}>
               {` (500MB 이하의 파일만 업로드 가능합니다.)`}
               <span
                 className={css({
-                  display: 'inline-block',
+                  display: track === 'PD' ? 'inline-block' : 'none',
                   w: 1.5,
                   h: 1.5,
                   rounded: 'full',
