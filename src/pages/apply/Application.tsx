@@ -16,6 +16,7 @@ import Frontend from '@/components/apply/Frontend'
 import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
 import Button from '@/components/ui/button'
+import Spinner from '@/components/ui/spinner'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
 import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
@@ -70,10 +71,10 @@ const Application = () => {
 
   const forms = { FE: feform, BE: beform, PM: pmform, PD: deform }
 
-  const { mutate: postFe } = usePostFrontApplication()
-  const { mutate: postBe } = usePostBackApplication()
-  const { mutate: postPm } = usePostPmApplication()
-  const { mutate: postDe } = usePostDeApplication()
+  const { mutate: postFe, isPending: isFePending } = usePostFrontApplication()
+  const { mutate: postBe, isPending: isBePending } = usePostBackApplication()
+  const { mutate: postPm, isPending: isPmPending } = usePostPmApplication()
+  const { mutate: postDe, isPending: isDePending } = usePostDeApplication()
 
   const handleFromSubmit = async () => {
     const currentTime = new Date().toISOString()
@@ -161,8 +162,21 @@ const Application = () => {
           alignItems: 'center'
         })}
       >
-        <Button variant="gray" disabled={!track} onClick={() => handleFromSubmit()} type="submit">
-          제출하기
+        <Button
+          variant="gray"
+          disabled={!track}
+          onClick={() => handleFromSubmit()}
+          type="submit"
+          style={{
+            backgroundColor:
+              isFePending || isBePending || isPmPending || isDePending ? 'rgba(255, 197, 19, 0.50)' : undefined
+          }}
+        >
+          {isFePending || isBePending || isPmPending || isDePending ? (
+            <Spinner />
+          ) : (
+            <span className={css({ opacity: 1, transition: 'opacity 0.3s ease-in-out' })}>제출하기</span>
+          )}
         </Button>
       </div>
     </section>

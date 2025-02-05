@@ -6,7 +6,15 @@ import Date from '@/components/apply/Date'
 import DateOption from '@/components/apply/DateOption'
 import { selectedDate, selectedTimes } from '@/lib/zotai/store'
 
-const timeConfig = ['1:00 PM - 2:00PM', '2:00 PM - 3:00PM', '3:00 PM - 4:00PM', '4:00 PM - 5:00PM', '5:00 PM - 6:00PM']
+const timeConfig = [
+  '1:00 PM - 2:00PM',
+  '2:00 PM - 3:00PM',
+  '3:00 PM - 4:00PM',
+  '4:00 PM - 5:00PM',
+  '5:00 PM - 6:00PM',
+  '9:00 PM - 10:00PM',
+  '10:00 PM - 11:00PM'
+]
 interface AvaliableTimeProps {
   setInterviewTime: (time: number) => void
 }

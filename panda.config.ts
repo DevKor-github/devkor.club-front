@@ -55,6 +55,10 @@ export default defineConfig({
       'accordion-up': {
         from: { height: 'var(--radix-accordion-content-height)' },
         to: { height: '0' }
+      },
+      spin: {
+        from: { transform: 'rotate(0deg)' },
+        to: { transform: 'rotate(360deg)' }
       }
     },
     semanticTokens
