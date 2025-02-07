@@ -1,5 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
+import { useResetAtom } from 'jotai/utils'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { match } from 'ts-pattern'
@@ -18,6 +20,7 @@ import ProjectManager from '@/components/apply/ProjectManager'
 import Button from '@/components/ui/button'
 import Spinner from '@/components/ui/spinner'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
+import { selectedTimes } from '@/lib/zotai/store'
 import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
 
@@ -31,8 +34,8 @@ type TrackConfigType = {
 const trackConfig: TrackConfigType = {
   FE: 'Front-End 프론트엔드 개발자',
   BE: 'Back-End 백엔드 개발자',
-  PM: 'Project Manager 프로젝트 매니저',
-  PD: 'Product Designer 제품 디자이너'
+  PM: 'Product Manager 프로덕트 매니저',
+  PD: 'Product Designer 프로덕트 디자이너'
 }
 
 const Application = () => {
@@ -43,6 +46,7 @@ const Application = () => {
     navigate('/apply/result')
   }
 
+  const resetInterviewTime = useResetAtom(selectedTimes)
   const trackTitle = trackConfig[track as Track]
   const {
     register,
@@ -78,7 +82,8 @@ const Application = () => {
 
   const handleFromSubmit = async () => {
     const currentTime = new Date().toISOString()
-    if (currentTime < availablePeriod.from || currentTime > availablePeriod.to) return alert('지원 기간이 아닙니다.')
+    if (currentTime < availablePeriod.from || currentTime > availablePeriod.to)
+      return alert('지원 기간은 2월 10일 ~ 2월 21일 입니다.')
 
     await forms[track].trigger()
     await handleSubmit(() => {})()
@@ -95,7 +100,14 @@ const Application = () => {
       .with('PM', () => postPm({ ...personalInfo, ...pmform.getValues() }, { onSuccess: navigateToResult }))
       .with('PD', () => postDe({ ...personalInfo, ...deform.getValues() }, { onSuccess: navigateToResult }))
       .exhaustive()
+    resetInterviewTime()
   }
+
+  const isSubmitPending = isFePending || isBePending || isPmPending || isDePending
+
+  useEffect(() => {
+    return () => resetInterviewTime()
+  }, [resetInterviewTime])
   return (
     <section
       className={css({
@@ -168,11 +180,10 @@ const Application = () => {
           onClick={() => handleFromSubmit()}
           type="submit"
           style={{
-            backgroundColor:
-              isFePending || isBePending || isPmPending || isDePending ? 'rgba(255, 197, 19, 0.50)' : undefined
+            backgroundColor: isSubmitPending ? 'rgba(255, 197, 19, 0.50)' : undefined
           }}
         >
-          {isFePending || isBePending || isPmPending || isDePending ? (
+          {isSubmitPending ? (
             <Spinner />
           ) : (
             <span className={css({ opacity: 1, transition: 'opacity 0.3s ease-in-out' })}>제출하기</span>

@@ -12,8 +12,6 @@ interface BackendProps {
 }
 const Backend = ({ form }: BackendProps) => {
   function onSubmit(values: z.infer<typeof backendSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values)
   }
   const [fileName, setFileName] = useState<string | null>(null) // 저장되는 파일 이름 -> 나중에 DB에 보낼 값

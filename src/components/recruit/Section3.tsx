@@ -2,9 +2,7 @@ import { css } from '@styled-stytem/css'
 import { motion } from 'motion/react'
 import { useCallback, useEffect, useState } from 'react'
 
-import Calendar from '@/assets/calendar_L.png'
-import CalendarM from '@/assets/calendar_M.png'
-import CalendarXS from '@/assets/calendar_XS.png'
+import Calendar25_1 from '@/assets/Calendar25-1.png'
 import Direction from '@/assets/Direction.svg'
 import DirectionXS from '@/assets/DirectionXS.svg'
 import Worm from '@/assets/Worm.svg'
@@ -13,9 +11,9 @@ import { useMatchLayout } from '@/utils/useMatchLayout'
 const RecruitSection3 = () => {
   const mediaQuery = useMatchLayout()
   const handleCalendarMediaQuery = useCallback(() => {
-    if (mediaQuery.L) return Calendar
-    if (mediaQuery.S) return CalendarM
-    return CalendarXS
+    if (mediaQuery.L) return Calendar25_1
+    if (mediaQuery.S) return Calendar25_1
+    return Calendar25_1
   }, [mediaQuery])
 
   const [calendarSrc, setCalendarSrc] = useState(handleCalendarMediaQuery)

@@ -1,8 +1,13 @@
-import { atom } from 'jotai'
+import { atomWithReset } from 'jotai/utils'
 
-export const selectedDate = atom(29)
+export const selectedDate = atomWithReset(24)
 
-export const selectedTimes = atom([
+export const selectedTimes = atomWithReset([
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
+  { selected: false },
   { selected: false },
   { selected: false },
   { selected: false },

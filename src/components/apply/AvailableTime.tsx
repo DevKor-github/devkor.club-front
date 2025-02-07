@@ -109,16 +109,16 @@ const AvailableTime = ({ setInterviewTime }: AvaliableTimeProps) => {
             alignItems: 'center'
           })}
         >
-          <Date date={29} selected={selected === 29} />
-          <Date date={30} selected={selected === 30} />
-          <Date date={31} selected={selected === 31} />
+          <Date date={24} selected={selected === 24} />
+          <Date date={25} selected={selected === 25} />
+          <Date date={26} selected={selected === 26} />
         </div>
         {timeConfig.map((time, index) => (
           <DateOption
-            key={index + (selected - 29) * 5} // prevent animation inconsistency between date
-            index={index + (selected - 29) * 5}
+            key={index + (selected - 24) * 7} // prevent animation inconsistency between date
+            index={index + (selected - 24) * 7}
             dateOption={time}
-            selected={selectedTime[index + (selected - 29) * 5].selected}
+            selected={selectedTime[index + (selected - 24) * 7]?.selected}
             handleSelecteTime={handleTimeSelect}
           />
         ))}

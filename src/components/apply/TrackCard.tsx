@@ -18,7 +18,7 @@ const trackConfig: TrackConfig = {
     title: 'Product Designer'
   },
   PM: {
-    title: 'Project \n Manager'
+    title: 'Product Manager'
   }
 }
 const TrackCard = ({ track, handleSelectTrack, selectedTrack }: TrackCardProps) => {
