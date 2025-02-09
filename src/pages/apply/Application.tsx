@@ -102,7 +102,12 @@ const Application = () => {
       .with('PD', () => postDe({ ...personalInfo, ...deform.getValues() }, { onSuccess: navigateToResult }))
       .exhaustive()
 
-    trackEvent('apply_submit', { ...personalInfo, track })
+    trackEvent('apply_submit', {
+      name: personalInfo.name,
+      studentId: personalInfo.studentId,
+      major: personalInfo.major,
+      track
+    })
     resetInterviewTime()
   }
 
