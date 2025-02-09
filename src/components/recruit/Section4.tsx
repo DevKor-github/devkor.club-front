@@ -14,7 +14,7 @@ const RecruitSection4 = () => {
         w: 'full',
         maxWidth: 'calc(1240px + 64px)',
         justifyContent: 'center',
-        h: '100vh'
+        minH: '100vh'
       })}
     >
       <h5 className={css({ color: 'label.50', fontSize: { S: 48, XS: 24 }, fontWeight: 700 })}>

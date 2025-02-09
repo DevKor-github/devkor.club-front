@@ -4,7 +4,6 @@ import { easeInOut, motion, useMotionTemplate, useScroll, useTransform } from 'm
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import RecruitImg from '@/assets/RecruitImg.png'
 import RecruitImgL from '@/assets/RecruitImgL.png'
 import RecruitImgM from '@/assets/RecruitImgM.png'
 import RecruitImgXS from '@/assets/RecruitImgXS.png'
@@ -22,7 +21,6 @@ const RecruitIntro = () => {
   const handleNavigate = useCallback(() => navigate('/apply'), [navigate])
 
   const handleImgMediaQuery = useCallback(() => {
-    if (mediaQuery.L) return RecruitImg
     if (mediaQuery.M) return RecruitImgL
     if (mediaQuery.S) return RecruitImgM
     return RecruitImgXS
@@ -72,10 +70,10 @@ const RecruitIntro = () => {
         justifyContent: 'center',
         alignItems: 'center',
         pos: 'fixed',
-        w: { L: 'full', M: 'calc(1024px - 24px)' },
+        w: { M: 'calc(1024px - 24px)' },
         maxWidth: 'calc(1307px + 24px)',
         px: '24px',
-        h: { L: 842, M: 613, S: 768, SDown: 482 },
+        h: { M: 613, S: 768, SDown: 482 },
         zIndex: 10,
         top: '50%',
         mt: '20px',
@@ -88,12 +86,13 @@ const RecruitIntro = () => {
         alt="recruit img"
         className={css({
           w: {
-            L: 'full',
+            L: '952px',
             M: '952px',
             S: '705px',
             XS: '335px',
             XSDown: '335px'
           },
+
           willChange: 'filter'
         })}
         style={{ filter }}
@@ -159,7 +158,7 @@ const RecruitIntro = () => {
         // initial={{ x: -3000, y: 0 }}
         className={css({
           pos: 'absolute',
-          left: { L: 'calc((100% - 1307px)/2 + 100px)', S: 47, SDown: 37 },
+          left: { L: 'calc((100% - 1307px)/2 + 200px)', S: 47, SDown: 37 },
           bottom: { M: 255, S: 228, SDown: 174 },
           fontSize: { M: 128, S: 96, SDown: 56 },
           fontWeight: 700,
@@ -195,7 +194,7 @@ const RecruitIntro = () => {
           button({ variant: 'colored', size: { S: 'XL', SDown: 'XS' } }),
           css({
             pos: 'absolute',
-            bottom: { L: 94, M: 78, S: 24, XS: 49, XSDown: 49 },
+            bottom: { M: 78, S: 24, XS: 49, XSDown: 49 },
             left: { M: '24px', S: 8, SDown: 23 },
             fontSize: { S: 24, SDown: 16 },
             fontWeight: 700,
@@ -216,7 +215,7 @@ const RecruitIntro = () => {
           zIndex: 10,
           bottom: 0,
           right: '24px',
-          LDown: { w: 132, h: 128 },
+          M: { w: 132, h: 128 },
           SDown: { w: 110, h: 107 }
         })}
       />

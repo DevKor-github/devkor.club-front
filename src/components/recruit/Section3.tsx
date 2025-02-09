@@ -29,7 +29,7 @@ const RecruitSection3 = () => {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '60px',
-        h: '100vh'
+        minH: '100vh'
       })}
     >
       <motion.div

@@ -19,7 +19,7 @@ const RecruitSection2 = () => {
         justifyContent: 'center',
         alignItems: { XS: 'center', M: 'flex-start' },
         px: '32px',
-        h: '100vh'
+        minH: '100vh'
       })}
     >
       <h1
