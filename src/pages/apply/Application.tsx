@@ -1,3 +1,4 @@
+import { track as trackEvent } from '@amplitude/analytics-browser'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
 import { useResetAtom } from 'jotai/utils'
@@ -100,6 +101,8 @@ const Application = () => {
       .with('PM', () => postPm({ ...personalInfo, ...pmform.getValues() }, { onSuccess: navigateToResult }))
       .with('PD', () => postDe({ ...personalInfo, ...deform.getValues() }, { onSuccess: navigateToResult }))
       .exhaustive()
+
+    trackEvent('apply_submit', { ...personalInfo, track })
     resetInterviewTime()
   }
 
