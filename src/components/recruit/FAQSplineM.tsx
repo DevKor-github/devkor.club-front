@@ -1,26 +1,26 @@
-import Spline from '@splinetool/react-spline'
 import { motion } from 'motion/react'
 
+import RecruitAnimation from '@/assets/RecruitAnimation.webm'
 const FAQSplineM = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      key="spline"
       style={{
         position: 'fixed',
-        top: 0,
+        bottom: 100,
         left: 0,
         touchAction: 'none',
         zIndex: -1,
-        x: '-50%',
-        scale: 0.5,
+        scale: 1,
         willChange: 'transform',
         transform: 'translateZ(0)'
       }}
     >
-      <Spline scene="https://prod.spline.design/c5HakyEUKP0dVZBP/scene.splinecode" />
+      <video id="FAQ-video" muted autoPlay playsInline>
+        <source src={RecruitAnimation} type="video/webm" />
+      </video>
     </motion.div>
   )
 }
