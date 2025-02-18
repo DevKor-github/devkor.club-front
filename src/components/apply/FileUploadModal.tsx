@@ -61,11 +61,9 @@ const FileUploadModal = ({ onChangeFile, handleClose, onUpload }: FileUploadModa
     e.target.value = ''
   }
   const handleUpload = async () => {
-    if (!file) {
-      handleClose()
-      return
-    }
-    const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.pdf` // file name 생성
+    if (!file) return alert('업로드 된 파일이 없습니다')
+
+    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 11)}.pdf` // file name 생성
     try {
       // TODO: 진행중 스피너, 모달 등 추가
       const presignedUrl = await fetchPresignedUrl(fileName)
@@ -241,7 +239,7 @@ const FileUploadModal = ({ onChangeFile, handleClose, onUpload }: FileUploadModa
             alignItems: 'center',
             rounded: 4,
             opacity: 0.6,
-            bgColor: 'primary.70',
+            bgColor: 'primary/80',
             alignSelf: 'stretch',
             color: 'white',
             mt: 47,

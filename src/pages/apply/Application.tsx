@@ -91,7 +91,9 @@ const Application = () => {
     await forms[track].handleSubmit(() => {})()
 
     if (!isPersonalInfoValid || !forms[track].formState.isValid) {
-      return alert('입력 정보를 다시 한 번 확인해주세요!')
+      const errorMessage =
+        Object.values(forms[track].formState.errors || errors)[0]?.message ?? '입력 정보를 다시 한 번 확인해주세요!'
+      return alert(errorMessage)
     }
 
     const personalInfo = getValues()
