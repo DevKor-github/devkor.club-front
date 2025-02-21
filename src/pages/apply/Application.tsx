@@ -50,6 +50,7 @@ const Application = () => {
   const resetInterviewTime = useResetAtom(selectedTimes)
   const trackTitle = trackConfig[track as Track]
   const {
+    trigger,
     register,
     handleSubmit,
     formState: { errors, isValid: isPersonalInfoValid },
@@ -67,7 +68,10 @@ const Application = () => {
     },
     mode: 'onBlur'
   })
-  const setInterviewTime = (time: number) => setValue('interviewTime', time)
+  const setInterviewTime = (time: number) => {
+    setValue('interviewTime', time)
+    trigger('interviewTime')
+  }
   function onSubmit(values: z.infer<typeof personalInfoSchema>) {
     console.log(values)
   }
