@@ -2,7 +2,7 @@ import { track as trackEvent } from '@amplitude/analytics-browser'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
 import { useResetAtom } from 'jotai/utils'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { match } from 'ts-pattern'
@@ -50,7 +50,6 @@ const Application = () => {
   const resetInterviewTime = useResetAtom(selectedTimes)
   const trackTitle = trackConfig[track as Track]
   const {
-    trigger,
     register,
     handleSubmit,
     formState: { errors, isValid: isPersonalInfoValid },
@@ -68,10 +67,10 @@ const Application = () => {
     },
     mode: 'onBlur'
   })
-  const setInterviewTime = (time: number) => {
-    setValue('interviewTime', time)
-    trigger('interviewTime')
-  }
+  const setInterviewTime = useCallback(
+    (time: number) => setValue('interviewTime', time, { shouldValidate: true }),
+    [setValue]
+  )
   function onSubmit(values: z.infer<typeof personalInfoSchema>) {
     console.log(values)
   }
