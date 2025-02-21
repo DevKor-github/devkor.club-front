@@ -15,8 +15,7 @@ const defaultValues = {
     answer3: '',
     answer4: '',
     answer5: '',
-    answer6: '',
-    answer7: ''
+    answer6: ''
   },
   BE: {
     answer1: '',
@@ -24,15 +23,15 @@ const defaultValues = {
     answer3: '',
     answer4: '',
     answer5: '',
-    answer6: '',
-    answer7: '',
-    answer8: ''
+    answer6: ''
   },
   PM: {
     answer1: '',
     answer2: '',
     answer3: '',
-    answer4: ''
+    answer4: '',
+    answer5: '',
+    answer6: ''
   },
   PD: {
     answer1: '',

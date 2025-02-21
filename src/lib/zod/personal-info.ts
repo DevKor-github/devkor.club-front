@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const personalInfoSchema = z.object({
-  name: z.string().min(2, { message: '이름은 두 글자 이상이어야 합니다.' }),
+  name: z.string().refine(val => val.length > 0, { message: '이름을 입력해주세요.' }),
   email: z.string().email({ message: '이메일 형식이 올바르지 않습니다.' }),
   phone: z
     .string()
