@@ -4,8 +4,6 @@ import ChannelTalk from '@/assets/ChannelTalk.svg'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import SponsorChip from '@/components/ui/sponsor-chip'
 
-const EasyAI =
-  'https://www.easyai.co.kr/wp-content/uploads/2022/12/MAB01-%EC%9D%B4%EC%A7%80%EC%97%90%EC%9D%B4%EC%95%84%EC%9D%B4%EB%A1%9C%EA%B3%A0.png'
 const FAQSection = () => {
   return (
     <section
@@ -114,10 +112,6 @@ const FAQSection = () => {
       >
         <SponsorChip onClick={() => window.open('https://channel.io/ko/')}>
           Sponsored by <img src={ChannelTalk} alt="채널톡" />
-        </SponsorChip>
-
-        <SponsorChip onClick={() => window.open('https://www.easyai.co.kr/')}>
-          Sponsored by <img src={EasyAI} style={{ width: 'auto', height: 27 }} alt="이지AI" />
         </SponsorChip>
       </footer>
     </section>

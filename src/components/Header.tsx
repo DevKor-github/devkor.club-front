@@ -1,7 +1,8 @@
 import { css, cx } from '@styled-stytem/css'
+import { HStack } from '@styled-stytem/jsx'
 import { button } from '@styled-stytem/recipes'
-import { motion } from 'motion/react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { AnimatePresence, motion } from 'motion/react'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import DeKorLogo from '@/assets/devkorLogo.svg'
 
@@ -24,8 +25,7 @@ const Header = () => {
         M: { px: '60px', pt: 3, h: 10 },
         S: { px: 8, pt: 33 },
         XS: { px: 5, pt: 19 },
-        zIndex: 100,
-        cursor: 'pointer'
+        zIndex: 100
       })}
     >
       <motion.nav
@@ -38,7 +38,8 @@ const Header = () => {
           justifyContent: 'center',
           alignItems: 'flex-end',
           gap: 1,
-          flexShrink: 0
+          flexShrink: 0,
+          cursor: 'pointer'
         })}
         animate={{ opacity: 1 }}
         transition={{ delay: 3, type: 'spring', stiffness: 120, damping: 20 }}
@@ -47,14 +48,40 @@ const Header = () => {
         <img src={DeKorLogo} alt="DevKor" className={css({ L: { w: 29 }, LDown: { w: 17 }, SDown: { w: 17 } })} />
         <p className={css({ fontFamily: 'montserrat', color: 'label.50' })}>DEVKOR</p>
       </motion.nav>
-      {location === '/' && (
-        <button
-          className={cx(button({ variant: 'colored', size: { S: 'L', SDown: 'XS' } }))}
-          onClick={() => navigate('/apply')}
+      <HStack gap={10} flexShrink={0}>
+        <NavLink
+          to="/blog"
+          className={({ isActive }) =>
+            css({
+              color: isActive ? '#F79400' : 'label.70',
+              fontSize: { S: 18, SDown: 13 },
+              fontWeight: 500,
+              _hover: { color: '#F79400' },
+              transition: 'color 0.3s ease-in-out'
+            })
+          }
         >
-          지원하기
-        </button>
-      )}
+          블로그
+        </NavLink>
+
+        <AnimatePresence>
+          {location !== '/apply' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+            >
+              <button
+                className={cx(button({ variant: 'colored', size: { S: 'L', SDown: 'XS' } }))}
+                onClick={() => navigate('/apply')}
+              >
+                지원하기
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </HStack>
     </header>
   )
 }
