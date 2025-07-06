@@ -53,10 +53,10 @@ const Header = () => {
           to="/blog"
           className={({ isActive }) =>
             css({
-              color: isActive ? '#F79400' : 'label.70',
+              color: isActive ? 'primary.70' : 'label.70',
               fontSize: { S: 18, SDown: 13 },
               fontWeight: 500,
-              _hover: { color: '#F79400' },
+              _hover: { color: 'primary.70' },
               transition: 'color 0.3s ease-in-out'
             })
           }
