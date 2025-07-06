@@ -6,9 +6,9 @@ const BlogMainPage = () => {
   return (
     <VStack
       w="full"
-      h={{ L: `calc(100svh - 69px)`, M: `calc(100svh - 10px)` }}
-      mt={{ L: 69, M: 10, SDown: 16 }}
-      gap={50}
+      h={{ L: `calc(100svh - 4.5rem)`, SDown: `calc(100svh - 3.6875rem)` }}
+      mt={{ S: '4.5rem', SDown: '3.6875rem' }}
+      gap={{ S: 50, SDown: 30 }}
     >
       <img src={BlogBanner} alt="Blog Banner" />
       <BlogContentSection />

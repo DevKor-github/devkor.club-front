@@ -1,19 +1,32 @@
-import { css, cx } from '@styled-stytem/css'
+import { css } from '@styled-stytem/css'
 import { HStack } from '@styled-stytem/jsx'
-import { button } from '@styled-stytem/recipes'
 import { AnimatePresence, motion } from 'motion/react'
+import { useEffect, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import DeKorLogo from '@/assets/devkorLogo.svg'
+import Button from '@/components/ui/button'
 
 const Header = () => {
   const navigate = useNavigate()
 
   const location = useLocation().pathname
+
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <header
       className={css({
-        position: 'fixed',
+        pos: 'fixed',
+        h: { S: '4.5rem', SDown: '3.6875rem' },
         top: 0,
         w: 'full',
         display: 'flex',
@@ -21,15 +34,17 @@ const Header = () => {
         justifyContent: 'space-between',
         fontWeight: 700,
         fontSize: { L: 18, XS: 13, XSDown: 13 },
-        L: { px: 100, pt: 5, h: 69 },
-        M: { px: '60px', pt: 3, h: 10 },
-        S: { px: 8, pt: 33 },
-        XS: { px: 5, pt: 19 },
-        zIndex: 100
+        bg: 'white',
+        L: { px: 'calc(50% - 519px)' }, // 원래는 100이었음
+        M: { px: '60px' },
+        S: { px: 8 },
+        XS: { px: 5 },
+        zIndex: 100,
+        borderBottom: scrolled ? '1px solid #E0E0E0' : 'none',
+        transition: 'border-bottom 0.2s ease-in-out'
       })}
     >
       <motion.nav
-        // initial={{ opacity: 0 }}
         className={css({
           display: 'flex',
           w: 115,
@@ -48,14 +63,14 @@ const Header = () => {
         <img src={DeKorLogo} alt="DevKor" className={css({ L: { w: 29 }, LDown: { w: 17 }, SDown: { w: 17 } })} />
         <p className={css({ fontFamily: 'montserrat', color: 'label.50' })}>DEVKOR</p>
       </motion.nav>
-      <HStack gap={10} flexShrink={0}>
+      <HStack gap={{ S: 10, SDown: 3 }} flexShrink={0}>
         <NavLink
           to="/blog"
           className={({ isActive }) =>
             css({
               color: isActive ? 'primary.70' : 'label.70',
               fontSize: { S: 18, SDown: 13 },
-              fontWeight: 500,
+              fontWeight: 600,
               _hover: { color: 'primary.70' },
               transition: 'color 0.3s ease-in-out'
             })
@@ -72,12 +87,18 @@ const Header = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}
             >
-              <button
-                className={cx(button({ variant: 'colored', size: { S: 'L', SDown: 'XS' } }))}
-                onClick={() => navigate('/apply')}
-              >
-                지원하기
-              </button>
+              <Button variant="colored" size="L1" onClick={() => navigate('/apply')}>
+                <p
+                  className={css({
+                    fontSize: { S: 17, SDown: 13 },
+                    fontWeight: 600,
+                    color: 'white',
+                    lineHeight: '120%'
+                  })}
+                >
+                  지원하기
+                </p>
+              </Button>
             </motion.div>
           )}
         </AnimatePresence>
