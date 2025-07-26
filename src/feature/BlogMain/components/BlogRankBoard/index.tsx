@@ -8,8 +8,12 @@ const BlogRankBoard = () => {
   return (
     <VStack w="full" maxW="260px" display={{ SDown: 'none' }}>
       <HStack w="full" justifyContent="flex-end" gap={3}>
-        <img src={Github} alt="Github" />
-        <img src={Insta2} alt="Insta2" />
+        <a href="https://github.com/DevKor-github" target="_blank">
+          <img src={Github} alt="Github" />
+        </a>
+        <a href="https://www.instagram.com/devkor.ku/" target="_blank">
+          <img src={Insta2} alt="Insta2" />
+        </a>
       </HStack>
       <VStack w="full" gap={6} mt="4" alignItems="flex-start">
         <p className={css({ fontSize: 13, fontWeight: 500, color: 'label.50' })}>인기글 TOP 3</p>

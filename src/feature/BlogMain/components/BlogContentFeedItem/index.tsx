@@ -1,30 +1,58 @@
 import { css } from '@styled-stytem/css'
 import { HStack, VStack } from '@styled-stytem/jsx'
+import { useState } from 'react'
+import removeMd from 'remove-markdown'
 
 import image3D from '@/assets/image3D.png'
+import { BlogPost } from '@/domain/blog/hooks/types'
 
-const BlogContentFeedItem = () => {
+const BlogContentFeedItem = ({ title, content, author, createdAt, coverImageUrl }: BlogPost) => {
+  const cleanContent = removeMd(content) // 마크다운 문법 제거
+
+  const [isHover, setIsHover] = useState(false)
   return (
-    <HStack w="full" gap={10} smDown={{ alignItems: 'flex-start' }}>
+    <HStack
+      w="full"
+      gap={10}
+      smDown={{ alignItems: 'flex-start', gap: 5 }}
+      cursor="pointer"
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      borderBottom="1px solid"
+      borderColor="{colors.border}"
+      paddingBottom={5}
+      _last={{ borderBottom: 'none' }}
+    >
       <VStack w="full" gap={3} alignItems="flex-start" smDown={{ gap: 1.5 }}>
-        <p className={css({ fontSize: 20, fontWeight: 600, color: 'primary.DEFAULT', smDown: { fontSize: 16 } })}>
-          효율적인 코드, 프레임워크의 이해에서부터
+        <p
+          className={css({
+            fontSize: 20,
+            fontWeight: 600,
+            smDown: { fontSize: 16 },
+            color: isHover ? 'secondary.70' : 'primary.DEFAULT',
+            transition: 'color 0.2s ease-in-out'
+          })}
+        >
+          {title}
         </p>
         <p
           className={css({
             fontSize: 14,
             fontWeight: 500,
-            color: 'label.70',
             overflow: 'hidden',
             display: '-webkit-box',
             WebkitLineClamp: 2,
-            lineClamp: 2,
-            smDown: { fontSize: 13 }
+            smDown: { fontSize: 13 },
+            color: isHover ? 'muted.foreground' : 'label.70',
+            transition: 'color 0.2s ease-in-out',
+            wordBreak: 'break-all'
           })}
+          style={{
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical'
+          }}
         >
-          {
-            '북마크 API 개발 중 사용자가 특정 항목을 북마크했는지 단순히 확인하려고 Optional <Entity>로 엔티티 전체를 조회하는 방식을 썼지만 비효율적임을 깨달았어요. 북마크 API 개발 중 사용자가 특정 항목을 북마크했는지 단순히 확인하려고 Optional <Entity>로 엔티티 전체를 조회하는 방식을 썼지만 비효율적임을 깨달았어요.'
-          }
+          {cleanContent}
         </p>
         <HStack
           w="full"
@@ -35,14 +63,24 @@ const BlogContentFeedItem = () => {
           fontWeight={400}
           smDown={{ fontSize: 13 }}
         >
-          <p>박한준</p>
-          <p>2025.07.06</p>
+          <p>{author}</p>
+          <p>
+            {new Date(createdAt)
+              .toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+              })
+              .replace(/\. /g, '.')
+              .replace(/\.$/, '')}
+          </p>
         </HStack>
       </VStack>
       <div
         className={css({
           w: 150,
           h: 100,
+          pos: 'relative',
           borderRadius: '16px',
           overflow: 'hidden',
           flexShrink: 0,
@@ -50,7 +88,7 @@ const BlogContentFeedItem = () => {
         })}
       >
         <img
-          src={image3D}
+          src={coverImageUrl ?? image3D}
           alt="image3D"
           className={css({
             w: 'full',
@@ -59,6 +97,17 @@ const BlogContentFeedItem = () => {
             objectPosition: 'center'
           })}
         />
+        <div
+          className={css({
+            pos: 'absolute',
+            top: 0,
+            left: 0,
+            w: 'full',
+            h: 'full',
+            borderRadius: '16px',
+            border: '1px solid rgba(0, 0, 0, 0.05)'
+          })}
+        ></div>
       </div>
     </HStack>
   )
