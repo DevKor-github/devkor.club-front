@@ -149,6 +149,11 @@ export const semanticTokens = defineSemanticTokens({
     },
 
     label: {
+      20: {
+        value: {
+          base: '#212225'
+        }
+      },
       50: {
         value: {
           base: '#505156'

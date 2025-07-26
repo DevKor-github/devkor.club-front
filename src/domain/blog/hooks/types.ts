@@ -17,14 +17,21 @@ export type BlogPostsResponse = {
   status: number
 }
 
+export type BlogPostResponse = {
+  data: BlogPost
+  message: string
+  status: number
+}
+
 export type BlogPost = {
   id: string
   title: string
   author: string
-  position: string[]
+  position: string
   content: string
-  coverImageUrl: string
+  coverImageUrl: string | null
   viewCount: number
   createdAt: string
   updatedAt: string
+  tags: string[]
 }

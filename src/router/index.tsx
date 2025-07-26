@@ -4,6 +4,7 @@ import MainLayout from '@/components/MainLayout'
 import ApplyPage from '@/pages/apply'
 import Application from '@/pages/apply/Application'
 import ApplyResultPage from '@/pages/apply/Result'
+import BlogDetailPage from '@/pages/blog/[id]'
 import BlogMainPage from '@/pages/blog/main'
 import LandingPage from '@/pages/LandingPage'
 import RecruitingPageV2 from '@/pages/RecruitingPageV2'
@@ -21,7 +22,8 @@ const routes: RouteObject[] = [
       },
       { path: '/apply/application/:track', element: <Application /> },
       { path: '/apply/result', element: <ApplyResultPage /> },
-      { path: '/blog', element: <BlogMainPage /> }
+      { path: '/blog', element: <BlogMainPage /> },
+      { path: '/blog/:id', element: <BlogDetailPage /> }
     ]
   }
 ]

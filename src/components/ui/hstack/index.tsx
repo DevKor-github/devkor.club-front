@@ -6,7 +6,7 @@ export type HstackProps = StytemHStackProps & {
 }
 export const HStack = ({ as: Comp, children, ...props }: HstackProps) => {
   if (!Comp) {
-    return <StytemHStack {...props} />
+    return <StytemHStack {...props}>{children}</StytemHStack>
   }
 
   // CSS 관련 props만 필터링

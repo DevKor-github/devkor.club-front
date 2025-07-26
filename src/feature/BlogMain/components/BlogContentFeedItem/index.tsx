@@ -1,15 +1,17 @@
 import { css } from '@styled-stytem/css'
 import { HStack, VStack } from '@styled-stytem/jsx'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import removeMd from 'remove-markdown'
 
 import image3D from '@/assets/image3D.png'
 import { BlogPost } from '@/domain/blog/hooks/types'
 
-const BlogContentFeedItem = ({ title, content, author, createdAt, coverImageUrl }: BlogPost) => {
+const BlogContentFeedItem = ({ title, content, author, createdAt, coverImageUrl, id }: BlogPost) => {
   const cleanContent = removeMd(content) // 마크다운 문법 제거
 
   const [isHover, setIsHover] = useState(false)
+  const navigate = useNavigate()
   return (
     <HStack
       w="full"
@@ -22,6 +24,7 @@ const BlogContentFeedItem = ({ title, content, author, createdAt, coverImageUrl 
       borderColor="{colors.border}"
       paddingBottom={5}
       _last={{ borderBottom: 'none' }}
+      onClick={() => navigate(`/blog/${id}`)}
     >
       <VStack w="full" gap={3} alignItems="flex-start" smDown={{ gap: 1.5 }}>
         <p
