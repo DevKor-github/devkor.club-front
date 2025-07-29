@@ -13,7 +13,7 @@ import { useMatchLayout } from '@/utils/useMatchLayout'
 
 const RecruitIntro = () => {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const { scrollY } = useScroll({ target: scrollRef, layoutEffect: false })
+  const { scrollY } = useScroll({ target: scrollRef })
   const mediaQuery = useMatchLayout()
 
   const sectionHeight = useMemo(() => window.innerHeight / 3, [])

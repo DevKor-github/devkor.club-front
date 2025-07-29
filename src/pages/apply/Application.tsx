@@ -18,17 +18,12 @@ import Designer from '@/components/apply/Designer'
 import Frontend from '@/components/apply/Frontend'
 import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
-import Button from '@/components/ui/button'
-import Spinner from '@/components/ui/spinner'
+import ApplicationSubmitButton from '@/feature/recruit/components/ApplicationSubmitButtont'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
 import { selectedTimes } from '@/lib/zotai/store'
 import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
 
-const availablePeriod = {
-  from: '2025-02-10T00:00:00',
-  to: '2025-02-21T23:59:59'
-}
 type TrackConfigType = {
   [key in Track]: string
 }
@@ -85,10 +80,6 @@ const Application = () => {
   const { mutate: postDe, isPending: isDePending } = usePostDeApplication()
 
   const handleFromSubmit = async () => {
-    const currentTime = new Date().toISOString()
-    if (currentTime < availablePeriod.from || currentTime > availablePeriod.to)
-      return alert('지원 기간은 2월 10일 ~ 2월 21일 입니다.')
-
     await forms[track].trigger()
     await handleSubmit(() => {})()
     await forms[track].handleSubmit(() => {})()
@@ -187,21 +178,7 @@ const Application = () => {
           alignItems: 'center'
         })}
       >
-        <Button
-          variant="gray"
-          disabled={!track}
-          onClick={() => handleFromSubmit()}
-          type="submit"
-          style={{
-            backgroundColor: isSubmitPending ? 'rgba(255, 197, 19, 0.50)' : undefined
-          }}
-        >
-          {isSubmitPending ? (
-            <Spinner />
-          ) : (
-            <span className={css({ opacity: 1, transition: 'opacity 0.3s ease-in-out' })}>제출하기</span>
-          )}
-        </Button>
+        <ApplicationSubmitButton isSubmitPending={isSubmitPending} handleFromSubmit={handleFromSubmit} />
       </div>
     </section>
   )

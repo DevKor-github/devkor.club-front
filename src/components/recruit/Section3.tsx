@@ -48,8 +48,7 @@ const RecruitSection3 = () => {
               repeat: Infinity,
               repeatType: 'loop',
               duration: 5,
-              ease: 'linear',
-              useTransform: true
+              ease: 'linear'
             }
           }
         }}
