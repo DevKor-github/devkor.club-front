@@ -13,3 +13,7 @@ export type RecruitConfig = {
   isApplicationPeriodOpen: boolean
   isInterviewPeriodOpen: boolean
 }
+
+export type RecruitQuestion = {
+  questions: string[]
+}

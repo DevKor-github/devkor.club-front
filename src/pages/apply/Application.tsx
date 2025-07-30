@@ -2,7 +2,7 @@ import { track as trackEvent } from '@amplitude/analytics-browser'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
 import { useResetAtom } from 'jotai/utils'
-import { useCallback, useEffect } from 'react'
+import { Suspense, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { match } from 'ts-pattern'
@@ -18,6 +18,7 @@ import Designer from '@/components/apply/Designer'
 import Frontend from '@/components/apply/Frontend'
 import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
+import Button from '@/components/ui/button'
 import ApplicationSubmitButton from '@/feature/recruit/components/ApplicationSubmitButtont'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
 import { selectedTimes } from '@/lib/zotai/store'
@@ -164,11 +165,13 @@ const Application = () => {
         </div>
       </div>
       <PersonalInfo handleSubmit={handleSubmit} onSubmit={onSubmit} register={register} errors={errors} />
-      {track === 'FE' && <Frontend form={feform} />}
-      {track === 'BE' && <Backend form={beform} />}
-      {track === 'PM' && <ProjectManager form={pmform} />}
-      {track === 'PD' && <Designer form={deform} />}
-      <AvailableTime setInterviewTime={setInterviewTime} />
+      <Suspense fallback={<></>}>
+        {track === 'FE' && <Frontend form={feform} />}
+        {track === 'BE' && <Backend form={beform} />}
+        {track === 'PM' && <ProjectManager form={pmform} />}
+        {track === 'PD' && <Designer form={deform} />}
+        <AvailableTime setInterviewTime={setInterviewTime} />
+      </Suspense>
       <div
         className={css({
           display: 'flex',
@@ -178,7 +181,15 @@ const Application = () => {
           alignItems: 'center'
         })}
       >
-        <ApplicationSubmitButton isSubmitPending={isSubmitPending} handleFromSubmit={handleFromSubmit} />
+        <Suspense
+          fallback={
+            <Button variant="gray" disabled={!track} type="submit">
+              제출하기
+            </Button>
+          }
+        >
+          <ApplicationSubmitButton isSubmitPending={isSubmitPending} handleFromSubmit={handleFromSubmit} />
+        </Suspense>
       </div>
     </section>
   )

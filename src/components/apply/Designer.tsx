@@ -5,12 +5,18 @@ import { z } from 'zod'
 
 import Portfolio from '@/components/apply/Portfolio'
 import Question from '@/components/apply/Question'
+import { useReadRecruitQuestions } from '@/domain/recruit/hooks/useReadRecruitQuestion'
+import { getRefinedQuestions } from '@/domain/recruit/utils/getRefinedQuestions'
 import { designerSchema } from '@/lib/zod/designer-schema'
 
 interface DesignerProps {
   form: UseFormReturn<z.infer<typeof designerSchema>>
 }
 const Designer = ({ form }: DesignerProps) => {
+  const { data: questions } = useReadRecruitQuestions('PD')
+
+  const refinedQuestions = getRefinedQuestions(questions)
+
   function onSubmit(values: z.infer<typeof designerSchema>) {
     console.log(values)
   }
@@ -49,47 +55,18 @@ const Designer = ({ form }: DesignerProps) => {
       >
         파트별 질문
       </p>
-      <Question<typeof designerSchema>
-        title="본인을 자유롭게 소개해주세요."
-        limit
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer1'}
-      />
-      <Question<typeof designerSchema>
-        title="과거에 디자인했던 프로젝트나 경험에서 느낀 점(얻은 점, 아쉬웠던 점, 기억에 남는 점)들을 서술해주세요."
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer2'}
-      />
-      <Question<typeof designerSchema>
-        title="가장 뛰어나다고 생각하는 본인의 능력을 서술해주세요."
-        limit
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer3'}
-      />
-      <Question<typeof designerSchema>
-        title="새로운 프로젝트를 시작할 때 어떤 절차로 진행하는지 디자인 프로세스를 서술해주세요."
-        limit
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer4'}
-      />
-      <Question<typeof designerSchema>
-        title={`개발자와 PM 등 다른 팀원과 협업할 때 중요하게 생각하는 가치와, 갈등 상황에서 본인의 대처 방안을 서술해주세요.`}
-        limit
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer5'}
-      />
-      <Question<typeof designerSchema>
-        title="DevKor에서 하고 싶은 활동과 얻어가고자 하는 것을 제시하고, 이를 통해 어떤 프로덕트 디자이너로 성장하고 싶은지 서술해주세요."
-        limit
-        register={form.register}
-        errors={form.formState.errors}
-        filed={'answer6'}
-      />
+      {refinedQuestions.map(({ question, limit }, index) => {
+        return (
+          <Question<typeof designerSchema>
+            key={question}
+            title={question}
+            limit={limit}
+            register={form.register}
+            errors={form.formState.errors}
+            filed={`answer${index + 1}` as keyof z.infer<typeof designerSchema>}
+          />
+        )
+      })}
       <Portfolio
         fileName={fileName}
         originalFileName={originalFileName}
