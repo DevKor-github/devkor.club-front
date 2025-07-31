@@ -1,26 +1,22 @@
 import { track as trackEvent } from '@amplitude/analytics-browser'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { css } from '@styled-stytem/css'
-import { useResetAtom } from 'jotai/utils'
-import { useCallback, useEffect } from 'react'
+import { Suspense, useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { match } from 'ts-pattern'
 import { z } from 'zod'
 
-import { usePostBackApplication } from '@/api/hooks/backend'
-import { usePostDeApplication } from '@/api/hooks/designer'
-import { usePostFrontApplication } from '@/api/hooks/frontend'
-import { usePostPmApplication } from '@/api/hooks/pm'
 import AvailableTime from '@/components/apply/AvailableTime'
 import Backend from '@/components/apply/Backend'
 import Designer from '@/components/apply/Designer'
 import Frontend from '@/components/apply/Frontend'
 import PersonalInfo from '@/components/apply/PersonalInfo'
 import ProjectManager from '@/components/apply/ProjectManager'
+import Button from '@/components/ui/button'
+import { usePostApplication } from '@/domain/recruit/hooks/usePostApplication'
+import { ApplicationFormRequest } from '@/domain/recruit/types'
 import ApplicationSubmitButton from '@/feature/recruit/components/ApplicationSubmitButtont'
 import { personalInfoSchema } from '@/lib/zod/personal-info'
-import { selectedTimes } from '@/lib/zotai/store'
 import { Track } from '@/types/track'
 import { useGenericForm } from '@/utils/useGenericForm'
 
@@ -35,6 +31,7 @@ const trackConfig: TrackConfigType = {
 }
 
 const Application = () => {
+  const [questions, setQuestions] = useState<string[]>([])
   const { track = 'FE' } = useParams<{ track: Track }>()
   const navigate = useNavigate()
   const navigateToResult = () => {
@@ -42,7 +39,6 @@ const Application = () => {
     navigate('/apply/result')
   }
 
-  const resetInterviewTime = useResetAtom(selectedTimes)
   const trackTitle = trackConfig[track as Track]
   const {
     register,
@@ -58,13 +54,15 @@ const Application = () => {
       phone: '',
       major: '',
       studentId: '',
-      interviewTime: 0
+      interviewTime: []
     },
     mode: 'onBlur'
   })
+  const selectedInterviewTime = getValues('interviewTime')
+
   const setInterviewTime = useCallback(
-    (time: number) => setValue('interviewTime', time, { shouldValidate: true }),
-    [setValue]
+    (time: string) => setValue('interviewTime', [...selectedInterviewTime, time], { shouldValidate: true }),
+    [setValue, selectedInterviewTime]
   )
   function onSubmit(values: z.infer<typeof personalInfoSchema>) {
     console.log(values)
@@ -74,11 +72,7 @@ const Application = () => {
 
   const forms = { FE: feform, BE: beform, PM: pmform, PD: deform }
 
-  const { mutate: postFe, isPending: isFePending } = usePostFrontApplication()
-  const { mutate: postBe, isPending: isBePending } = usePostBackApplication()
-  const { mutate: postPm, isPending: isPmPending } = usePostPmApplication()
-  const { mutate: postDe, isPending: isDePending } = usePostDeApplication()
-
+  const { mutate: postApplication, isPending: isApplicationPending } = usePostApplication()
   const handleFromSubmit = async () => {
     await forms[track].trigger()
     await handleSubmit(() => {})()
@@ -91,12 +85,27 @@ const Application = () => {
     }
 
     const personalInfo = getValues()
-    match(track)
-      .with('FE', () => postFe({ ...personalInfo, ...feform.getValues() }, { onSuccess: navigateToResult }))
-      .with('BE', () => postBe({ ...personalInfo, ...beform.getValues() }, { onSuccess: navigateToResult }))
-      .with('PM', () => postPm({ ...personalInfo, ...pmform.getValues() }, { onSuccess: navigateToResult }))
-      .with('PD', () => postDe({ ...personalInfo, ...deform.getValues() }, { onSuccess: navigateToResult }))
-      .exhaustive()
+    const answer = Object.entries(forms[track].getValues()).reduce(
+      (acc, [, value], index) => {
+        if (!questions[index] && value) {
+          acc['portfolio'] = value
+          return acc
+        }
+        if (!questions[index]) return acc
+        acc[questions[index]] = value
+        return acc
+      },
+      {} as Record<string, string>
+    )
+
+    const applicationForm = {
+      ...personalInfo,
+      interviewTime: selectedInterviewTime,
+      position: track,
+      answer
+    } satisfies ApplicationFormRequest
+
+    postApplication(applicationForm, { onSuccess: navigateToResult })
 
     trackEvent('apply_submit', {
       name: personalInfo.name,
@@ -104,14 +113,8 @@ const Application = () => {
       major: personalInfo.major,
       track
     })
-    resetInterviewTime()
   }
 
-  const isSubmitPending = isFePending || isBePending || isPmPending || isDePending
-
-  useEffect(() => {
-    return () => resetInterviewTime()
-  }, [resetInterviewTime])
   return (
     <section
       className={css({
@@ -164,11 +167,13 @@ const Application = () => {
         </div>
       </div>
       <PersonalInfo handleSubmit={handleSubmit} onSubmit={onSubmit} register={register} errors={errors} />
-      {track === 'FE' && <Frontend form={feform} />}
-      {track === 'BE' && <Backend form={beform} />}
-      {track === 'PM' && <ProjectManager form={pmform} />}
-      {track === 'PD' && <Designer form={deform} />}
-      <AvailableTime setInterviewTime={setInterviewTime} />
+      <Suspense fallback={<></>}>
+        {track === 'FE' && <Frontend form={feform} setQuestions={setQuestions} />}
+        {track === 'BE' && <Backend form={beform} setQuestions={setQuestions} />}
+        {track === 'PM' && <ProjectManager form={pmform} setQuestions={setQuestions} />}
+        {track === 'PD' && <Designer form={deform} setQuestions={setQuestions} />}
+        <AvailableTime selectedInterviewTime={selectedInterviewTime} setInterviewTime={setInterviewTime} />
+      </Suspense>
       <div
         className={css({
           display: 'flex',
@@ -178,7 +183,15 @@ const Application = () => {
           alignItems: 'center'
         })}
       >
-        <ApplicationSubmitButton isSubmitPending={isSubmitPending} handleFromSubmit={handleFromSubmit} />
+        <Suspense
+          fallback={
+            <Button variant="gray" disabled={!track} type="submit">
+              제출하기
+            </Button>
+          }
+        >
+          <ApplicationSubmitButton isSubmitPending={isApplicationPending} handleFromSubmit={handleFromSubmit} />
+        </Suspense>
       </div>
     </section>
   )

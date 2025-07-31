@@ -1,6 +1,6 @@
 import { css } from '@styled-stytem/css'
 import { textarea } from '@styled-stytem/recipes'
-import { FieldError, Path, UseFormRegister } from 'react-hook-form'
+import { FieldErrors, Path, UseFormRegister } from 'react-hook-form'
 import ReactTextareaAutosize from 'react-textarea-autosize'
 import { z } from 'zod'
 
@@ -9,7 +9,7 @@ interface QuestionProps<T extends z.ZodObject<Record<string, z.ZodTypeAny>>> {
   placeholder?: string
   limit?: boolean
   register: UseFormRegister<z.infer<T>>
-  errors: Partial<Record<Path<z.infer<T>>, FieldError>>
+  errors: FieldErrors<z.infer<T>>
   filed: Path<z.infer<T>>
 }
 
@@ -78,7 +78,9 @@ const Question = <T extends z.ZodObject<Record<string, z.ZodTypeAny>>>({
           {...register(filed)}
           placeholder={placeholder}
         />
-        <p className={css({ px: 5, color: 'warning' })}>{errors?.[filed]?.message}</p>
+        {errors?.[filed]?.message && (
+          <p className={css({ px: 5, color: 'warning' })}>{errors?.[filed]?.message.toString()}</p>
+        )}
       </div>
     </div>
   )

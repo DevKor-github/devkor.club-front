@@ -1,5 +1,5 @@
 import { css } from '@styled-stytem/css'
-import { Suspense, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Button from '@/components/ui/button'
@@ -29,29 +29,21 @@ const ApplicationSubmitButton = ({ isSubmitPending, handleFromSubmit }: Props) =
   }, [end, handleFromSubmit, start])
 
   return (
-    <Suspense
-      fallback={
-        <Button variant="gray" disabled={!track} type="submit">
-          제출하기
-        </Button>
-      }
+    <Button
+      variant="gray"
+      disabled={!track}
+      onClick={handleClick}
+      type="submit"
+      style={{
+        backgroundColor: isSubmitPending ? 'rgba(255, 197, 19, 0.50)' : undefined
+      }}
     >
-      <Button
-        variant="gray"
-        disabled={!track}
-        onClick={handleClick}
-        type="submit"
-        style={{
-          backgroundColor: isSubmitPending ? 'rgba(255, 197, 19, 0.50)' : undefined
-        }}
-      >
-        {isSubmitPending ? (
-          <Spinner />
-        ) : (
-          <span className={css({ opacity: 1, transition: 'opacity 0.3s ease-in-out' })}>제출하기</span>
-        )}
-      </Button>
-    </Suspense>
+      {isSubmitPending ? (
+        <Spinner />
+      ) : (
+        <span className={css({ opacity: 1, transition: 'opacity 0.3s ease-in-out' })}>제출하기</span>
+      )}
+    </Button>
   )
 }
 

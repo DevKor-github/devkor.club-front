@@ -1,40 +1,60 @@
 import { css } from '@styled-stytem/css'
-import { useAtom, useAtomValue } from 'jotai'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useState } from 'react'
 
-import Date from '@/components/apply/Date'
+import DateRadio from '@/components/apply/Date'
 import DateOption from '@/components/apply/DateOption'
-import { selectedDate, selectedTimes } from '@/lib/zotai/store'
+import { useReadRecruitConfig } from '@/domain/recruit/hooks/useReadRecruitConfig'
 
-const timeConfig = [
-  '1:00 PM - 2:00PM',
-  '2:00 PM - 3:00PM',
-  '3:00 PM - 4:00PM',
-  '4:00 PM - 5:00PM',
-  '5:00 PM - 6:00PM',
-  '9:00 PM - 10:00PM',
-  '10:00 PM - 11:00PM'
-]
 interface AvaliableTimeProps {
-  setInterviewTime: (time: number) => void
+  selectedInterviewTime: string[]
+  setInterviewTime: (time: string) => void
 }
-const AvailableTime = ({ setInterviewTime }: AvaliableTimeProps) => {
-  const selected = useAtomValue(selectedDate)
-  const [selectedTime, setSelectedTime] = useAtom(selectedTimes)
+const AvailableTime = ({ selectedInterviewTime, setInterviewTime }: AvaliableTimeProps) => {
+  const { data: recruitConfig } = useReadRecruitConfig()
+  const interviewStart = new Date(recruitConfig.interview.start).getDate()
+  const interviewEnd = new Date(recruitConfig.interview.end).getDate()
+  const timeSlots = recruitConfig.interview.timeSlots
+  const [selectedDate, setSelectedDate] = useState(interviewStart)
 
-  const handleTimeSelect = useCallback(
-    (index: number) => {
-      setSelectedTime(t => t.map((time, i) => (i === index ? { selected: !time.selected } : time)))
+  const groupedByDateDisplay = timeSlots.reduce(
+    (acc, timeSlot) => {
+      const date = new Date(timeSlot)
+      const dateKey = date.getDate()
+
+      if (!acc[dateKey]) acc[dateKey] = []
+
+      const from = date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      })
+      const to = new Date(date.getTime() + 1 * 60 * 60 * 1000).toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      })
+      const timeString = `${from} - ${to}`
+
+      acc[dateKey].push(timeString)
+      return acc
     },
-    [setSelectedTime]
+    {} as Record<number, string[]>
   )
-  useEffect(() => {
-    let bits = 0
-    selectedTime.forEach((t, i) => {
-      if (t.selected) bits |= 1 << i
-    })
-    setInterviewTime(bits)
-  }, [selectedTime, setInterviewTime])
+
+  const groupedByDateValue = timeSlots.reduce(
+    (acc, timeSlot) => {
+      const date = new Date(timeSlot)
+      const dateKey = date.getDate()
+
+      if (!acc[dateKey]) acc[dateKey] = []
+
+      acc[dateKey].push(timeSlot)
+      return acc
+    },
+    {} as Record<number, string[]>
+  )
+
+  const handleSelectDate = useCallback((date: number) => setSelectedDate(date), [])
   return (
     <div
       className={css({
@@ -109,17 +129,17 @@ const AvailableTime = ({ setInterviewTime }: AvaliableTimeProps) => {
             alignItems: 'center'
           })}
         >
-          <Date date={24} selected={selected === 24} />
-          <Date date={25} selected={selected === 25} />
-          <Date date={26} selected={selected === 26} />
+          {Array.from({ length: interviewEnd - interviewStart + 1 }, (_, i) => i + interviewStart).map(date => (
+            <DateRadio key={date} date={date} selected={selectedDate === date} handleSelectDate={handleSelectDate} />
+          ))}
         </div>
-        {timeConfig.map((time, index) => (
+        {groupedByDateDisplay[selectedDate].map((time, index) => (
           <DateOption
-            key={index + (selected - 24) * 7} // prevent animation inconsistency between date
-            index={index + (selected - 24) * 7}
+            key={groupedByDateValue[selectedDate][index]}
+            index={groupedByDateValue[selectedDate][index]}
             dateOption={time}
-            selected={selectedTime[index + (selected - 24) * 7]?.selected}
-            handleSelecteTime={handleTimeSelect}
+            selected={selectedInterviewTime.includes(groupedByDateValue[selectedDate][index])}
+            handleSelectInterviewTime={setInterviewTime}
           />
         ))}
       </div>

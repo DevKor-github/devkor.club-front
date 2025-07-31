@@ -1,7 +1,7 @@
 import { apiClient } from '@/api/apiClient'
 
 export const fetchPresignedUrl = async (fileName: string) => {
-  const response = await apiClient.post('/s3/presigned-url', {
+  const response = await apiClient.post('/presigned-url', {
     fileName
   })
   return response.data
