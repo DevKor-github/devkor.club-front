@@ -1,3 +1,5 @@
+import { Track } from '@/types/track'
+
 export type RecruitConfig = {
   applicationPeriod: {
     start: Date
@@ -16,4 +18,15 @@ export type RecruitConfig = {
 
 export type RecruitQuestion = {
   questions: string[]
+}
+
+export type ApplicationFormRequest = {
+  name: string
+  email: string
+  phone: string
+  major: string
+  position: Track
+  studentId: string
+  interviewTime: string[]
+  answer: Record<string, string>
 }

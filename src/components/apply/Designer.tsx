@@ -1,5 +1,5 @@
 import { css } from '@styled-stytem/css'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -11,8 +11,9 @@ import { designerSchema } from '@/lib/zod/designer-schema'
 
 interface DesignerProps {
   form: UseFormReturn<z.infer<typeof designerSchema>>
+  setQuestions: (questions: string[]) => void
 }
-const Designer = ({ form }: DesignerProps) => {
+const Designer = ({ form, setQuestions }: DesignerProps) => {
   const { data: questions } = useReadRecruitQuestions('PD')
 
   const refinedQuestions = getRefinedQuestions(questions)
@@ -31,6 +32,10 @@ const Designer = ({ form }: DesignerProps) => {
     setOriginalFileName(null)
   }, [])
   const onUpload = useCallback((url: string) => form.setValue('answer7', url), [form])
+
+  useEffect(() => {
+    setQuestions(questions)
+  }, [questions, setQuestions])
 
   return (
     <form

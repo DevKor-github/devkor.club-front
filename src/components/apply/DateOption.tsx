@@ -6,15 +6,14 @@ import Checked from '@/assets/Checked.svg'
 import Unchecked from '@/assets/Unchecked.svg'
 
 interface DateOptionProps {
-  index: number
+  index: string
   dateOption: string
   selected: boolean
-  handleSelecteTime: (index: number) => void
+  handleSelectInterviewTime: (index: string) => void
 }
-const DateOption = memo(({ index, dateOption, selected, handleSelecteTime }: DateOptionProps) => {
+const DateOption = memo(({ index, dateOption, selected, handleSelectInterviewTime }: DateOptionProps) => {
   const [hover] = useState(false)
-  //   const [selectedTime, setSelectedTime] = useAtom(selectedTimes)
-  //   console.log(selectedTime)
+
   return (
     <button
       className={css({
@@ -36,26 +35,12 @@ const DateOption = memo(({ index, dateOption, selected, handleSelecteTime }: Dat
         cursor: 'pointer',
         gap: 2.5
       })}
-      //   onMouseEnter={() => setHover(h => !h)}
-      //   onMouseLeave={() => setHover(h => !h)}
       onClick={e => {
         e.preventDefault()
-        handleSelecteTime(index)
-        // setSelectedTime(t => t.map((time, i) => (i === index ? { selected: !time.selected } : time)))
+        handleSelectInterviewTime(index)
       }}
     >
       <AnimatePresence>
-        {/* {hover && (
-          <motion.img
-            key={`uncheckedHover-${index}`}
-            src={UncheckedHover}
-            alt="uncheckedHover"
-            className={css({ w: '26px', pos: 'absolute' })}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-        )} */}
         {!hover && (
           <motion.img
             key={`unchecked-${index}`}
@@ -67,17 +52,7 @@ const DateOption = memo(({ index, dateOption, selected, handleSelecteTime }: Dat
             exit={{ opacity: 0 }}
           />
         )}
-        {/* {hover && selectedTime[index].selected && (
-          <motion.img
-            key={`checkedHover-${index}`}
-            src={CheckedHover}
-            alt="uncheckedHover"
-            className={css({ w: '26px', pos: 'absolute' })}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-        )} */}
+
         {!hover && selected && (
           <motion.img
             key={`checked-${index}`}

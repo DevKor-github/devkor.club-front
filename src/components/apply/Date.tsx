@@ -1,15 +1,12 @@
 import { css } from '@styled-stytem/css'
-import { useSetAtom } from 'jotai'
 import { memo } from 'react'
-
-import { selectedDate } from '@/lib/zotai/store'
 
 interface DateProps {
   date: number
   selected: boolean
+  handleSelectDate: (date: number) => void
 }
-const Date = memo(({ date, selected }: DateProps) => {
-  const setSelected = useSetAtom(selectedDate)
+const Date = memo(({ date, selected, handleSelectDate }: DateProps) => {
   return (
     <button
       aria-pressed={selected}
@@ -28,7 +25,7 @@ const Date = memo(({ date, selected }: DateProps) => {
         fontSize: 14,
         fontWeight: 700
       })}
-      onClick={() => setSelected(date)}
+      onClick={() => handleSelectDate(date)}
     >
       {date}
     </button>

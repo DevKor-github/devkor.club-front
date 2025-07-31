@@ -1,5 +1,5 @@
 import { css } from '@styled-stytem/css'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -11,8 +11,9 @@ import { backendSchema } from '@/lib/zod/backend-schema'
 
 interface BackendProps {
   form: UseFormReturn<z.infer<typeof backendSchema>>
+  setQuestions: (questions: string[]) => void
 }
-const Backend = ({ form }: BackendProps) => {
+const Backend = ({ form, setQuestions }: BackendProps) => {
   const { data: questions } = useReadRecruitQuestions('BE')
 
   const refinedQuestions = getRefinedQuestions(questions)
@@ -32,6 +33,10 @@ const Backend = ({ form }: BackendProps) => {
   }, [])
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const onUpload = useCallback((url: string) => form.setValue('answer6', url), [])
+
+  useEffect(() => {
+    setQuestions(questions)
+  }, [questions, setQuestions])
 
   return (
     <form
