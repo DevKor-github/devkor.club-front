@@ -61,7 +61,14 @@ const Application = () => {
   const selectedInterviewTime = getValues('interviewTime')
 
   const setInterviewTime = useCallback(
-    (time: string) => setValue('interviewTime', [...selectedInterviewTime, time], { shouldValidate: true }),
+    (time: string) =>
+      setValue(
+        'interviewTime',
+        selectedInterviewTime.includes(time)
+          ? selectedInterviewTime.filter(t => t !== time)
+          : [...selectedInterviewTime, time],
+        { shouldValidate: true }
+      ),
     [setValue, selectedInterviewTime]
   )
   function onSubmit(values: z.infer<typeof personalInfoSchema>) {
